@@ -1,0 +1,21 @@
+production:
+  sparql_endpoint: http://sparql.example.com/database_name/sparql
+  local_domain: example.com
+  sparql_timeout_seconds: 10
+  cache_sparql_results: true
+  maintenance_mode: false
+  record_analytics: true
+
+development:
+  sparql_endpoint: http://127.0.0.1:3030/pmdtest/sparql
+  local_domain: example.com
+  sparql_timeout_seconds: 10
+  cache_sparql_results: true
+  record_analytics: true
+
+test:
+  sparql_endpoint: http://127.0.0.1:3030/pmdtest/sparql
+  local_domain: pmd.local
+  sparql_timeout_seconds: 10
+  cache_sparql_results: false
+  record_analytics: true
