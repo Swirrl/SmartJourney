@@ -1,1 +1,28 @@
-Aberdeen Winter Reporting app. PMD Powered.
+### Aberdeen Winter Reporting app. PMD Powered.
+
+# notes for triploid
+
+# in a resource:
+
+class Person
+  include Triploid::Resource
+
+  # literal values
+  field :label, 'http://blah', 'http://blah2', :type => String
+  field :value, 'http://observed-value.com', :type => Integer
+
+
+end
+
+
+Resource.new(uri) # => just instantiates. No data set
+Resource.new(uri, RDF::Graph) #=> instantiates. Populates data using statements in a graph. Possibly allow to just pass a hash as 2nd param instead?
+
+Resource.find(uri) # => finds resource in db, does a describe to populate data
+Resource.find(uri1, uri2) # => finds resources in db, and does a single describe to populate data. returns collection of resources.
+
+Resource.where(sparql) # => returns a collection of resources, all with their data pre-populated. The sparql query should just return unique URIs. Use this to do a big describe.
+
+####
+
+
