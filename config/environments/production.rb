@@ -61,4 +61,11 @@ PmdWinter::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 
+  # configure any settings for testing...
+  Tripod.configure do |config|
+    #TODO! change!
+    config.update_endpoint = 'http://127.0.0.1:3030/winter/update'
+    config.query_endpoint = 'http://127.0.0.1:3030/winter/sparql'
+  end
+
 end

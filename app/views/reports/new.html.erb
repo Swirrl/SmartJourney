@@ -1,1 +1,9 @@
-make a new report!
+submit a new report!
+
+<%= form_for(@report) do |f| %>
+
+  <% #uses dynamic_form gem (for now) %>
+  <%= error_messages_for(@report)  %>
+  <%= render :partial => 'form_fields', :locals => {:report => @report, :form => f} %>
+
+<% end %>

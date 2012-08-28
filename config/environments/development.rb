@@ -28,4 +28,11 @@ PmdWinter::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+
+  # configure any settings for testing...
+  Tripod.configure do |config|
+    config.update_endpoint = 'http://127.0.0.1:3030/winter/update'
+    config.query_endpoint = 'http://127.0.0.1:3030/winter/sparql'
+  end
+
 end

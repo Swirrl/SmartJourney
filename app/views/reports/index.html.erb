@@ -1,1 +1,8 @@
-reports index.
+<h1>reports index.</h1>
+
+<% @reports.each do |r| %>
+  <%= r.description %> <%= r['http://datetime'] %> <br/>
+<% end %>
+
+<hr/>
+<%= link_to "report something!", new_report_path %>

@@ -1,27 +1,47 @@
 ### Aberdeen Winter Reporting app. PMD Powered.
 
-# notes for triploid
+# notes for tripod
 
 # in a resource:
 
 class Person
-  include Triploid::Resource
+
+  include Tripod::Resource
 
   # literal values
-  field :label, 'http://blah', 'http://blah2', :type => String
-  field :value, 'http://observed-value.com', :type => Integer
+  field :label, :predicate => 'http://blah', 'http://blah2', :type => String
+  field :value, :predicate => 'http://observed-value.com', :type => Integer
 
+  # relationships
+  has_one :dataset, :predicate => 'http://void#datset', :type => Dataset
+  has_one :spouse,  :predicate =>'http://foaf#spouse', :type => Person
+  has_many :friends, :predicate => 'http://foaf#knows', :type => Person
+
+  # this indicates that the predicates are defined on another resource, and this is the object of the triple.
+  has_many :known_by, :predicate => 'http://foaf#knows', :incoming => true, :type => Person
+  has_one :benefactor, :predicate => 'http://donates-money-to', :incoming => true, :type => Person
 
 end
 
 
-Resource.new(uri) # => just instantiates. No data set
-Resource.new(uri, RDF::Graph) #=> instantiates. Populates data using statements in a graph. Possibly allow to just pass a hash as 2nd param instead?
+Person.new(uri)
+# => just instantiates. No data set
 
-Resource.find(uri) # => finds resource in db, does a describe to populate data
-Resource.find(uri1, uri2) # => finds resources in db, and does a single describe to populate data. returns collection of resources.
+Person.new(uri, RDF::Graph)
+#=> instantiates. Populates data using statements in a graph. Possibly allow to just pass a hash as 2nd param instead?
 
-Resource.where(sparql) # => returns a collection of resources, all with their data pre-populated. The sparql query should just return unique URIs. Use this to do a big describe.
+Person.find(uri)
+# => finds resource in db, does a describe to populate data. Raises exception if not found
+Person.find(uri1, uri2)
+# => finds resources in db, and does a single describe to populate data. returns collection of resources. Raises exception if any uri not found
+
+Person.where(sparql, :uri_variable => 'my_uri')
+# => returns a collection of resources, all with their data pre-populated.
+     The sparql query should just return unique URIs. Use this to do a big describe.
+     Optionally pass the name of the uri variable in the query, if not '?uri'
+
+Person.
+
 
 ####
 

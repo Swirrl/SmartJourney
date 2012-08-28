@@ -32,4 +32,11 @@ PmdWinter::Application.configure do
 
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
+
+  # configure any settings for testing...
+  Tripod.configure do |config|
+    config.update_endpoint = 'http://127.0.0.1:3030/winter-test/update'
+    config.query_endpoint = 'http://127.0.0.1:3030/winter-test/sparql'
+  end
+
 end

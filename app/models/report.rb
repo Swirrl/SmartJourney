@@ -1,41 +1,43 @@
-# report is just a special type of resource.
 class Report
 
-  include Triploid::Resource
+  include Tripod::Resource
 
-  # # override attributes to allow new getters.
-  # def self.attributes
-  #   super.merge(
-  #     {
-  #        #blah.
-  #     })
-  # end
+  field :description, 'http://description'
+  field :rdf_type, RDF.type
+  field :datetime, 'http://datetime', :datatype => RDF::XSD.datetime
+  field :latitude, 'http://lat', :datatype =>RDF::XSD.double
+  field :longitude, 'http://long', :datatype => RDF::XSD.double
 
-  # def self.all
-  #   # get all reports
-  # end
+  validates_presence_of :datetime, :latitude, :longitude
 
-  # # idea:
+  #override innitialise
+  def initialize(uri=nil, graph_uri=nil)
+    super(uri || Report.generate_unique_uri, graph_uri || Report.graph_uri)
+    self.rdf_type = Report.rdf_type
+  end
 
-  # # to create: make new, then add_to_data() to create predicate-object pairs.
-  # # then call save .
+  def self.all
+    query = "
+      SELECT ?uri (<#{Report.graph_uri}> AS ?graph)
+      WHERE {
+        GRAPH <#{Report.graph_uri}> {
+          ?uri ?p ?o .
+          ?uri a <#{Report.rdf_type.to_s}> .
+        }
+      }"
+    Report.where(query)
+  end
 
-  # # to udpate: do a find, then update the contents of @data.
+  def self.generate_unique_uri
+    g = Guid.new
+    RDF::URI("http://#{PublishMyData.local_domain}/id/report/#{g.to_s}")
+  end
 
-  # # save will check new_record?(), then do an update or insert accordingly,
-  # # based on contents of @data.
+  def self.graph_uri
+    RDF::URI("http://#{PublishMyData.local_domain}/graph/reports")
+  end
 
-
-  # # new method ?
-  # # TODO: add to resource via a module, so useable by zones too.
-  # def update_data
-
-  # end
-
-  # # TODO: allow setting of attributes via method-missing style too?
-
-
-
-
-
+  def self.rdf_type
+    RDF::URI("http://#{PublishMyData.local_domain}/reports")
+  end
 end
