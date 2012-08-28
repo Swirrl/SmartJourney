@@ -2,8 +2,9 @@ class Report
 
   include Tripod::Resource
 
+  extend ActiveModel::Callbacks
+
   field :description, 'http://description'
-  field :rdf_type, RDF.type
   field :datetime, 'http://datetime', :datatype => RDF::XSD.datetime
   field :latitude, 'http://lat', :datatype => RDF::XSD.double
   field :longitude, 'http://long', :datatype => RDF::XSD.double
@@ -12,10 +13,28 @@ class Report
   validates :latitude, :longitude, :format => { :with => %r([0-9]+\.[0-9]*) }
   validate :check_format_of_datetime
 
-  #override innitialise
+  # override innitialise
   def initialize(uri=nil, graph_uri=nil)
     super(uri || Report.generate_unique_uri, graph_uri || Report.graph_uri)
-    self.rdf_type = Report.rdf_type
+    self[RDF.type] = Report.rdf_type
+  end
+
+  # get an instance of a zone object, based on the uri in this report's zone predicate
+  def zone
+    unless self[Report.zone_predicate].empty?
+      Zone.new(self[Report.zone_predicate], Zone.graph_uri)
+    else
+      nil
+    end
+  end
+
+  # make an association to a zone by passing in a zone object.
+  def zone=(zone)
+    self['http://zone'] = zone.uri
+  end
+
+  def self.zone_predicate
+    RDF::URI('http://zone')
   end
 
   def self.all
@@ -41,6 +60,12 @@ class Report
 
   def self.rdf_type
     RDF::URI("http://#{PublishMyData.local_domain}/reports")
+  end
+
+  # associates this report with a single zone, based on this report's lat-longs.
+  # TODO: call this before every save time? Use callbacks? (need to add to tripod).
+  def associate_zone
+    self.zone = Zone.zone_for_lat_long(self.latitude.to_f, self.latitude.to_f)
   end
 
   protected

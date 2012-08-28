@@ -12,6 +12,7 @@ class ReportsController < ApplicationController
   def create
     # save a new report.
     @report = Report.new()
+
     @report.description = params[:report][:description]
     @report.datetime = params[:report][:datetime]
     @report.latitude = params[:report][:latitude]
