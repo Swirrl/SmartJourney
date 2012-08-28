@@ -5,10 +5,12 @@ class Report
   field :description, 'http://description'
   field :rdf_type, RDF.type
   field :datetime, 'http://datetime', :datatype => RDF::XSD.datetime
-  field :latitude, 'http://lat', :datatype =>RDF::XSD.double
+  field :latitude, 'http://lat', :datatype => RDF::XSD.double
   field :longitude, 'http://long', :datatype => RDF::XSD.double
 
-  validates_presence_of :datetime, :latitude, :longitude
+  validates :datetime, :latitude, :longitude, :presence => true
+  validates :latitude, :longitude, :format => { :with => %r([0-9]+\.[0-9]*) }
+  validate :check_format_of_datetime
 
   #override innitialise
   def initialize(uri=nil, graph_uri=nil)
@@ -39,5 +41,15 @@ class Report
 
   def self.rdf_type
     RDF::URI("http://#{PublishMyData.local_domain}/reports")
+  end
+
+  protected
+
+  def check_format_of_datetime
+    begin
+      DateTime.parse(self.datetime)
+    rescue
+      errors.add(:datetime, "not a valid format")
+    end
   end
 end
