@@ -17,6 +17,10 @@ class ReportsController < ApplicationController
     @report.datetime = params[:report][:datetime]
     @report.latitude = params[:report][:latitude]
     @report.longitude = params[:report][:longitude]
+    @report.report_type = ReportType.new(params[:report][:report_type_uri])
+
+    @report.associate_zone()
+
 
     if @report.save
       redirect_to reports_path

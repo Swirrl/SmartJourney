@@ -17,7 +17,15 @@ describe Report do
     subject[RDF.type].first.should == Report.rdf_type
   end
 
+  it 'has a default datetime set' do
+    subject.datetime.should be_present
+  end
+
   context 'with a missing datetime' do
+
+    before do
+      subject.datetime = nil
+    end
 
     it 'is invalid' do
       subject.should_not be_valid

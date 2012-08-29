@@ -3,7 +3,10 @@ class ReportType
   include Tripod::Resource
 
   field :label, RDF.label
+  field :rdf_type, RDF.type
+
   validates :label, :presence => true
+  validates :rdf_type, :presence => true
 
   # override initialise
   def initialize(uri=nil, graph_uri=nil)

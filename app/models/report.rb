@@ -6,6 +6,7 @@ class Report
   field :datetime, 'http://datetime', :datatype => RDF::XSD.datetime
   field :latitude, 'http://lat', :datatype => RDF::XSD.double
   field :longitude, 'http://long', :datatype => RDF::XSD.double
+  field :rdf_type, RDF.type
 
   validates :datetime, :latitude, :longitude, :report_type, :zone, :presence => true
   validates :latitude, :longitude, :format => { :with => %r([0-9]+\.[0-9]*) }
@@ -14,7 +15,8 @@ class Report
   # override innitialise
   def initialize(uri=nil, graph_uri=nil)
     super(uri || Report.generate_unique_uri, graph_uri || Report.graph_uri)
-    self[RDF.type] = Report.rdf_type
+    self.rdf_type = Report.rdf_type
+    self.datetime = DateTime.now
   end
 
   # get an instance of a zone object, based on the uri in this report's zone predicate
