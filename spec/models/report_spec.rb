@@ -12,6 +12,11 @@ describe Report do
     subject.graph_uri.should == Report.graph_uri
   end
 
+  it 'has a sensible rdf_type by default' do
+    subject[RDF.type].should_not be_empty
+    subject[RDF.type].first.should == Report.rdf_type
+  end
+
   context 'with a missing datetime' do
 
     it 'is invalid' do
@@ -222,7 +227,10 @@ describe Report do
 
     before do
       # make a zone
-      Zone.new('http://myzone').save!
+      z = Zone.new('http://myzone')
+      z.label = 'zoneywone'
+      z[RDF.type] = Zone.rdf_type
+      z.save!
     end
 
     it 'asisigns zone object based on this reports lat and long' do

@@ -3,11 +3,11 @@ class Zone
   include Tripod::Resource
 
   field :label, RDF.label
+  validates :label, :presence => true
 
   # override initialise
   def initialize(uri=nil, graph_uri=nil)
     super(uri, graph_uri || Zone.graph_uri)
-    self[RDF.type] = Zone.rdf_type
   end
 
   def self.all

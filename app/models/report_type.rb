@@ -3,11 +3,11 @@ class ReportType
   include Tripod::Resource
 
   field :label, RDF.label
+  validates :label, :presence => true
 
   # override initialise
   def initialize(uri=nil, graph_uri=nil)
     super(uri, graph_uri || ReportType.graph_uri)
-    self[RDF.type] = ReportType.rdf_type
   end
 
   def self.graph_uri
@@ -15,7 +15,7 @@ class ReportType
   end
 
   def self.rdf_type
-    RDF::URI("http://#{PublishMyData.local_domain}/reports")
+    RDF::URI("http://#{PublishMyData.local_domain}/reportstypes")
   end
 
   def self.all
