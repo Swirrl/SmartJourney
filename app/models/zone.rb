@@ -2,12 +2,23 @@ class Zone
 
   include Tripod::Resource
 
-  field :boundary_points, 'http://boundary-point', :multivalued => true
+  field :label, RDF.label
 
   # override initialise
   def initialize(uri=nil, graph_uri=nil)
     super(uri, graph_uri || Zone.graph_uri)
     self[RDF.type] = Zone.rdf_type
+  end
+
+  def self.all
+    Report.where("
+      SELECT ?uri (<#{Zone.graph_uri}> AS ?graph)
+      WHERE {
+        GRAPH <#{Zone.graph_uri}> {
+          ?uri a <#{Zone.rdf_type.to_s}> .
+        }
+      }"
+    )
   end
 
   # get an array of this zone's reports.
@@ -26,10 +37,22 @@ class Zone
 
   def self.zone_for_lat_long(lat, long)
     # TODO: return the zone that contains this lat/long, based on the boundary points
+    # there will probably be a boundary resource, with the boundary as geojson.
+
+    # for now, return the first zone, if there are any!
+    unless self.all.empty?
+      self.all.first
+    else
+      nil
+    end
   end
 
   def self.graph_uri
     RDF::URI("http://#{PublishMyData.local_domain}/graph/zones")
+  end
+
+  def self.rdf_type
+    RDF::URI("http://#{PublishMyData.local_domain}/zones")
   end
 
 end

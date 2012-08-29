@@ -1,12 +1,19 @@
 <%= form.label 'description' %><br/>
 <%= form.text_area :description %>
 <br/>
+
 <%= form.label 'time' %>
 <%= form.text_field :datetime %>
 <br/>
+
+<%= form.label 'report type' %>
+<%= form.select :report_type_uri, ReportType.all.collect {|p| [ p.label, p.uri] }, {:prompt => "choose one..."} %>
+<br/>
+
 <%= form.label 'latitude' %>
 <%= form.text_field :latitude %>
 <br/>
+
 <%= form.label 'longitude' %>
 <%= form.text_field :longitude %>
 <br/>

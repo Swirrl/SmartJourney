@@ -24,15 +24,24 @@ RSpec.configure do |config|
   config.include PublishMyData::Engine.routes.url_helpers
 
   config.before(:each) do
-    PublishMyData.configure do |config|
-      config.sparql_endpoint = 'http://127.0.0.1:3030/pmdtest/sparql'
-      config.local_domain = 'pmd.local'
-      config.maintenance_mode = false
-    end
+
+    Tripod::SparqlClient::Update.update('
+      # delete from default graph:
+      DELETE {?s ?p ?o} WHERE {?s ?p ?o};
+      # delete from named graphs:
+      DELETE {graph ?g {?s ?p ?o}} WHERE {graph ?g {?s ?p ?o}};
+    ')
+
   end
 
   config.before(:all, :type => :request) do
     host! 'pmd.local'
   end
 
+end
+
+PublishMyData.configure do |config|
+  config.sparql_endpoint = 'http://127.0.0.1:3030/pmdtest/sparql'
+  config.local_domain = 'pmd.local'
+  config.maintenance_mode = false
 end

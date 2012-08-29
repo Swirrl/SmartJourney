@@ -2,14 +2,12 @@ class Report
 
   include Tripod::Resource
 
-  extend ActiveModel::Callbacks
-
   field :description, 'http://description'
   field :datetime, 'http://datetime', :datatype => RDF::XSD.datetime
   field :latitude, 'http://lat', :datatype => RDF::XSD.double
   field :longitude, 'http://long', :datatype => RDF::XSD.double
 
-  validates :datetime, :latitude, :longitude, :presence => true
+  validates :datetime, :latitude, :longitude, :report_type, :zone, :presence => true
   validates :latitude, :longitude, :format => { :with => %r([0-9]+\.[0-9]*) }
   validate :check_format_of_datetime
 
@@ -29,8 +27,33 @@ class Report
   end
 
   # make an association to a zone by passing in a zone object.
-  def zone=(zone)
-    self['http://zone'] = zone.uri
+  def zone=(new_zone)
+    self[Report.zone_predicate] = new_zone.uri
+  end
+
+  def zone_uri
+    self[Report.zone_predicate]
+  end
+
+
+  def report_type
+    unless self[Report.report_type_predicate].empty?
+      ReportType.new(self[Report.report_type_predicate], ReportType.graph_uri)
+    else
+      nil
+    end
+  end
+
+  def report_type=(new_report_type)
+    self[Report.report_type_predicate] = new_report_type.uri
+  end
+
+  def report_type_uri
+    self[Report.report_type_predicate]
+  end
+
+  def self.report_type_predicate
+    RDF::URI('http://reporttype')
   end
 
   def self.zone_predicate
@@ -42,11 +65,10 @@ class Report
       SELECT ?uri (<#{Report.graph_uri}> AS ?graph)
       WHERE {
         GRAPH <#{Report.graph_uri}> {
-          ?uri ?p ?o .
           ?uri a <#{Report.rdf_type.to_s}> .
         }
       }"
-    Report.where(query)
+    self.where(query)
   end
 
   def self.generate_unique_uri
@@ -74,7 +96,7 @@ class Report
     begin
       DateTime.parse(self.datetime)
     rescue
-      errors.add(:datetime, "not a valid format")
+      errors.add(:datetime, "is invalid")
     end
   end
 end
