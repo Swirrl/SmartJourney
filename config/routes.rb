@@ -1,5 +1,7 @@
 PmdWinter::Application.routes.draw do
 
+  devise_for :users
+
   mount PublishMyData::Engine => "/", :constraints => {:subdomain => 'data'} # mount at the root, so we fall back to engine if route not defined here.
 
   root :to => 'reports#index'

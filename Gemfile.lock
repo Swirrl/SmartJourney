@@ -77,7 +77,9 @@ GEM
     autotest-growl (0.2.16)
     autotest-rails (4.1.2)
       ZenTest (~> 4.5)
+    bcrypt-ruby (3.0.1)
     builder (3.0.0)
+    cancan (1.6.8)
     capistrano (2.13.3)
       highline
       net-scp (>= 1.0.0)
@@ -95,6 +97,11 @@ GEM
       ffi (~> 1.0, >= 1.0.6)
     crack (0.3.1)
     dalli (1.1.5)
+    devise (2.1.2)
+      bcrypt-ruby (~> 3.0)
+      orm_adapter (~> 0.1)
+      railties (~> 3.1)
+      warden (~> 1.2.1)
     diff-lcs (1.1.3)
     dynamic_form (1.1.4)
     equivalent-xml (0.2.9)
@@ -148,6 +155,7 @@ GEM
     nokogiri (1.5.5)
     open4 (1.3.0)
     origin (1.0.7)
+    orm_adapter (0.4.0)
     polyglot (0.3.3)
     rack (1.4.1)
     rack-cache (1.2)
@@ -231,6 +239,8 @@ GEM
       rdf-rdfxml
       rest-client
     tzinfo (0.3.33)
+    warden (1.2.1)
+      rack (>= 1.0)
     webmock (1.8.9)
       addressable (>= 2.2.7)
       crack (>= 0.1.7)
@@ -249,9 +259,11 @@ DEPENDENCIES
   autotest-fsevent
   autotest-growl
   autotest-rails
+  cancan
   capistrano
   capybara
   dalli (>= 1.0.0)
+  devise
   dynamic_form
   guid
   haml-rails

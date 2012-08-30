@@ -2,8 +2,13 @@ class Report
 
   include Tripod::Resource
 
+  # need to define this before we use it below.
+  def self.datetime_predicate
+    RDF::URI('http://datetime')
+  end
+
   field :description, 'http://description'
-  field :datetime, 'http://datetime', :datatype => RDF::XSD.datetime
+  field :datetime, self.datetime_predicate.to_s, :datatype => RDF::XSD.datetime
   field :latitude, 'http://lat', :datatype => RDF::XSD.double
   field :longitude, 'http://long', :datatype => RDF::XSD.double
   field :rdf_type, RDF.type
@@ -64,12 +69,14 @@ class Report
 
   def self.all
     query = "
-      SELECT ?uri (<#{Report.graph_uri}> AS ?graph)
+      SELECT ?uri ?dt (<#{Report.graph_uri}> AS ?graph)
       WHERE {
         GRAPH <#{Report.graph_uri}> {
           ?uri a <#{Report.rdf_type.to_s}> .
+          ?uri <#{Report.datetime_predicate.to_s}> ?dt .
         }
-      }"
+      }
+      ORDER BY DESC(?dt)"
     self.where(query)
   end
 
@@ -84,6 +91,10 @@ class Report
 
   def self.rdf_type
     RDF::URI("http://#{PublishMyData.local_domain}/reports")
+  end
+
+  def self.datetime_predicate
+    RDF::URI('http://datetime')
   end
 
   # associates this report with a single zone, based on this report's lat-longs.

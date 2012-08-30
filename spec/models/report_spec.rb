@@ -12,15 +12,6 @@ describe Report do
     subject.graph_uri.should == Report.graph_uri
   end
 
-  it 'has a sensible rdf_type by default' do
-    subject[RDF.type].should_not be_empty
-    subject[RDF.type].first.should == Report.rdf_type
-  end
-
-  it 'has a default datetime set' do
-    subject.datetime.should be_present
-  end
-
   context 'with a missing datetime' do
 
     before do
@@ -153,6 +144,8 @@ describe Report do
       r1.longitude = 53.1
       r1.zone = Zone.new('http://zoney')
       r1.report_type = ReportType.new('http://reporttype1')
+      r1.datetime = DateTime.now
+      r1.rdf_type = Report.rdf_type
       r1.save!
 
       r2 = Report.new()
@@ -162,6 +155,8 @@ describe Report do
       r2.longitude = 53.1
       r2.zone = Zone.new('http://zoney')
       r2.report_type = ReportType.new('http://reporttype1')
+      r2.datetime = DateTime.now
+      r2.rdf_type = Report.rdf_type
       r2.save!
     end
 

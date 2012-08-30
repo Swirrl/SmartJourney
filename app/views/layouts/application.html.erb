@@ -8,6 +8,18 @@
 </head>
 <body>
 
+<% if current_user %>
+  Signed in as: <%= current_user.screen_name %>
+  <%= link_to "Sign out", destroy_user_session_path, :method => 'delete' %>
+<% else %>
+  <%= link_to "Sign in / sign up", new_user_session_path %>
+<% end %>
+
+<hr/>
+
+<p class="notice"><%= notice %></p>
+<p class="alert"><%= alert %></p>
+
 <%= yield %>
 
 </body>
