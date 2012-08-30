@@ -13,6 +13,8 @@ class ReportsController < ApplicationController
     # save a new report.
     @report = Report.new()
 
+    Rails.logger.debug params[:report]
+
     @report.description = params[:report][:description]
     @report.datetime = params[:report][:datetime]
     @report.latitude = params[:report][:latitude]
@@ -21,6 +23,7 @@ class ReportsController < ApplicationController
 
     @report.associate_zone()
 
+    Rails.logger.debug @report.datetime
 
     if @report.save
       redirect_to reports_path

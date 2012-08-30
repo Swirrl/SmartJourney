@@ -15,8 +15,8 @@ class Report
   # override innitialise
   def initialize(uri=nil, graph_uri=nil)
     super(uri || Report.generate_unique_uri, graph_uri || Report.graph_uri)
-    self.rdf_type = Report.rdf_type
-    self.datetime = DateTime.now
+    self.rdf_type ||= Report.rdf_type
+    self.datetime ||= DateTime.now
   end
 
   # get an instance of a zone object, based on the uri in this report's zone predicate

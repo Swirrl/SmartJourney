@@ -3,7 +3,7 @@
 <% @reports.each do |r| %>
   <%= r.uri.to_s %>,
   <%= r.description %>,
-  <%= r.datetime %>,
+  <%= r.datetime.inspect %>,
   [<%= r.latitude %>, <%= r.longitude %>]
   <br/>
 <% end %>
