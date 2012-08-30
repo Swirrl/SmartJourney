@@ -23,6 +23,9 @@ RSpec.configure do |config|
 
   config.include PublishMyData::Engine.routes.url_helpers
 
+  DatabaseCleaner.strategy = :truncation
+  DatabaseCleaner.orm = "mongoid"
+
   config.before(:each) do
 
     Tripod::SparqlClient::Update.update('
@@ -32,6 +35,10 @@ RSpec.configure do |config|
       DELETE {graph ?g {?s ?p ?o}} WHERE {graph ?g {?s ?p ?o}};
     ')
 
+    # clean mongo
+    DatabaseCleaner.clean
+
+    config.include Devise::TestHelpers, :type => :controller
   end
 
   config.before(:all, :type => :request) do

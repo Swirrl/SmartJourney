@@ -97,6 +97,7 @@ GEM
       ffi (~> 1.0, >= 1.0.6)
     crack (0.3.1)
     dalli (1.1.5)
+    database_cleaner (0.8.0)
     devise (2.1.2)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
@@ -263,6 +264,7 @@ DEPENDENCIES
   capistrano
   capybara
   dalli (>= 1.0.0)
+  database_cleaner
   devise
   dynamic_form
   guid

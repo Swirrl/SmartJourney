@@ -3,7 +3,7 @@ class User
 
   attr_protected :roles
 
-  before_validation :generate_uri
+  before_create :generate_uri
 
   # ***************
   # Devise configuration:
@@ -57,10 +57,13 @@ class User
   # fields defined by us:
 
   field :screen_name, type: String
-  validates_presence_of :screen_name
+  validates :screen_name,
+    :presence => true,
+    :format => {:with => /\A[a-zA-Z0-9_\-]/, :message => "can only contain letters, numbers, hyphens and underscores." },
+    :length => { :in => 1..15 },
+    :uniqueness => true
 
   field :uri, type: String
-  validates_presence_of :uri
 
   field :roles_mask, type: Integer # this will contain a bitwise mask of the users roles.
 
@@ -89,6 +92,7 @@ class User
   protected
 
   def generate_uri
-    self.uri = "http://#{PublishMyData.local_domain}/id/users/#{self.screen_name}" if self.new_record? #only do on new ones.
+    #only do on new ones and if the screen name is present.
+    self.uri = "http://#{PublishMyData.local_domain}/id/users/#{self.screen_name}"
   end
 end
