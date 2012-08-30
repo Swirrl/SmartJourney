@@ -5,3 +5,13 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+zone = Zone.new('http://zone')
+zone.rdf_type = Zone.rdf_type
+zone.label = "My First Zone"
+zone.save!
+
+report_type = ReportType.new("http://testreporttype")
+report_type.rdf_type = ReportType.rdf_type
+report_type.label = "Report Type 1"
+report_type.save!
