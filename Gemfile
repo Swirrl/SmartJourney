@@ -13,8 +13,8 @@ gem 'pmd_analytics_models', '~>0.0.4', git: 'git@github.com:Swirrl/pmd_analytics
 # uncomment to use local version of analytics models.
 #gem 'pmd_analytics_models',  :path => '../pmd_analytics_models'
 
-gem 'tripod', :path => '../tripod'
-# gem 'tripod', '0.0.4',
+#gem 'tripod', :path => '../tripod'
+gem 'tripod', '0.0.5'
 
 gem 'dynamic_form'
 gem 'mongoid', '~>3.0.0'

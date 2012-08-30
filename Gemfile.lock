@@ -32,18 +32,6 @@ GIT
       rest-client (~> 1.6.7)
       will_paginate (~> 3.0)
 
-PATH
-  remote: ../tripod
-  specs:
-    tripod (0.0.4)
-      activemodel (~> 3.1)
-      equivalent-xml
-      rdf (~> 0.3)
-      rdf-json
-      rdf-n3
-      rdf-rdfxml
-      rest-client
-
 GEM
   remote: http://rubygems.org/
   specs:
@@ -234,6 +222,14 @@ GEM
     treetop (1.4.10)
       polyglot
       polyglot (>= 0.3.1)
+    tripod (0.0.5)
+      activemodel (~> 3.1)
+      equivalent-xml
+      rdf (~> 0.3)
+      rdf-json
+      rdf-n3
+      rdf-rdfxml
+      rest-client
     tzinfo (0.3.33)
     webmock (1.8.9)
       addressable (>= 2.2.7)
@@ -267,6 +263,6 @@ DEPENDENCIES
   rails (= 3.2.8)
   rdiscount
   rspec-rails (~> 2.0)
-  tripod!
+  tripod (= 0.0.5)
   webmock
   yui-compressor
