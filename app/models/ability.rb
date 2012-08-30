@@ -19,12 +19,10 @@ class Ability
       can :manage, User do |u|
         u.email == user.email #can manage themselves only
       end
-    else
-
-      Rails.logger.debug( 'NOT logged in')
-      # not logged in users can create and read reports.
-      can [:create, :read], Report
     end
+
+    # not logged in users can create and read reports.
+    can [:create, :read], Report
 
 
     # Define abilities for the passed in user here. For example:

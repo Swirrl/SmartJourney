@@ -24,6 +24,14 @@ class Report
     self.datetime ||= DateTime.now
   end
 
+  def reporter
+    # todo
+  end
+
+  def reporter=
+
+  end
+
   # get an instance of a zone object, based on the uri in this report's zone predicate
   def zone
     unless self[Report.zone_predicate].empty?
@@ -32,7 +40,6 @@ class Report
       nil
     end
   end
-
   # make an association to a zone by passing in a zone object.
   def zone=(new_zone)
     self[Report.zone_predicate] = new_zone.uri

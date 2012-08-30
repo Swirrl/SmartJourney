@@ -25,7 +25,7 @@ class ReportsController < ApplicationController
     @report.latitude = params[:report][:latitude]
     @report.longitude = params[:report][:longitude]
     @report.report_type = ReportType.new(params[:report][:report_type_uri])
-
+    @report.reporter = current_user
     @report.associate_zone()
 
     Rails.logger.debug @report.datetime

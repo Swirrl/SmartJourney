@@ -1,4 +1,11 @@
-submit a new report!
+<h1>submit a new report!</h1>
+
+<% unless current_user %>
+  You're not logged in. You might want to <%= link_to "Sign in / up", new_user_session_path %>, so you can manage your reports later.
+  <br/><br/>
+<% end %>
+
+
 
 <%= form_for(@report) do |f| %>
 

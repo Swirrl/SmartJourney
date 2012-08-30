@@ -1,7 +1,7 @@
 class User
   include Mongoid::Document
 
-  attr_protected :roles
+  attr_protected :roles, :roles_mask, :uri
 
   before_create :generate_uri
 
