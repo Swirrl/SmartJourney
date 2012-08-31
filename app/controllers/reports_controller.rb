@@ -3,8 +3,6 @@ class ReportsController < ApplicationController
   load_and_authorize_resource
 
   def index
-    Rails.logger.debug "***CURRENT USER***"
-    Rails.logger.debug current_user
     @reports = Report.all
   end
 

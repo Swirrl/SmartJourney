@@ -4,6 +4,7 @@ class User
   attr_protected :roles, :roles_mask, :uri
 
   before_create :generate_uri
+  after_create :create_rdf_user
 
   # ***************
   # Devise configuration:
@@ -94,5 +95,11 @@ class User
   def generate_uri
     #only do on new ones and if the screen name is present.
     self.uri = "http://#{PublishMyData.local_domain}/id/users/#{self.screen_name}"
+  end
+
+  def create_rdf_user
+    rdf_user = RdfUser.new(uri)
+    rdf_user.label = self.screen_name
+    rdf_user.save!
   end
 end
