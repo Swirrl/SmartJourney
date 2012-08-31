@@ -56,27 +56,3 @@ PublishMyData.configure do |config|
   config.local_domain = 'pmd.local'
   config.maintenance_mode = false
 end
-
-def create_dummy_seed_data
-   # make some reportTypes
-  t1 = ReportType.new('http://reporttype1')
-  t1.label = 'foo'
-  t1[RDF.type] = ReportType.rdf_type
-  t1.save!
-
-  t2 = ReportType.new('http://reporttype2')
-  t2.label = 'foo'
-  t2[RDF.type] = ReportType.rdf_type
-  t2.save!
-
-  # make some zones
-  z1 = Zone.new('http://zone1')
-  z1.label = 'foo'
-  z1[RDF.type] = Zone.rdf_type
-  z1.save!
-
-  z2 = Zone.new('http://zone2')
-  z2.label = 'bar'
-  z2[RDF.type] = Zone.rdf_type
-  z2.save!
-end

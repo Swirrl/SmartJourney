@@ -12,6 +12,11 @@ describe Report do
     subject.graph_uri.should == Report.graph_uri
   end
 
+  it 'has a sensible rdf_type by default' do
+    subject.rdf_type.should_not be_nil
+    subject.rdf_type.should == Report.rdf_type
+  end
+
   context 'with a missing datetime' do
 
     before do

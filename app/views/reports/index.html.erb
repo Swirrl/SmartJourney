@@ -4,6 +4,7 @@
   <%= r.uri.to_s %>,
   <%= r.description %>,
   <%= r.datetime.inspect %>,
-  [<%= r.latitude %>, <%= r.longitude %>]
+  [<%= r.latitude %>, <%= r.longitude %>],
+  <%= r.reporter ? r.reporter.screen_name : "anon" %>
   <br/>
 <% end %>

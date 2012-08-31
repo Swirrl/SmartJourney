@@ -85,14 +85,14 @@ class Report
 
   def self.all
     query = "
-      SELECT ?uri ?dt (<#{Report.graph_uri}> AS ?graph)
+      SELECT ?uri (<#{Report.graph_uri}> AS ?graph)
       WHERE {
         GRAPH <#{Report.graph_uri}> {
           ?uri a <#{Report.rdf_type.to_s}> .
           ?uri <#{Report.datetime_predicate.to_s}> ?dt .
         }
       }
-      ORDER BY DESC(?dt)"
+     ORDER BY DESC(?dt)"
     self.where(query)
   end
 

@@ -11,6 +11,7 @@ class Zone
   # override initialise
   def initialize(uri=nil, graph_uri=nil)
     super(uri, graph_uri || Zone.graph_uri)
+    self.rdf_type ||= Zone.rdf_type if uri
   end
 
   def self.all

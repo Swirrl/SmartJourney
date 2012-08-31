@@ -15,20 +15,24 @@ class ReportsController < ApplicationController
   end
 
   def create
-    # save a new report.
+
     @report = Report.new()
-
-    Rails.logger.debug params[:report]
-
     @report.description = params[:report][:description]
     @report.datetime = params[:report][:datetime]
     @report.latitude = params[:report][:latitude]
     @report.longitude = params[:report][:longitude]
     @report.report_type = ReportType.new(params[:report][:report_type_uri])
-    @report.reporter = current_user
+    @report.reporter = current_user if current_user
     @report.associate_zone()
 
-    Rails.logger.debug @report.datetime
+
+    Rails.logger.debug @report.inspect
+
+    Rails.logger.debug @report.rdf_type.inspect
+
+    @report.repository.statements.each do |s|
+      Rails.logger.debug s.inspect
+    end
 
     if @report.save
       redirect_to reports_path
