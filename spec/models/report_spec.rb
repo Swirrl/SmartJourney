@@ -117,15 +117,7 @@ describe Report do
   context 'with everything OK' do
 
     subject do
-      r1 = Report.new()
-      r1.description = 'foobar'
-      r1.datetime = Date.new(2011,1,1)
-      r1.latitude = 2.1
-      r1.longitude = 53.1
-      r1.zone = Zone.new('http://zoney')
-      r1.report_type = ReportType.new('http://reporttype1')
-      r1.save!
-      r1
+      FactoryGirl.build(:report)
     end
 
     it 'is valid' do
@@ -137,27 +129,7 @@ describe Report do
 
     before do
       # make some reports
-      r1 = Report.new()
-      r1.description = 'foobar'
-      r1.datetime = Date.new(2011,1,1)
-      r1.latitude = 2.1
-      r1.longitude = 53.1
-      r1.zone = Zone.new('http://zoney')
-      r1.report_type = ReportType.new('http://reporttype1')
-      r1.datetime = DateTime.now
-      r1.rdf_type = Report.rdf_type
-      r1.save!
-
-      r2 = Report.new()
-      r2.description = 'bazbar'
-      r2.datetime = Date.new(2012,1,1)
-      r2.latitude = 2.2
-      r2.longitude = 53.1
-      r2.zone = Zone.new('http://zoney')
-      r2.report_type = ReportType.new('http://reporttype1')
-      r2.datetime = DateTime.now
-      r2.rdf_type = Report.rdf_type
-      r2.save!
+      FactoryGirl.create_list(:report, 2)
     end
 
     it "returns all the reports" do
@@ -168,10 +140,10 @@ describe Report do
 
   describe "#zone=" do
     it 'sets the associated zone for this report' do
-      new_zone = Zone.new('http://zoney')
-      subject.zone = new_zone
-      subject.zone.should == new_zone
-      subject[Report.zone_predicate].first.to_s.should == new_zone.uri.to_s
+      z = Zone.all.first
+      subject.zone = z
+      subject.zone.should == z
+      subject[Report.zone_predicate].first.to_s.should == z.uri.to_s
     end
   end
 
@@ -180,7 +152,7 @@ describe Report do
 
       subject do
         r = Report.new
-        r.zone = @zone = Zone.new('http://zoney')
+        r.zone = @zone = Zone.all.first
         r
       end
 
@@ -210,7 +182,7 @@ describe Report do
 
       subject do
         r = Report.new
-        r.report_type = @report_type = ReportType.new('http://reporttype1')
+        r.report_type = @report_type = ReportType.all.first
         r
       end
 
@@ -226,16 +198,38 @@ describe Report do
     end
   end
 
-  describe "#associate_zone" do
+  describe "#reporter=" do
+    it 'sets the associated user for this report' do
+      user = FactoryGirl.create(:user)
+      subject.reporter = user
+      subject.reporter.should == user
+      subject[Report.reporter_predicate].first.to_s.should == user.uri.to_s
+    end
+  end
 
-    before do
-      # make a zone
-      z = Zone.new('http://myzone')
-      z.label = 'zoneywone'
-      z[RDF.type] = Zone.rdf_type
-      z.save!
+  describe "#reporter" do
+    context "when there's an assocated reporter" do
+
+      subject do
+        @user = FactoryGirl.create(:user)
+        r = Report.new
+        r.reporter = @user
+        r
+      end
+
+      it 'returns the associated report type object' do
+        subject.reporter.should == @user
+      end
     end
 
+    context "when there's no associated reporter" do
+      it "returns nil" do
+        subject.reporter.should be_nil
+      end
+    end
+  end
+
+  describe "#associate_zone" do
     it 'asisigns zone object based on this reports lat and long' do
       subject.associate_zone
       subject.zone.should_not be_nil

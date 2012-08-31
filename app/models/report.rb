@@ -24,18 +24,24 @@ class Report
     self.datetime ||= DateTime.now
   end
 
+  # returns a user object.
   def reporter
-    # todo
+    unless self[Report.reporter_predicate].empty?
+      User.where(:uri => self[Report.reporter_predicate].first.to_s).first
+    else
+      nil
+    end
   end
 
-  def reporter=
-
+  # pass in an instance of a user object.
+  def reporter=(new_user)
+    self[Report.reporter_predicate] = new_user.uri
   end
 
   # get an instance of a zone object, based on the uri in this report's zone predicate
   def zone
     unless self[Report.zone_predicate].empty?
-      Zone.new(self[Report.zone_predicate], Zone.graph_uri)
+      Zone.find(self[Report.zone_predicate].first)
     else
       nil
     end
@@ -49,10 +55,9 @@ class Report
     self[Report.zone_predicate]
   end
 
-
   def report_type
     unless self[Report.report_type_predicate].empty?
-      ReportType.new(self[Report.report_type_predicate], ReportType.graph_uri)
+      ReportType.find(self[Report.report_type_predicate].first)
     else
       nil
     end
@@ -72,6 +77,10 @@ class Report
 
   def self.zone_predicate
     RDF::URI('http://zone')
+  end
+
+  def self.reporter_predicate
+    RDF::URI('http://reporter')
   end
 
   def self.all

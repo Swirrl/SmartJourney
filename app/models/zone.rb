@@ -14,7 +14,7 @@ class Zone
   end
 
   def self.all
-    Report.where("
+    self.where("
       SELECT ?uri (<#{Zone.graph_uri}> AS ?graph)
       WHERE {
         GRAPH <#{Zone.graph_uri}> {

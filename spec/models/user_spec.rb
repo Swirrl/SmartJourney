@@ -10,8 +10,6 @@ describe User do
     u.save.should == true
 
     u.uri.should == "http://#{PublishMyData.local_domain}/id/users/#{u.screen_name}"
-
-
   end
 
 end

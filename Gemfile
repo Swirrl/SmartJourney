@@ -36,6 +36,7 @@ group :production do
 end
 
 group :test, :development do
+  gem "factory_girl_rails", "~> 4.0"
   gem "rspec-rails", "~> 2.0"
   gem 'capybara'
   gem 'ZenTest'
