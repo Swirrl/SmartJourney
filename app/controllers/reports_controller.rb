@@ -25,15 +25,6 @@ class ReportsController < ApplicationController
     @report.reporter = current_user if current_user
     @report.associate_zone()
 
-
-    Rails.logger.debug @report.inspect
-
-    Rails.logger.debug @report.rdf_type.inspect
-
-    @report.repository.statements.each do |s|
-      Rails.logger.debug s.inspect
-    end
-
     if @report.save
       redirect_to reports_path
     else
