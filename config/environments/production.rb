@@ -13,6 +13,8 @@ PmdWinter::Application.configure do
 
   # Compress JavaScripts and CSS
   config.assets.compress = true
+  config.assets.css_compressor = :yui # this requires java on the server. sudo apt-get install openjdk-6-jre
+  config.assets.js_compressor = :yui
 
   # Don't fallback to assets pipeline if a precompiled asset is missed
   config.assets.compile = false
