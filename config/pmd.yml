@@ -1,5 +1,5 @@
 production:
-  sparql_endpoint: http://sparql.example.com/database_name/sparql
+  sparql_endpoint: http://sparql3.publishmydata.com/smartjourney/sparql
   local_domain: example.com
   sparql_timeout_seconds: 10
   cache_sparql_results: true
