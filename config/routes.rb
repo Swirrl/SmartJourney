@@ -1,17 +1,13 @@
 PmdWinter::Application.routes.draw do
 
+  mount PublishMyData::Engine => "/", :constraints => {:subdomain => 'data'} # mount at the root, so we fall back to engine if route not defined here.
 
-  scope :submain => 'data' do
-    mount PublishMyData::Engine => "/", :constraints => {:subdomain => 'data'} # mount at the root, so we fall back to engine if route not defined here.
-  end
+  devise_for :users
+  root :to => 'reports#index'
 
-  scope :submain => '' do
-    devise_for :users
-    root :to => 'reports#index'
+  resources :reports
+  resources :zones
 
-    resources :reports
-    resources :zones
-  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
