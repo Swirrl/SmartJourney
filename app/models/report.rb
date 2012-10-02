@@ -93,6 +93,7 @@ class Report
         }
       }
      ORDER BY DESC(?dt)"
+     Rails.logger.debug query
     self.where(query)
   end
 

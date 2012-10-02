@@ -6,6 +6,7 @@ PmdWinter::Application.routes.draw do
 
   root :to => 'reports#index'
 
+ # resources :users, :only => [:new, :edit, :update, :create]
   resources :reports
   resources :zones
 

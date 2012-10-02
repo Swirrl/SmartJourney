@@ -8,9 +8,7 @@ production:
 
 development:
   sparql_endpoint: http://127.0.0.1:3030/winter/sparql
-  update_endpoint: http://127.0.0.1:3030/winter/update
-  data_endpoint: http://127.0.0.1:3030/winter/data
-  local_domain: winter.local
+  local_domain: data.winter.local
   sparql_timeout_seconds: 10
   cache_sparql_results: true
   record_analytics: true

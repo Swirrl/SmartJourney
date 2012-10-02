@@ -1,0 +1,15 @@
+<div id="header">
+  <%= link_to(root_path) do %>
+    <%= image_tag "smart-journey.png", alt: "Smart Journey", name: "logo", width: 300, height: 90, id: "logo" %>
+  <% end %>
+  <div id="toplinks">
+    <ul class="nav nav-list">
+      <% if current_user %>
+        <li><%= link_to "My Account", edit_user_registration_path(current_user) %></li>
+      <% else %>
+        <li><%= link_to "Sign In", new_user_session_path %></li>
+      <% end %>
+      <li><%= link_to "About", "#" %></li>
+    </ul>
+  </div>
+</div><!-- end header -->

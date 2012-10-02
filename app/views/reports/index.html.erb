@@ -1,10 +1,15 @@
-<h1>reports index.</h1>
-
-<% @reports.each do |r| %>
-  <%= r.uri.to_s %>,
-  <%= r.description %>,
-  <%= r.datetime.inspect %>,
-  [<%= r.latitude %>, <%= r.longitude %>],
-  <%= r.reporter ? r.reporter.screen_name : "anon" %>
-  <br/>
+<% if @reports.any? %>
+  <ul>
+    <% @reports.each do |r| %>
+      <li>
+        <%= r.uri.to_s %>,
+        <%= r.description %>,
+        <%= r.datetime.inspect %>,
+        [<%= r.latitude %>, <%= r.longitude %>],
+        <%= r.reporter ? r.reporter.screen_name : "anon" %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  No reports yet.
 <% end %>

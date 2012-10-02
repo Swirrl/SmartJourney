@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Smart Journey</title>
+
+    <%= stylesheet_link_tag    "application", :media => "all" %>
+    <%= javascript_include_tag "application" %>
+
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link rel="shortcut icon" href="/assets/favicon.ico">
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/assets/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/assets/apple-touch-icon-114x114.png">
+
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <div class="container">
+      <%= render 'shared/header' %>
+
+      <div class="divider"></div>
+
+      <% if content_for? :intro %>
+        <%= render 'shared/intro' %>
+      <% end %>
+
+      <% if notice %>
+        <p class="notice"><%= notice %></p>
+      <% end %>
+      <% if alert %>
+        <p class="alert"><%= alert %></p>
+      <% end %>
+
+      <div class="main">
+        <%= yield %>
+      </div>
+
+      <% if content_for? :extras %>
+        <%= yield :extras %>
+      <% end %>
+
+      <%= render 'shared/footer' %>
+
+    </div><!-- end container -->
+    <p>&nbsp;</p>
+  </body>
+</html>
