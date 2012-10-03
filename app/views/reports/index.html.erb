@@ -1,20 +1,7 @@
 <% content_for :intro do %>
   <h2>Smart Journey</h2>
-    <p class="lead">Big intro text ng moco oovoo eskobo gsnap yuntaa, groupon plaxo trulia zimbra.</p>
+  <p class="lead">Big intro text ng moco oovoo eskobo gsnap yuntaa, groupon plaxo trulia zimbra.</p>
 <% end %>
 
-<% if @reports.any? %>
-  <ul>
-    <% @reports.each do |r| %>
-      <li>
-        <%= r.uri.to_s %>,
-        <%= r.description %>,
-        <%= r.datetime.inspect %>,
-        [<%= r.latitude %>, <%= r.longitude %>],
-        <%= r.reporter ? r.reporter.screen_name : "anon" %>
-      </li>
-    <% end %>
-  </ul>
-<% else %>
-  No reports yet.
-<% end %>
+<%= render 'feed_map' %>
+<%= render 'feed_list' %>

@@ -21,4 +21,7 @@
 <h3>Cancel account</h3>
 <p>Don't want your account any more? <%= link_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete %>.</p>
 
+<h3>Sign out</h3>
+<p>Click <%= link_to "here", destroy_user_session_path, :method => :delete %> to sign out.</p>
+
 <%= link_to "Back", :back %>
