@@ -8,11 +8,7 @@
     <!-- styles -->
 
     <%= stylesheet_link_tag    "application", :media => "all" %>
-
-    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.4/leaflet.css" />
-    <!--[if lte IE 8]>
-       <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.4/leaflet.ie.css" />
-    <![endif]-->
+    <%= yield :stylesheets %>
 
     <!-- scripts -->
 
@@ -21,8 +17,9 @@
     <![endif]-->
 
     <%= javascript_include_tag "application" %>
-    <script src="http://cdn.leafletjs.com/leaflet-0.4/leaflet.js"></script>
+    <%= yield :javascripts %>
 
+    <!-- favicons -->
     <link rel="shortcut icon" href="/assets/favicon.ico">
     <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
     <link rel="apple-touch-icon" sizes="72x72" href="/assets/apple-touch-icon-72x72.png">

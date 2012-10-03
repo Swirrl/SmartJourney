@@ -120,6 +120,24 @@ class Report
     self.zone = Zone.zone_for_lat_long(self.latitude.to_f, self.latitude.to_f)
   end
 
+  field :description, 'http://description'
+  field :datetime, self.datetime_predicate.to_s, :datatype => RDF::XSD.datetime
+  field :latitude, 'http://lat', :datatype => RDF::XSD.double
+  field :longitude, 'http://long', :datatype => RDF::XSD.double
+  field :rdf_type, RDF.type
+
+
+  def as_json(options = nil)
+    {
+      description: self.description,
+      datetime: I18n.l(Time.parse(self.datetime), :format => :long),
+      latitude: self.latitude,
+      longitude: self.longitude,
+      reportType: self.report_type.label,
+      reporter: reporter.screen_name
+    }
+  end
+
   protected
 
   def check_format_of_datetime
