@@ -3,33 +3,19 @@ class ReportType
   include Tripod::Resource
 
   field :label, RDF.label
-  field :rdf_type, RDF.type
 
-  validates :label, :presence => true
-  validates :rdf_type, :presence => true
+  def self.graph_uri
+    #TODO: fix.
+    RDF::URI('http://reporttypes')
+  end
 
-  # override initialise
   def initialize(uri=nil, graph_uri=nil)
     super(uri, graph_uri || ReportType.graph_uri)
   end
 
-  def self.graph_uri
-    RDF::URI("http://#{PublishMyData.local_domain}/graph/reporttypes")
-  end
-
-  def self.rdf_type
-    RDF::URI("http://#{PublishMyData.local_domain}/reportstypes")
-  end
-
   def self.all
-    query = "
-      SELECT ?report_type (<#{ReportType.graph_uri}> AS ?graph)
-      WHERE {
-        GRAPH <#{ReportType.graph_uri}> {
-          ?report_type a <#{ReportType.rdf_type.to_s}> .
-        }
-      }"
-    self.where(query, :uri_variable => 'report_type')
+    #TODO: replace with results of a query.
+    [ReportType.find('http://testreporttype')]
   end
 
 end

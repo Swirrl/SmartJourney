@@ -8,7 +8,6 @@ PmdWinter::Application.routes.draw do
   resources :reports
   resources :zones
 
-
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

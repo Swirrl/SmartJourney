@@ -12,6 +12,5 @@ zone.label = "My First Zone"
 zone.save!
 
 report_type = ReportType.new("http://testreporttype")
-report_type.rdf_type = ReportType.rdf_type
 report_type.label = "Report Type 1"
 report_type.save!

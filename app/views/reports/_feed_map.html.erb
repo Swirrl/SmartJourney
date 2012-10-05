@@ -32,7 +32,7 @@
     tileLayer.addTo(map);
 
     // dummy marker.
-    var reports = <%= raw(@reports.to_json) %>;
+    var reports = <%= raw(@recent_reports.to_json) %>;
 
     var markers = new L.MarkerClusterGroup();
 
@@ -41,10 +41,20 @@
       var report = reports[i];
       var marker = new L.Marker(new L.LatLng(report.latitude, report.longitude));
 
+      var markerContent = "<strong>" + report.reportType + "</strong><br/>" +
+        report.description  + "<br/>";
+
+      if (report.reporter) {
+        markerContent += report.reporter  + ", ";
+      }
+
+      markerContent += report.datetime + "<br/>";
+
+
       marker.bindPopup(
         "<strong>" + report.reportType + "</strong><br/>" +
         report.description  + "<br/>" +
-        "reported by " + report.reporter  + ", " +
+        report.reporter  + ", " +
         report.datetime + "<br/>"
       );
 

@@ -3,7 +3,7 @@ class RdfUser
 
   include Tripod::Resource
 
-  field :label, RDF.label
+  field :label, RDF::RDFS.label
   field :rdf_type, RDF.type
 
   def initialize(uri=nil, graph_uri=nil)
@@ -16,7 +16,7 @@ class RdfUser
   end
 
   def self.rdf_type
-    RDF::URI("http://#{PublishMyData.local_domain}/users")
+    RDF::URI("http://rdfs.org/sioc/ns#UserAccount")
   end
 
 end

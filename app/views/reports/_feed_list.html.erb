@@ -1,16 +1,19 @@
-<h3>Reports Feed</h3>
-<% if @reports.any? %>
+<h3>Recent reports</h3>
+<% if @recent_reports.any? %>
   <ul>
-    <% @reports.each do |r| %>
+    <% @recent_reports.last(20).each do |report| %>
       <li>
-        <%# r.uri.to_s %>
-        <%= r.description %>
-        <!--<% r.datetime.inspect %>,
-        [<%= r.latitude %>, <%= r.longitude %>],
-        <%= r.reporter ? r.reporter.screen_name : "anon" %> -->
+        <%if report.report_type %>
+          <%= report.report_type.label %>,
+        <% end %>
+        <%= report.description %><br/>
+        <% if report.creator %>
+          <%= report.creator.screen_name %>,
+        <% end %>
+        <%= l(Time.parse(report.created_at), :format => :long) %>
       </li>
     <% end %>
   </ul>
 <% else %>
-  No reports yet.
+  No recent reports.
 <% end %>
