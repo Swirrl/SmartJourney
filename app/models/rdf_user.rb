@@ -19,4 +19,11 @@ class RdfUser
     RDF::URI("http://rdfs.org/sioc/ns#UserAccount")
   end
 
+  def self.delete_all
+    Tripod::SparqlClient::Update::update(
+      "DELETE {graph <#{RdfUser.graph_uri}> {?s ?p ?o}}
+      WHERE {graph <#{RdfUser.graph_uri}> {?s ?p ?o}}"
+    )
+  end
+
 end

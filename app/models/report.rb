@@ -83,7 +83,6 @@ class Report
     self[Report.zone_predicate]
   end
 
-
   def report_type
     begin
       ReportType.find(report_type_uri)
@@ -154,6 +153,13 @@ class Report
     hash[:reportType] = self.report_type.label if self.report_type
     hash[:creator] = creator.screen_name if creator
     hash
+  end
+
+  def self.delete_all
+    Tripod::SparqlClient::Update::update(
+      "DELETE {graph <#{Report.graph_uri}> {?s ?p ?o}}
+      WHERE {graph <#{Report.graph_uri}> {?s ?p ?o}}"
+    )
   end
 
   protected

@@ -1,0 +1,1385 @@
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/laurencekirk/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/laurencekirk.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/aboyne/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/aboyne.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/cullen/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/cullen.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/fordyce/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/fordyce.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/kirkton-of-maryculter>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "KIRKTON OF MARYCULTER" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/kirkton-of-maryculter/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "kirkton-of-maryculter" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/gourdon>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "GOURDON" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/gourdon/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "gourdon" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/strathdon/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/strathdon.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/fyvie>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "FYVIE" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/fyvie/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "fyvie" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/peterhead/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/peterhead.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/rosehearty>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "ROSEHEARTY" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/rosehearty/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "rosehearty" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/rhynie>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "RHYNIE" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/rhynie/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "rhynie" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeen-city/aberdeen-north-west>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "ABERDEEN NORTH WEST" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeen-city/aberdeen-north-west/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "aberdeen-north-west" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/rosehearty/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/rosehearty.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/balmedie/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/balmedie.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/new-pitsligo>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "NEW PITSLIGO" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/new-pitsligo/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "new-pitsligo" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/bridge-of-don/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/bridge-of-don.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/pennan/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/pennan.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/gourdon/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/gourdon.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/oldmeldrum/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/oldmeldrum.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/tarland>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "TARLAND" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/tarland/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "tarland" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/monymusk/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/monymusk.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/udny-station>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "UDNY STATION" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/udny-station/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "udny-station" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/banchory>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "BANCHORY" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/banchory/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "banchory" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/udny-station/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/udny-station.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeen-city/aberdeen-west/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/aberdeen-west.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/maud/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/maud.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/newtonhill>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "NEWTONHILL" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/newtonhill/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "newtonhill" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/udny-green/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/udny-green.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/fetterangus>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "FETTERANGUS" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/fetterangus/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "fetterangus" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/edzell-woods/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/edzell-woods.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/sauchen/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/sauchen.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/mintlaw>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "MINTLAW" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/mintlaw/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "mintlaw" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/sandhaven/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/sandhaven.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/new-aberdour/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/new-aberdour.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/lumphanan>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "LUMPHANAN" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/lumphanan/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "lumphanan" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/new-pitsligo/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/new-pitsligo.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/whitecairns>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "WHITECAIRNS" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/whitecairns/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "whitecairns" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/stuartfield/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/stuartfield.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/cornhill>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "CORNHILL" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/cornhill/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "cornhill" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/blackburn>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "BLACKBURN" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/blackburn/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "blackburn" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/fetterangus/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/fetterangus.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/rothienorman>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "ROTHIENORMAN" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/rothienorman/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "rothienorman" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/banff>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "BANFF" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/banff/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "banff" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/sauchen>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "SAUCHEN" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/sauchen/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "sauchen" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/st-combs>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "ST COMBS" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/st-combs/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "st-combs" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/newburgh>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "NEWBURGH" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/newburgh/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "newburgh" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/cruden-bay/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/cruden-bay.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/sandhaven>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "SANDHAVEN" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/sandhaven/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "sandhaven" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/edzell-woods>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "EDZELL WOODS" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/edzell-woods/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "edzell-woods" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/new-byth/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/new-byth.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/stonehaven/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/stonehaven.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/blackburn/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/blackburn.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/gardenstown/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/gardenstown.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/midmar>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "MIDMAR" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/midmar/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "midmar" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/drumlithie/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/drumlithie.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/macduff/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/macduff.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/mintlaw/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/mintlaw.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/kincardine-oneil>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "KINCARDINE O'NEIL" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/kincardine-oneil/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "kincardine-oneil" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/peterculter/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/peterculter.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/braemar/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/braemar.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/inverbervie/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/inverbervie.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/pennan>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "PENNAN" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/pennan/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "pennan" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/hatton>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "HATTON" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/hatton/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "hatton" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeen-city/aberdeen-north-west/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/aberdeen-north-west.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/fraserburgh/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/fraserburgh.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/auchenblae>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "AUCHENBLAE" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/auchenblae/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "auchenblae" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/huntly/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/huntly.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/macduff>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "MACDUFF" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/macduff/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "macduff" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/newmachar/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/newmachar.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/hatton-of-fintray>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "HATTON OF FINTRAY" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/hatton-of-fintray/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "hatton-of-fintray" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/huntly>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "HUNTLY" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/huntly/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "huntly" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/laurencekirk>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "LAURENCEKIRK" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/laurencekirk/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "laurencekirk" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/tarland/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/tarland.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/kintore/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/kintore.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/aberchirder/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/aberchirder.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/methlick>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "METHLICK" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/methlick/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "methlick" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeen-city/aberdeen-west>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "ABERDEEN WEST" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeen-city/aberdeen-west/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "aberdeen-west" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/strathdon>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "STRATHDON" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/strathdon/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "strathdon" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/drumoak/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/drumoak.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/rhynie/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/rhynie.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/portlethen>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "PORTLETHEN" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/portlethen/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "portlethen" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/stuartfield>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "STUARTFIELD" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/stuartfield/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "stuartfield" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/cullen>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "CULLEN" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/cullen/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "cullen" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/dyce>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "DYCE" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/dyce/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "dyce" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/lumsden/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/lumsden.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/keith/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/keith.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/kintore>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "KINTORE" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/kintore/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "kintore" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/tarves/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/tarves.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/new-byth>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "NEW BYTH" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/new-byth/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "new-byth" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/pitmedden>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "PITMEDDEN" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/pitmedden/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "pitmedden" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/banchory/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/banchory.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/nigg/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/nigg.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/fyvie/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/fyvie.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeen-city/aberdeen-south>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "ABERDEEN SOUTH" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeen-city/aberdeen-south/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "aberdeen-south" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/tillyfourie>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "TILLYFOURIE" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/tillyfourie/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "tillyfourie" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/boddam>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "BODDAM" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/boddam/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "boddam" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/insch/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/insch.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/st-fergus/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/st-fergus.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/strichen>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "STRICHEN" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/strichen/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "strichen" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/alford/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/alford.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/inverbervie>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "INVERBERVIE" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/inverbervie/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "inverbervie" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/new-deer/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/new-deer.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/newmachar>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "NEWMACHAR" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/newmachar/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "newmachar" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/new-aberdour>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "NEW ABERDOUR" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/new-aberdour/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "new-aberdour" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/inverallochy/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/inverallochy.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/peterculter>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "PETERCULTER" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/peterculter/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "peterculter" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/new-deer>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "NEW DEER" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/new-deer/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "new-deer" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/portsoy/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/portsoy.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/cairnbulg/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/cairnbulg.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/johnshaven/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/johnshaven.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/kincardine-oneil/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/kincardine-oneil.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/cornhill/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/cornhill.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/potterton/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/potterton.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/inverurie>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "INVERURIE" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/inverurie/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "inverurie" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/aberchirder>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "ABERCHIRDER" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/aberchirder/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "aberchirder" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/maud>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "MAUD" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/maud/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "maud" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/st-combs/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/st-combs.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/johnshaven>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "JOHNSHAVEN" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/johnshaven/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "johnshaven" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/bridge-of-don>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "BRIDGE OF DON" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/bridge-of-don/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "bridge-of-don" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeen-city/aberdeen-central>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "ABERDEEN CENTRAL" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeen-city/aberdeen-central/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "aberdeen-central" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/nigg>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "NIGG" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/nigg/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "nigg" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/dyce/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/dyce.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/ballater>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "BALLATER" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/ballater/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "ballater" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/insch>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "INSCH" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/insch/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "insch" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/kemnay/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/kemnay.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/kemnay>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "KEMNAY" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/kemnay/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "kemnay" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/whitehills/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/whitehills.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/portlethen/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/portlethen.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/st-cyrus/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/st-cyrus.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/longside/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/longside.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/banff/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/banff.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/balmedie>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "BALMEDIE" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/balmedie/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "balmedie" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/collieston>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "COLLIESTON" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/collieston/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "collieston" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeen-city/aberdeen-north/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/aberdeen-north.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/lumsden>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "LUMSDEN" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/lumsden/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "lumsden" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/peterhead>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "PETERHEAD" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/peterhead/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "peterhead" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/lumphanan/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/lumphanan.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/collieston/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/collieston.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/aboyne>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "ABOYNE" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/aboyne/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "aboyne" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/crimond/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/crimond.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/portsoy>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "PORTSOY" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/portsoy/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "portsoy" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeen-city/aberdeen-north-north-west/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/aberdeen-north-north-west.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/potterton>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "POTTERTON" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/potterton/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "potterton" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/old-deer/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/old-deer.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeen-city/aberdeen-central/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/aberdeen-central.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/rothienorman/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/rothienorman.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/tillyfourie/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/tillyfourie.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/keith>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "KEITH" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/keith/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "keith" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeen-city/aberdeen-south-west>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "ABERDEEN SOUTH WEST" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeen-city/aberdeen-south-west/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "aberdeen-south-west" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/old-deer>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "OLD DEER" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/old-deer/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "old-deer" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/fraserburgh>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "FRASERBURGH" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/fraserburgh/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "fraserburgh" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/stonehaven>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "STONEHAVEN" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/stonehaven/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "stonehaven" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/braemar>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "BRAEMAR" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/braemar/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "braemar" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/tarves>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "TARVES" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/tarves/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "tarves" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/st-fergus>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "ST FERGUS" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/st-fergus/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "st-fergus" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/drumlithie>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "DRUMLITHIE" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/drumlithie/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "drumlithie" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/fettercairn>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "FETTERCAIRN" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/fettercairn/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "fettercairn" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/cuminestown>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "CUMINESTOWN" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/cuminestown/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "cuminestown" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/cuminestown/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/cuminestown.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/st-cyrus>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "ST CYRUS" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/st-cyrus/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "st-cyrus" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/drumoak>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "DRUMOAK" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/drumoak/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "drumoak" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/turriff/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/turriff.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/boddam/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/boddam.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/cruden-bay>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "CRUDEN BAY" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/cruden-bay/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "cruden-bay" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/westhill>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "WESTHILL" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/westhill/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "westhill" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/strichen/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/strichen.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/auchenblae/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/auchenblae.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/westhill/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/westhill.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/inverallochy>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "INVERALLOCHY" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/inverallochy/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "inverallochy" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeen-city/aberdeen-north-north-west>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "ABERDEEN NORTH NORTH WEST" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeen-city/aberdeen-north-north-west/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "aberdeen-north-north-west" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/monymusk>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "MONYMUSK" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/monymusk/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "monymusk" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/longside>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "LONGSIDE" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/longside/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "longside" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/cairnbulg>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "CAIRNBULG" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/cairnbulg/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "cairnbulg" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeen-city/aberdeen-north>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "ABERDEEN NORTH" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeen-city/aberdeen-north/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "aberdeen-north" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/alford>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "ALFORD" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/alford/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "alford" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/ballater/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/ballater.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/pitmedden/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/pitmedden.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/udny-green>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "UDNY GREEN" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/udny-green/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "udny-green" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/gardenstown>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "GARDENSTOWN" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/gardenstown/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "gardenstown" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/fordyce>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "FORDYCE" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/fordyce/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "fordyce" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/torphins/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/torphins.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/newburgh/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/newburgh.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/hatton-of-fintray/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/hatton-of-fintray.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/turriff>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "TURRIFF" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/turriff/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "turriff" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/torphins>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "TORPHINS" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/torphins/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "torphins" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeen-city/aberdeen-south-west/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/aberdeen-south-west.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/oldmeldrum>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "OLDMELDRUM" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/oldmeldrum/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "oldmeldrum" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/fettercairn/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/fettercairn.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/inverurie/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/inverurie.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/midmar/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/midmar.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/newtonhill/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/newtonhill.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/crimond>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "CRIMOND" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/crimond/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "crimond" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/whitecairns/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/whitecairns.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/methlick/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/methlick.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/hatton/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/hatton.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/kirkton-of-maryculter/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/kirkton-of-maryculter.json> .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/whitehills>
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    <http://data.smartjourney.co.uk/def/Zone> ;
+      <http://www.w3.org/2000/01/rdf-schema#label>
+                    "WHITEHILLS" ;
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/extent>
+                    <http://data.smartjourney.co.uk/id/zone/aberdeenshire/whitehills/geometry> ;
+      <http://www.w3.org/2004/02/skos/core#notation>
+                    "whitehills" .
+
+<http://data.smartjourney.co.uk/id/zone/aberdeen-city/aberdeen-south/geometry>
+      <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
+                    <http://data.smartjourney.co.uk/zone_boundaries/aberdeen-south.json> .

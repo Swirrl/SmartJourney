@@ -5,6 +5,8 @@ require 'rspec/rails'
 require 'capybara/rails'
 require 'capybara/dsl'
 require 'webmock/rspec'
+require 'rake'
+
 
 Rails.backtrace_cleaner.remove_silencers!
 
@@ -26,8 +28,8 @@ RSpec.configure do |config|
   DatabaseCleaner.strategy = :truncation
   DatabaseCleaner.orm = "mongoid"
 
-  config.before(:each) do
-
+  config.before(:suite) do
+    # delete everything
     Tripod::SparqlClient::Update.update('
       # delete from default graph:
       DELETE {?s ?p ?o} WHERE {?s ?p ?o};
@@ -36,8 +38,15 @@ RSpec.configure do |config|
     ')
 
     # seed data
-    FactoryGirl.create(:zone)
-    FactoryGirl.create(:report_type)
+    FactoryGirl.create(:report_type) # <-- TODO: these will be part of the seed process.
+
+    `rake fuseki:seed RAILS_ENV=test`
+  end
+
+  config.before(:each)  do
+
+    Report.delete_all
+    RdfUser.delete_all
 
     # clean mongo
     DatabaseCleaner.clean

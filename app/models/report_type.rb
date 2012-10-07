@@ -1,3 +1,4 @@
+# The report types will be predefined in the database.
 class ReportType
 
   include Tripod::Resource
