@@ -8,7 +8,7 @@ class Report
   end
 
   def self.status_predicate
-    RDF::URI('http://data.smartjourney.co.uk/def/reportStatus')
+    RDF::URI("http://#{PublishMyData.local_domain}/def/reportStatus")
   end
 
   def self.creator_predicate
@@ -16,7 +16,7 @@ class Report
   end
 
   def self.zone_predicate
-    RDF::URI('http://data.smartjourney.co.uk/def/zone')
+    RDF::URI("http://#{PublishMyData.local_domain}/def/zone")
   end
 
   def self.graph_uri
@@ -46,7 +46,7 @@ class Report
   def initialize(uri=nil, graph_uri=nil)
     unless (uri.class == Hash || uri.class == HashWithIndifferentAccess) # CanCan tries to pass a hash sometimes (e.g. for create)
       super(uri || Report.generate_unique_uri, graph_uri || Report.graph_uri)
-      self.status ||= RDF::URI.new('http://data.smartjourney.co.uk/def/statusCurrent')
+      self.status ||= RDF::URI.new("http://#{PublishMyData.local_domain}/def/statusCurrent")
       self.rdf_type = [Report.rdf_type] # set the base type
     end
   end
@@ -122,7 +122,7 @@ class Report
       WHERE {
         GRAPH <#{Report.graph_uri}> {
           ?uri <#{Report.created_at_predicate.to_s}> ?dt .
-          ?uri <#{Report.status_predicate.to_s}> <http://data.smartjourney.co.uk/def/statusCurrent> .
+          ?uri <#{Report.status_predicate.to_s}> <http://#{PublishMyData.local_domain}/def/statusCurrent> .
         }
       #  FILTER ( ?dt > \"#{time.advance(:seconds => -seconds_old).to_s}\"^^xsd:dateTime ) .
       }
