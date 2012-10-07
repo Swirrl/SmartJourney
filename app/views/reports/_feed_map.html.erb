@@ -1,13 +1,10 @@
-<% content_for :stylesheets do %>
-  <script src="http://cdn.leafletjs.com/leaflet-0.4.4/leaflet.js"></script>
-  <%= javascript_include_tag "leaflet-markercluster" %>
+<% content_for :javascripts do %>
+  <%= render 'shared/leaflet_js' %>
 <% end %>
 
-<% content_for :javascripts do %>
-  <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.4.4/leaflet.css" />
-  <!--[if lte IE 8]>
-    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.4/leaflet.ie.css" />
-  <![endif]-->
+<% content_for :stylesheets do %>
+  <%= render 'shared/leaflet_css' %>
+
   <%= stylesheet_link_tag "Leaflet.MarkerCluster/MarkerCluster", :media => "screen" %>
   <%= stylesheet_link_tag "Leaflet.MarkerCluster/MarkerCluster.Default", :media => "screen" %>
   <!--[if lte IE 8]>
@@ -15,8 +12,8 @@
   <![endif]-->
 <% end %>
 
-
 <h3>Map</h3>
+
 <div id="feed-map"></div>
 
 <script type="text/javascript">
@@ -31,9 +28,7 @@
     var tileLayer = new L.TileLayer(tileUrl, {maxZoom: 18, attribution: attrib, subdomains: subDomains});
     tileLayer.addTo(map);
 
-    // dummy marker.
     var reports = <%= raw(@recent_reports.to_json) %>;
-
     var markers = new L.MarkerClusterGroup();
 
     for (var i = 0; i < reports.length; i++) {
@@ -49,7 +44,6 @@
       }
 
       markerContent += report.datetime + "<br/>";
-
 
       marker.bindPopup(
         "<strong>" + report.reportType + "</strong><br/>" +

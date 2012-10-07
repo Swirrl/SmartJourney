@@ -1,17 +1,61 @@
-<%= form.label 'description' %><br/>
-<%= form.text_area :description %>
-<br/>
+<% content_for :javascripts do %>
+  <%= render 'shared/leaflet_js' %>
+<% end %>
+
+<% content_for :stylesheets do %>
+  <%= render 'shared/leaflet_css' %>
+<% end %>
+
+<%= form.label 'description' %>
+<%= form.text_area :description, rows: 4%>
 
 <%= form.label 'report type' %>
 <%= form.select :report_type_uri, ReportType.all.collect {|p| [ p.label, p.uri] }, {:prompt => "choose one..."} %>
-<br/>
 
-<%= form.label 'latitude' %>
-<%= form.text_field :latitude %>
-<br/>
+<div id="latlong">
+  <%= form.label 'latitude' %>
+  <%= form.text_field :latitude %>
 
-<%= form.label 'longitude' %>
-<%= form.text_field :longitude %>
-<br/>
+  <%= form.label 'longitude' %>
+  <%= form.text_field :longitude %>
+</div>
+
+<h4>Click to drop a pin at the location of the incident</h4>
+<div id="report-map" style="height:300px; width:300px; margin-bottom:20px"></div>
+
+<script type="text/javascript">
+  // runs on doc rdy.
+  $(function() {
+    $('#latlong').hide();
+
+    var map = L.map('report-map').setView([57.15, -2.1], 10);
+
+    var tileUrl = 'http://{s}.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png',
+    subDomains = ['otile1','otile2','otile3','otile4'],
+    attrib = 'Map tiles: <a href="http://open.mapquest.co.uk" target="_blank">MapQuest</a>, <a href="http://www.openstreetmap.org/" target="_blank">OpenStreetMap</a> and contributors.';
+
+    var tileLayer = new L.TileLayer(tileUrl, {maxZoom: 18, attribution: attrib, subdomains: subDomains});
+    tileLayer.addTo(map);
+
+    var marker;
+
+    function onMapClick(e) {
+      if (marker) {
+        marker.setLatLng(e.latlng);
+        marker.update();
+      }
+      else {
+        marker = L.marker(e.latlng);
+        marker.addTo(map);
+      }
+
+      $("form#new_report input#report_latitude").val(e.latlng.lat);
+      $("form#new_report input#report_longitude").val(e.latlng.lng);
+    }
+
+    map.on('click', onMapClick);
+
+  });
+</script>
 
 <%= form.submit %>

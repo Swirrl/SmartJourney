@@ -3,9 +3,7 @@
   <ul>
     <% @recent_reports.last(20).each do |report| %>
       <li>
-        <%if report.report_type %>
-          <%= report.report_type.label %>,
-        <% end %>
+        <%= report.report_type.label %>:
         <%= report.description %><br/>
         <% if report.creator %>
           <%= report.creator.screen_name %>,
