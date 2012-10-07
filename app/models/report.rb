@@ -39,16 +39,15 @@ class Report
   field :status, Report.status_predicate
   field :label, RDF::RDFS.label
 
-  validates :created_at, :latitude, :longitude, :zone, :presence => true
+  validates :created_at, :latitude, :longitude, :zone, :report_type, :presence => true
   validates :latitude, :longitude, :format => { :with => %r([0-9]+\.[0-9]*) }
-  validate :check_format_of_created_at
 
   # override initialise
   def initialize(uri=nil, graph_uri=nil)
     unless (uri.class == Hash || uri.class == HashWithIndifferentAccess) # CanCan tries to pass a hash sometimes (e.g. for create)
       super(uri || Report.generate_unique_uri, graph_uri || Report.graph_uri)
       self.status ||= RDF::URI.new('http://data.smartjourney.co.uk/def/statusCurrent')
-      self.rdf_type = [Report.rdf_type]
+      self.rdf_type = [Report.rdf_type] # set the base type
     end
   end
 
@@ -98,10 +97,10 @@ class Report
     report_type_uri = (self.rdf_type.map{ |r| r.to_s } - [Report.rdf_type.to_s]).first # set subtraction
   end
 
-  def report_type=(new_report_type_uri)
+  def report_type_uri=(new_report_type_uri)
     self[RDF.type] = [
-      Report.rdf_type, # always 'Report'
-      RDF::URI.new(new_report_type_uri).to_s # plus report subtype.
+      Report.rdf_type, # always 'Report' base type...
+      RDF::URI.new(new_report_type_uri).to_s # ...plus report subtype.
     ]
   end
 
@@ -174,4 +173,5 @@ class Report
   def set_label
     self.label = 'iamalabel'
   end
+
 end

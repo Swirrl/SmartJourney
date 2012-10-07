@@ -14,35 +14,15 @@ describe Report do
 
   it 'has a sensible rdf_type by default' do
     subject.rdf_type.should_not be_nil
-    subject.rdf_type.should == Report.rdf_type
+    subject.rdf_type.should == [Report.rdf_type]
   end
 
-  context 'with a missing datetime' do
-
-    before do
-      subject.datetime = nil
-    end
+  context 'with a missing created at timestamp' do
 
     it 'is invalid' do
       subject.should_not be_valid
-      subject.errors[:datetime].should_not be_empty
-      subject.errors[:datetime].should include("can't be blank")
-    end
-
-  end
-
-  context 'with an invalid datetime' do
-
-    subject do
-      r = Report.new()
-      r.datetime = 'bleh'
-      r
-    end
-
-    it 'is invalid' do
-      subject.should_not be_valid
-      subject.errors[:datetime].should_not be_empty
-      subject.errors[:datetime].should include("is invalid")
+      subject.errors[:created_at].should_not be_empty
+      subject.errors[:created_at].should include("can't be blank")
     end
 
   end
@@ -109,7 +89,7 @@ describe Report do
 
   end
 
-  context 'without a report type' do
+  context 'with invalid report types' do
 
     it 'is invalid' do
       subject.should_not be_valid
@@ -173,21 +153,24 @@ describe Report do
     end
   end
 
-  describe "#report_type=" do
-    it 'sets the associated report type for this report' do
-      new_report_type = ReportType.new('http://reporttype1')
-      subject.report_type = new_report_type
-      subject.report_type.should == new_report_type
-      subject[Report.report_type_predicate].first.to_s.should == new_report_type.uri.to_s
+  describe "#report_type_uri=" do
+    it 'sets the report sub rdf-type' do
+      new_report_type = ReportType.find(FactoryGirl.build(:report_type).uri)
+      subject.report_type_uri = new_report_type.uri
+      subject.rdf_type.should == [Report.rdf_type.to_s, new_report_type.uri.to_s]
     end
   end
 
   describe "#report_type" do
-    context "when there's an assocated report_type" do
+    context "when there's a sub rdf-type set" do
+
+      before do
+        @report_type = ReportType.find(FactoryGirl.build(:report_type).uri)
+      end
 
       subject do
         r = Report.new
-        r.report_type = @report_type = ReportType.all.first
+        r.report_type_uri = @report_type.uri
         r
       end
 
@@ -203,33 +186,33 @@ describe Report do
     end
   end
 
-  describe "#reporter=" do
+  describe "#creator=" do
     it 'sets the associated user for this report' do
       user = FactoryGirl.create(:user)
-      subject.reporter = user
-      subject.reporter.should == user
-      subject[Report.reporter_predicate].first.to_s.should == user.uri.to_s
+      subject.creator = user
+      subject.creator.should == user
+      subject[Report.creator_predicate].first.to_s.should == user.uri.to_s
     end
   end
 
-  describe "#reporter" do
+  describe "#creator" do
     context "when there's an assocated reporter" do
 
       subject do
         @user = FactoryGirl.create(:user)
         r = Report.new
-        r.reporter = @user
+        r.creator = @user
         r
       end
 
       it 'returns the associated report type object' do
-        subject.reporter.should == @user
+        subject.creator.should == @user
       end
     end
 
     context "when there's no associated reporter" do
       it "returns nil" do
-        subject.reporter.should be_nil
+        subject.creator.should be_nil
       end
     end
   end
