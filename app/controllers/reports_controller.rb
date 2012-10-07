@@ -19,7 +19,7 @@ class ReportsController < ApplicationController
     @report.description = params[:report][:description]
     @report.latitude = params[:report][:latitude]
     @report.longitude = params[:report][:longitude]
-    @report.report_type = ReportType.new(params[:report][:report_type])
+    @report.report_type_uri = params[:report][:report_type_uri]
     @report.creator = current_user if current_user
 
     # TODO: make these be callbacks?

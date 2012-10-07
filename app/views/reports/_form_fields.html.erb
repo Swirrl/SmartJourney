@@ -3,7 +3,7 @@
 <br/>
 
 <%= form.label 'report type' %>
-<%= form.select :report_type, ReportType.all.collect {|p| [ p.label, p.uri] }, {:prompt => "choose one..."} %>
+<%= form.select :report_type_uri, ReportType.all.collect {|p| [ p.label, p.uri] }, {:prompt => "choose one..."} %>
 <br/>
 
 <%= form.label 'latitude' %>

@@ -224,6 +224,15 @@ describe Report do
     end
   end
 
+  describe ".delete_all" do
+    it "deletes all reports" do
+      FactoryGirl.create(:report)
+      Report.all.length.should be > 0
+      Report.delete_all
+      Report.all.length.should == 0
+    end
+  end
+
 
 
 end
