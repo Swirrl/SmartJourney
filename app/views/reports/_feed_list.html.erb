@@ -9,6 +9,9 @@
           <%= report.creator.screen_name %>,
         <% end %>
         <%= l(Time.parse(report.created_at), :format => :long) %>
+        <% if current_user.screen_name == report.creator.screen_name %>
+          <%= link_to "resolve", "#" %>
+        <% end %>
       </li>
     <% end %>
   </ul>
