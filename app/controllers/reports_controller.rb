@@ -1,6 +1,6 @@
 class ReportsController < ApplicationController
 
-  load_and_authorize_resource
+  authorize_resource
 
   def index
     # @recent_reports = Report.all
@@ -39,8 +39,12 @@ class ReportsController < ApplicationController
     end
   end
 
-  # PUT /reports/:id/resolve
-  def resolve
+  def show
+    uri = "http://#{PublishMyData.local_domain}/id/report/#{params[:id]}"
+    @report = Report.find(uri)
+  end
+
+  def update
 
   end
 

@@ -49,11 +49,11 @@ class Report
 
   # override initialise
   def initialize(uri=nil, graph_uri=nil)
-    unless (uri.class == Hash || uri.class == HashWithIndifferentAccess) # CanCan tries to pass a hash sometimes (e.g. for create)
-      super(uri || Report.generate_unique_uri, graph_uri || Report.graph_uri)
-      self.status ||= RDF::URI.new(Status::CURRENT_URI)
-      self.rdf_type = Report.rdf_type # set the base type
-    end
+
+    super(uri || Report.generate_unique_uri, graph_uri || Report.graph_uri)
+    self.status ||= RDF::URI.new(Status::CURRENT_URI)
+    self.rdf_type ||= Report.rdf_type # set the base type
+
   end
 
   # returns a user object.
@@ -129,6 +129,10 @@ class Report
   def self.generate_unique_uri
     g = Guid.new
     RDF::URI("http://#{PublishMyData.local_domain}/id/report/#{g.to_s}")
+  end
+
+  def guid
+    self.uri.to_s.split("/").last
   end
 
   # associates this report with a single zone, based on this report's lat-longs.

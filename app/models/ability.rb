@@ -15,10 +15,6 @@ class Ability
           r.reporter == user.uri #can only manage reports reported by themselves
         end
       end
-      #users
-      can :manage, User do |u|
-        u.email == user.email #can manage themselves only
-      end
     end
 
     # not logged in users can create and read reports.

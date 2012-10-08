@@ -3,13 +3,16 @@
   <ul>
     <% @recent_reports.last(20).each do |report| %>
       <li>
+      <!--  uri: <%= report.uri %><br/>
+        id: <%= report.guid %><br/>
+      -->
         <%= report.description %><br/>
+        tags: <%= report.tags.join(", ") %><br/>
         <% if report.creator %>
           <%= report.creator.screen_name %>,
         <% end %>
         <%= l(Time.parse(report.created_at), :format => :long) %><br/>
-        tags: <%= report.tags.join(", ") %><br/>
-        <%= link_to "details", "#" %>
+        <%= link_to "details", report_path(report.guid) %>
       </li>
     <% end %>
   </ul>
