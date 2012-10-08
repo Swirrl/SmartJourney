@@ -16,8 +16,8 @@ PmdWinter::Application.configure do
   config.assets.css_compressor = :yui # this requires java on the server. sudo apt-get install openjdk-6-jre
   config.assets.js_compressor = :yui
 
-  # Don't fallback to assets pipeline if a precompiled asset is missed
-  config.assets.compile = false
+  # DO fallback to assets pipeline if a precompiled asset is missed
+  config.assets.compile = true #fall back for leaflet marker cluster etc.
 
   # Generate digests for assets URLs
   config.assets.digest = true
@@ -52,6 +52,7 @@ PmdWinter::Application.configure do
 
   config.assets.precompile += %w( data.js )
   config.assets.precompile += %w( data.css )
+
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
