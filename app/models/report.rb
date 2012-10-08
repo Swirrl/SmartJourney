@@ -46,7 +46,7 @@ class Report
   def initialize(uri=nil, graph_uri=nil)
     unless (uri.class == Hash || uri.class == HashWithIndifferentAccess) # CanCan tries to pass a hash sometimes (e.g. for create)
       super(uri || Report.generate_unique_uri, graph_uri || Report.graph_uri)
-      self.status ||= RDF::URI.new("http://#{PublishMyData.local_domain}/def/statusCurrent")
+      self.status ||= RDF::URI.new(Status::CURRENT_URI)
       self.rdf_type = [Report.rdf_type] # set the base type
     end
   end
@@ -117,16 +117,18 @@ class Report
 
    def self.recent_open_reports(time, seconds_old=(60*60*24), limit=nil)
     query = "
+      PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
       SELECT ?uri (<#{Report.graph_uri}> AS ?graph)
       WHERE {
         GRAPH <#{Report.graph_uri}> {
           ?uri <#{Report.created_at_predicate.to_s}> ?dt .
-          ?uri <#{Report.status_predicate.to_s}> <http://#{PublishMyData.local_domain}/def/statusCurrent> .
+          ?uri <#{Report.status_predicate.to_s}> <#{Status::CURRENT_URI}> .
         }
-      #  FILTER ( ?dt > \"#{time.advance(:seconds => -seconds_old).to_s}\"^^xsd:dateTime ) .
+        FILTER ( ?dt > \"#{time.advance(:seconds => -seconds_old).iso8601()}\"^^xsd:dateTime ) .
       }
       ORDER BY DESC(?dt)"
     query += " LIMIT #{limit}" if limit
+    puts query
 
     Rails.logger.debug(query)
     self.where(query)

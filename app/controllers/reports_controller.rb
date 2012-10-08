@@ -3,8 +3,8 @@ class ReportsController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @recent_reports = Report.all
-    # Report.recent_open_reports(Time.now, 60*60*24)
+    # @recent_reports = Report.all
+    @recent_reports = Report.recent_open_reports(Time.now, 60*60*24)
   end
 
   def new
