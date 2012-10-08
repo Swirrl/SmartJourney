@@ -37,9 +37,6 @@ RSpec.configure do |config|
       DELETE {graph ?g {?s ?p ?o}} WHERE {graph ?g {?s ?p ?o}};
     ')
 
-    # seed data
-    FactoryGirl.create(:report_type) # <-- TODO: these will be part of the seed process.
-
     `rake fuseki:seed RAILS_ENV=test`
   end
 

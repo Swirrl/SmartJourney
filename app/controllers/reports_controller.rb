@@ -19,7 +19,7 @@ class ReportsController < ApplicationController
     @report.description = params[:report][:description]
     @report.latitude = params[:report][:latitude]
     @report.longitude = params[:report][:longitude]
-    @report.report_type_uri = params[:report][:report_type_uri]
+    @report.tags_string = params[:report][:tags_string]
     @report.creator = current_user if current_user
 
     # TODO: make these be callbacks?
@@ -37,6 +37,11 @@ class ReportsController < ApplicationController
     else
       render 'new'
     end
+  end
+
+  # PUT /reports/:id/resolve
+  def resolve
+
   end
 
 end

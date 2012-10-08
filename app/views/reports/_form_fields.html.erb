@@ -9,8 +9,8 @@
 <%= form.label 'description' %>
 <%= form.text_area :description, rows: 4%>
 
-<%= form.label 'report type' %>
-<%= form.select :report_type_uri, ReportType.all.collect {|p| [ p.label, p.uri] }, {:prompt => "choose one..."} %>
+<%= form.label 'tags (comma separated)' %>
+<%= form.text_field :tags_string  %>
 
 <div id="latlong">
   <%= form.label 'latitude' %>

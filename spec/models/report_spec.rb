@@ -14,7 +14,7 @@ describe Report do
 
   it 'has a sensible rdf_type by default' do
     subject.rdf_type.should_not be_nil
-    subject.rdf_type.should == [Report.rdf_type]
+    subject.rdf_type.should == Report.rdf_type
   end
 
   context 'with a missing created at timestamp' do
@@ -52,6 +52,7 @@ describe Report do
     subject do
       r = Report.new()
       r.longitude = 'bleh'
+      r.latitude = 'blah'
       r
     end
 
@@ -67,7 +68,8 @@ describe Report do
 
     subject do
       r = Report.new()
-      r.latitude = 'bleh'
+      r.longitude = 'bleh'
+      r.latitude = 'blah'
       r
     end
 
@@ -89,15 +91,6 @@ describe Report do
 
   end
 
-  context 'with invalid report types' do
-
-    it 'is invalid' do
-      subject.should_not be_valid
-      subject.errors[:report_type].should_not be_empty
-      subject.errors[:report_type].should include("can't be blank")
-    end
-
-  end
 
   context 'with everything OK' do
 
@@ -149,39 +142,6 @@ describe Report do
     context "when there's no associated zone" do
       it "returns nil" do
         subject.zone.should be_nil
-      end
-    end
-  end
-
-  describe "#report_type_uri=" do
-    it 'sets the report sub rdf-type' do
-      new_report_type = ReportType.find(FactoryGirl.build(:report_type).uri)
-      subject.report_type_uri = new_report_type.uri
-      subject.rdf_type.should == [Report.rdf_type.to_s, new_report_type.uri.to_s]
-    end
-  end
-
-  describe "#report_type" do
-    context "when there's a sub rdf-type set" do
-
-      before do
-        @report_type = ReportType.find(FactoryGirl.build(:report_type).uri)
-      end
-
-      subject do
-        r = Report.new
-        r.report_type_uri = @report_type.uri
-        r
-      end
-
-      it 'returns the associated report type object' do
-        subject.report_type.should == @report_type
-      end
-    end
-
-    context "when there's no associated report_type" do
-      it "returns nil" do
-        subject.report_type.should be_nil
       end
     end
   end

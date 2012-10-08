@@ -6,6 +6,7 @@ PmdWinter::Application.routes.draw do
   root :to => 'reports#index'
 
   resources :reports
+
   resources :zones
 
   # The priority is based upon order of creation:

@@ -7,7 +7,7 @@ FactoryGirl.define do
     latitude 2.1
     longitude 53.1
     zone Zone.new('http://data.smartjourney.co.uk/id/zone/aberdeenshire/laurencekirk')
-    report_type_uri FactoryGirl.build(:report_type).uri
+    tags_string "snow, ice"
   end
 
 end

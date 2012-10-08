@@ -27,6 +27,10 @@ class Report
     RDF::URI("http://#{PublishMyData.local_domain}/reports")
   end
 
+  def self.tag_predicate
+    RDF::URI("http://#{PublishMyData.local_domain}/def/tag")
+  end
+
   # TODO: implement callbacks.
   # before_create :set_datetime
   # before_save :set_label
@@ -35,19 +39,20 @@ class Report
   field :created_at, self.created_at_predicate.to_s, :datatype => RDF::XSD.dateTime
   field :latitude, 'http://www.w3.org/2003/01/geo/wgs84_pos#lat', :datatype => RDF::XSD.double
   field :longitude, 'http://www.w3.org/2003/01/geo/wgs84_pos#long', :datatype => RDF::XSD.double
-  field :rdf_type, RDF.type, :multivalued => true
+  field :rdf_type, RDF.type
   field :status, Report.status_predicate
   field :label, RDF::RDFS.label
+  field :tags, Report.tag_predicate, :multivalued => true
 
-  validates :created_at, :latitude, :longitude, :zone, :report_type, :presence => true
-  validates :latitude, :longitude, :format => { :with => %r([0-9]+\.[0-9]*) }
+  validates :created_at, :latitude, :longitude, :zone, :presence => true
+  validates :latitude, :longitude, :format => { :with => %r([0-9]+\.[0-9]*) }, :if => Proc.new {|r| (r.latitude.present? && r.longitude.present?) }
 
   # override initialise
   def initialize(uri=nil, graph_uri=nil)
     unless (uri.class == Hash || uri.class == HashWithIndifferentAccess) # CanCan tries to pass a hash sometimes (e.g. for create)
       super(uri || Report.generate_unique_uri, graph_uri || Report.graph_uri)
       self.status ||= RDF::URI.new(Status::CURRENT_URI)
-      self.rdf_type = [Report.rdf_type] # set the base type
+      self.rdf_type = Report.rdf_type # set the base type
     end
   end
 
@@ -83,24 +88,13 @@ class Report
     self[Report.zone_predicate]
   end
 
-  def report_type
-    begin
-      ReportType.find(report_type_uri)
-    rescue
-      nil
-    end
+  def tags_string=(tags_string)
+    tags_array = tags_string.split(',').map{ |t| t.strip }
+    self.tags = tags_array
   end
 
-  def report_type_uri
-    # the report type is defined by the type of the report, which isn't just ReportType
-    report_type_uri = (self.rdf_type.map{ |r| r.to_s } - [Report.rdf_type.to_s]).first # set subtraction
-  end
-
-  def report_type_uri=(new_report_type_uri)
-    self[RDF.type] = [
-      Report.rdf_type, # always 'Report' base type...
-      RDF::URI.new(new_report_type_uri).to_s # ...plus report subtype.
-    ]
+  def tags_string
+    self.tags.join(", ")
   end
 
   def self.all
@@ -128,9 +122,7 @@ class Report
       }
       ORDER BY DESC(?dt)"
     query += " LIMIT #{limit}" if limit
-    puts query
 
-    Rails.logger.debug(query)
     self.where(query)
   end
 
@@ -150,9 +142,9 @@ class Report
       description: self.description,
       datetime: I18n.l(Time.parse(self.created_at), :format => :long),
       latitude: self.latitude,
-      longitude: self.longitude
+      longitude: self.longitude,
+      tags: self.tags
     }
-    hash[:reportType] = self.report_type.label if self.report_type
     hash[:creator] = creator.screen_name if creator
     hash
   end
