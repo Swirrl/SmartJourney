@@ -1,7 +1,9 @@
 <h2>Sign up</h2>
 
 <%= form_for(@user) do |f| %>
-  <%= @user.errors %>
+  <% if @user.errors.any? %>
+
+  <% end %>
 
   <div><%= f.label 'email (kept private)' %><br />
   <%= f.email_field :email %></div>

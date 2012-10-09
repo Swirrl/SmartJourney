@@ -7,53 +7,39 @@ class Report
     RDF::URI('http://purl.org/dc/terms/created')
   end
 
-  def self.status_predicate
-    RDF::URI("http://#{PublishMyData.local_domain}/def/reportStatus")
-  end
-
   def self.creator_predicate
     RDF::URI('http://rdfs.org/sioc/ns#hasCreator')
   end
 
-  def self.zone_predicate
-    RDF::URI("http://#{PublishMyData.local_domain}/def/zone")
-  end
-
   def self.graph_uri
-    RDF::URI("http://#{PublishMyData.local_domain}/graph/reports")
+    RDF::URI("http://data.smartjourney.co.uk/graph/reports")
   end
 
   def self.rdf_type
-    RDF::URI("http://#{PublishMyData.local_domain}/reports")
+    RDF::URI("http://data.smartjourney.co.uk/def/Report")
   end
 
   def self.tag_predicate
-    RDF::URI("http://#{PublishMyData.local_domain}/def/tag")
+    RDF::URI("http://data.smartjourney.co.uk/def/tag")
   end
 
-  # TODO: implement callbacks.
-  # before_create :set_datetime
-  # before_save :set_label
+  def self.incident_predicate
+    RDF::URI("http://xmlns.com/foaf/0.1/primaryTopic")
+  end
 
-  field :description, 'http://purl.org/dc/terms/description'
   field :created_at, self.created_at_predicate.to_s, :datatype => RDF::XSD.dateTime
-  field :latitude, 'http://www.w3.org/2003/01/geo/wgs84_pos#lat', :datatype => RDF::XSD.double
-  field :longitude, 'http://www.w3.org/2003/01/geo/wgs84_pos#long', :datatype => RDF::XSD.double
   field :rdf_type, RDF.type
-  field :status, Report.status_predicate
   field :label, RDF::RDFS.label
   field :tags, Report.tag_predicate, :multivalued => true
 
-  validates :created_at, :latitude, :longitude, :zone, :presence => true
-  validates :latitude, :longitude, :format => { :with => %r([0-9]+\.[0-9]*) }, :if => Proc.new {|r| (r.latitude.present? && r.longitude.present?) }
+  validates :created_at, :incident, :label, :rdf_type, :presence => true
 
   # override initialise
   def initialize(uri=nil, graph_uri=nil)
-
-    super(uri || Report.generate_unique_uri, graph_uri || Report.graph_uri)
-    self.status ||= RDF::URI.new(Status::CURRENT_URI)
-    self.rdf_type ||= Report.rdf_type # set the base type
-
+    super(uri || RDF::URI("http://data.smartjourney.co.uk/id/report/#{Guid.new.to_s}"), graph_uri || Report.graph_uri)
+    self.rdf_type ||= Report.rdf_type
+    self.label ||= "a report" # TODO: autogen before_save based on contents.
+    self.created_at ||= Time.now # TODO: autogen before_save based on current time then.
   end
 
   # returns a user object.
@@ -70,22 +56,18 @@ class Report
     self[Report.creator_predicate] = new_user.uri
   end
 
-  # get an instance of a zone object, based on the uri in this report's zone predicate
-  def zone
-    unless self[Report.zone_predicate].empty?
-      Zone.find(self[Report.zone_predicate].first)
+  # returns an incident object.
+  def incident
+    unless self[Report.incident_predicate].empty?
+      Incident.find(self[Report.incident_predicate].first)
     else
       nil
     end
   end
 
-  # make an association to a zone by passing in a zone object.
-  def zone=(new_zone)
-    self[Report.zone_predicate] = new_zone.uri
-  end
-
-  def zone_uri
-    self[Report.zone_predicate]
+  # pass in an instance of an incident object.
+  def incident=(new_incident)
+    self[Report.incident_predicate] = new_incident.uri
   end
 
   def tags_string=(tags_string)
@@ -102,14 +84,14 @@ class Report
       SELECT ?uri (<#{Report.graph_uri}> AS ?graph)
       WHERE {
         GRAPH <#{Report.graph_uri}> {
-          ?uri <#{Report.created_at_predicate.to_s}> ?dt .
+          ?uri <#{Report.created_at_predicate.to_s}> ?created .
         }
       }
-      ORDER BY DESC(?dt)"
+      ORDER BY DESC(?created)"
     self.where(query)
   end
 
-   def self.recent_open_reports(time, seconds_old=(60*60*24), limit=nil)
+  def self.recent_open_reports(time, seconds_old=(60*60*24), limit=nil)
     query = "
       PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
       SELECT ?uri (<#{Report.graph_uri}> AS ?graph)
@@ -126,19 +108,12 @@ class Report
     self.where(query)
   end
 
-  def self.generate_unique_uri
-    g = Guid.new
-    RDF::URI("http://#{PublishMyData.local_domain}/id/report/#{g.to_s}")
-  end
-
   def guid
     self.uri.to_s.split("/").last
   end
 
-  # associates this report with a single zone, based on this report's lat-longs.
-  # TODO: call this before every save time? Use callbacks? (need to add to tripod).
-  def associate_zone
-    self.zone = Zone.zone_for_lat_long(self.latitude.to_f, self.latitude.to_f)
+  def to_param
+    guid
   end
 
   def as_json(options = nil)
@@ -160,22 +135,5 @@ class Report
     )
   end
 
-  protected
-
-  def check_format_of_created_at
-    begin
-      DateTime.parse(self.created_at.to_s)
-    rescue
-      errors.add(:datetime, "is invalid")
-    end
-  end
-
-  def set_datetime
-    self.created_at = Time.now
-  end
-
-  def set_label
-    self.label = 'iamalabel'
-  end
 
 end

@@ -94,7 +94,7 @@ class User
 
   def generate_uri
     #only do on new ones and if the screen name is present.
-    self.uri = "http://#{PublishMyData.local_domain}/id/users/#{self.screen_name}"
+    self.uri = "http://data.smartjourney.co.uk/id/user/#{self.screen_name}"
   end
 
   def create_rdf_user

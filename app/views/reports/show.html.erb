@@ -1,3 +1,28 @@
 <h1>Report</h1>
 
-<%= @report.guid %>
+<%= form_for(@report) do |form| %>
+
+  <%= form.label 'reported by' %>
+  <%= @report.creator.screen_name %>
+  <%= '(this is you!)' if @report.creator.screen_name == @current_user.screen_name %>
+  <br/><br/>
+
+  <%= form.label 'description' %>
+
+  <% if can_update_report? %>
+    <%= form.text_area :description, rows: 4 %><br/><br/>
+  <% else %>
+    <%= @report.description %><br/><br/>
+  <% end %>
+
+  <% if can_update_report? %>
+
+  <% else %>
+
+  <% end %>
+
+  <% if can_update_report? %>
+    <%= form.submit %>
+  <% end %>
+
+<% end %>

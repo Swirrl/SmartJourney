@@ -17,7 +17,7 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 WebMock.allow_net_connect!
 
 Capybara.configure do |config|
-  config.default_host = 'http://opendatacommunities.org'
+  config.default_host = 'http://pmd.local'
 end
 
 RSpec.configure do |config|
@@ -37,12 +37,17 @@ RSpec.configure do |config|
       DELETE {graph ?g {?s ?p ?o}} WHERE {graph ?g {?s ?p ?o}};
     ')
 
+    # load the seeds.
     `rake fuseki:seed RAILS_ENV=test`
   end
 
   config.before(:each)  do
 
+    Place.delete_all
+    Interval.delete_all
+    Incident.delete_all
     Report.delete_all
+    Comment.delete_all
     RdfUser.delete_all
 
     # clean mongo

@@ -12,7 +12,7 @@ class Ability
         can :manage, Report #super users can manage all reports
       else
         can :manage, Report do |r|
-          r.reporter == user.uri #can only manage reports reported by themselves
+          r.creator.uri == user.uri #can only manage reports reported by themselves
         end
       end
     end

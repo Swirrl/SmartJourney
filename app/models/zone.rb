@@ -1,12 +1,24 @@
-# The zones will be predefined in the database
-
 class Zone
 
   include Tripod::Resource
 
+  def self.rdf_type
+    RDF::URI("http://data.smartjourney.co.uk/def/Zone")
+  end
+
+  def self.graph_uri
+    RDF::URI("http://data.smartjourney.co.uk/graph/zones")
+  end
+
   field :label, RDF.label
   field :rdf_type, RDF.type
   field :notation, RDF::URI.new('http://www.w3.org/2004/02/skos/core#notation')
+
+
+  #######################
+  # NOTE:
+  # The zones will be predefined in the database, do don't need a initializer or validations
+  #######################
 
   def self.all
     self.where("
@@ -21,20 +33,11 @@ class Zone
 
   # get an array of this zone's reports.
   def reports
-    Report.where("
-      SELECT ?report (<#{Report.graph_uri}> AS ?graph)
-      WHERE {
-        GRAPH <#{Report.graph_uri}> {
-          ?report <#{Report.zone_predicate.to_s}> <#{self.uri.to_s}> .
-          ?report a <#{Report.rdf_type.to_s}> .
-        }
-      }",
-      :uri_variable => 'report'
-    )
+    #TODO.
   end
 
   def extent_json_url
-    "http://#{PublishMyData.local_domain}/zone_boundaries/#{notation}.json"
+    "http://data.smartjourney.co.uk/zone_boundaries/#{notation}.json"
   end
 
   def self.zone_for_lat_long(lat, long)
@@ -47,14 +50,6 @@ class Zone
     else
       nil
     end
-  end
-
-  def self.graph_uri
-    RDF::URI("http://#{PublishMyData.local_domain}/graph/zones")
-  end
-
-  def self.rdf_type
-    RDF::URI("http://data.smartjourney.co.uk/def/Zone")
   end
 
 end

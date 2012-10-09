@@ -28,10 +28,6 @@ class ReportsController < ApplicationController
 
     @report.associate_zone()
 
-    Rails.logger.debug( "About to save" )
-
-    Rails.logger.debug @report.repository.dump(:ntriples)
-
     if @report.save
       redirect_to reports_path
     else
@@ -40,7 +36,7 @@ class ReportsController < ApplicationController
   end
 
   def show
-    uri = "http://#{PublishMyData.local_domain}/id/report/#{params[:id]}"
+    uri = "http://data.smartjourney.co.uk/id/report/#{params[:id]}"
     @report = Report.find(uri)
   end
 

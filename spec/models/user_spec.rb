@@ -4,7 +4,7 @@ describe User do
 
   it 'should set the uri based on the screen name before creating' do
     u = FactoryGirl.create(:user)
-    u.uri.should == "http://#{PublishMyData.local_domain}/id/users/#{u.screen_name}"
+    u.uri.should == "http://data.smartjourney.co.uk/id/user/#{u.screen_name}"
   end
 
   it "should create an rdf user after creation" do
