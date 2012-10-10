@@ -14,25 +14,42 @@ class ReportsController < ApplicationController
 
   def create
 
-    Rails.logger.debug( "About to make new" )
+    @interval = Interval.new()
+    @incident = Incident.new()
+    @place = Place.new()
     @report = Report.new()
-    @report.description = params[:report][:description]
-    @report.latitude = params[:report][:latitude]
-    @report.longitude = params[:report][:longitude]
+
+    @place.latitude = params[:report][:latitude]
+    @place.longitude = params[:report][:longitude]
+
+    @incident.description = params[:report][:description]
+
     @report.tags_string = params[:report][:tags_string]
     @report.creator = current_user if current_user
 
-    # TODO: make these be callbacks?
-    @report.created_at = Time.now
-    @report.label = @report.description[0,100]
+    # associoate
+    @report.incident = @incident
+    @place.associate_zone()
+    @incident.place = @place
+    @incident.interval = @interval
+    @interval.begins_at = @report.created_at
 
-    @report.associate_zone()
+    t = Tripod::Persistence::Transaction.new
 
-    if @report.save
+    success = @report.save_report_and_children(transaction: t)
+
+    if success
+      t.commit
+    else
+      t.abort
+    end
+
+    if success
       redirect_to reports_path
     else
       render 'new'
     end
+
   end
 
   def show

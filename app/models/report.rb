@@ -32,7 +32,13 @@ class Report
   field :label, RDF::RDFS.label
   field :tags, Report.tag_predicate, :multivalued => true
 
-  validates :created_at, :incident, :label, :rdf_type, :presence => true
+  validates :created_at,  :label, :rdf_type, :presence => true
+  validates :incident, :presence => true #associated incident
+
+  # allow validation of lat and long here by using the proxy methods
+  validates :latitude, :longitude, :format => { :with => %r([0-9]+\.[0-9]*) }, :if => Proc.new {|p| (p.latitude.present? && p.longitude.present?) }
+  validates :longitude, :latitude, :presence => true
+  validates :description, :presence => true
 
   # override initialise
   def initialize(uri=nil, graph_uri=nil)
@@ -41,6 +47,21 @@ class Report
     self.label ||= "a report" # TODO: autogen before_save based on contents.
     self.created_at ||= Time.now # TODO: autogen before_save based on current time then.
   end
+
+  # PROXIED METHODS
+
+  def latitude
+    self.incident.place.latitude if self.incident && self.incident.place
+  end
+
+  def longitude
+    self.incident.place.longitude if self.incident && self.incident.place
+  end
+
+  def description
+    self.incident.description if self.incident
+  end
+
 
   # returns a user object.
   def creator
@@ -58,7 +79,9 @@ class Report
 
   # returns an incident object.
   def incident
-    unless self[Report.incident_predicate].empty?
+    if @incident
+      @incident
+    elsif !self[Report.incident_predicate].empty?
       Incident.find(self[Report.incident_predicate].first)
     else
       nil
@@ -67,6 +90,7 @@ class Report
 
   # pass in an instance of an incident object.
   def incident=(new_incident)
+    @incident = new_incident
     self[Report.incident_predicate] = new_incident.uri
   end
 
@@ -77,6 +101,17 @@ class Report
 
   def tags_string
     self.tags.join(", ")
+  end
+
+  def save_report_and_children(opts={})
+
+    interval_success = incident.interval.save(opts)
+    place_success = incident.place.save(opts)
+    incident_success = incident.save(opts)
+    report_success = self.save(opts)
+
+    success = interval_success && place_success && incident_success && report_success
+
   end
 
   def self.all
@@ -98,7 +133,6 @@ class Report
       WHERE {
         GRAPH <#{Report.graph_uri}> {
           ?uri <#{Report.created_at_predicate.to_s}> ?dt .
-          ?uri <#{Report.status_predicate.to_s}> <#{Status::CURRENT_URI}> .
         }
         FILTER ( ?dt > \"#{time.advance(:seconds => -seconds_old).iso8601()}\"^^xsd:dateTime ) .
       }
@@ -122,7 +156,8 @@ class Report
       datetime: I18n.l(Time.parse(self.created_at), :format => :long),
       latitude: self.latitude,
       longitude: self.longitude,
-      tags: self.tags
+      tags: self.tags,
+      tags_string: self.tags_string
     }
     hash[:creator] = creator.screen_name if creator
     hash

@@ -22,6 +22,7 @@ class Incident
   field :label, RDF::RDFS.label
   field :rdf_type, RDF.type
   validates :label, :rdf_type, :presence => true
+  validates :place, :presence => true
 
    # override initialise
   def initialize(uri=nil, graph_uri=nil)
@@ -32,8 +33,10 @@ class Incident
 
   # get an instance of a place object, based on the uri in this incident's place predicate
   def place
-    unless self[Incident.place_predicate].empty?
-      Incident.find(self[Incident.place_predicate].first)
+    if @place
+      @place
+    elsif !self[Incident.place_predicate].empty?
+      Place.find(self[Incident.place_predicate].first)
     else
       nil
     end
@@ -41,12 +44,15 @@ class Incident
 
   # make an association to a place by passing in a place object.
   def place=(new_place)
+    @place = new_place
     self[Incident.place_predicate] = new_place.uri
   end
 
   # get an instance of a interval object, based on the uri in this incident's interval predicate
   def interval
-    unless self[Incident.interval_predicate].empty?
+    if @interval
+      @interval
+    elsif !self[Incident.interval_predicate].empty?
       Incident.find(self[Incident.interval_predicate].first)
     else
       nil
@@ -55,7 +61,19 @@ class Incident
 
   # make an association to a interval by passing in a interval object.
   def interval=(new_interval)
+    @interval = new_interval
     self[Incident.interval_predicate] = new_interval.uri
+  end
+
+  def self.all
+    query = "
+      SELECT ?uri (<#{Incident.graph_uri}> AS ?graph)
+      WHERE {
+        GRAPH <#{Incident.graph_uri}> {
+          ?uri ?p ?o .
+        }
+      }"
+    self.where(query)
   end
 
   def self.delete_all

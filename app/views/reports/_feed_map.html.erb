@@ -47,10 +47,8 @@
 
       marker.bindPopup(
         report.description  + "<br/>" +
-        report.creator  + ", " +
-        report.tags_string + "<br/>" +
-        report.datetime
-
+        "tags: " + report.tags_string + "<br/>" +
+        report.creator  + ", " + report.datetime
       );
 
       markers.addLayer(marker);

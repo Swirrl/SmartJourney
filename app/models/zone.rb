@@ -33,7 +33,7 @@ class Zone
 
   # get an array of this zone's reports.
   def reports
-    #TODO.
+    #TODO - get all the reports where it's incident's place is in the zone.
   end
 
   def extent_json_url
@@ -42,8 +42,6 @@ class Zone
 
   def self.zone_for_lat_long(lat, long)
     # TODO: return the zone that contains this lat/long, based on the boundary points
-    # there will probably be a boundary resource, with the boundary as geojson.
-
     # for now, return the first zone, if there are any!
     unless self.all.empty?
       self.all.first

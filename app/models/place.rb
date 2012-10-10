@@ -31,7 +31,9 @@ class Place
 
   # get an instance of a zone object, based on the uri in this report's zone predicate
   def zone
-    unless self[Place.zone_predicate].empty?
+    if @zone
+      @zone
+    elsif !self[Place.zone_predicate].empty?
       Zone.find(self[Place.zone_predicate].first)
     else
       nil
@@ -40,13 +42,26 @@ class Place
 
   # make an association to a zone by passing in a zone object.
   def zone=(new_zone)
+    @zone = new_zone
     self[Place.zone_predicate] = new_zone.uri
   end
 
   # associates this report with a single zone, based on this report's lat-longs.
   # TODO: call this before every save time? Use callbacks? (need to add to tripod).
   def associate_zone
-    self.zone = Zone.zone_for_lat_long(self.latitude.to_f, self.latitude.to_f)
+    z = Zone.zone_for_lat_long(self.latitude, self.latitude)
+    self.zone = z if z
+  end
+
+  def self.all
+    query = "
+      SELECT ?uri (<#{Place.graph_uri}> AS ?graph)
+      WHERE {
+        GRAPH <#{Place.graph_uri}> {
+          ?uri ?p ?o .
+        }
+      }"
+    self.where(query)
   end
 
   def self.delete_all

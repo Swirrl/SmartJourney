@@ -3,7 +3,7 @@ class Interval
   include Tripod::Resource
 
   def self.rdf_type
-    RDF::URI("http://purl.org/NET/c4dm/timeline.owl#beginsAtDateTime#Interval")
+    RDF::URI("http://purl.org/NET/c4dm/timeline.owl#Interval")
   end
 
   def self.graph_uri
@@ -22,6 +22,17 @@ class Interval
     super(uri || RDF::URI("http://data.smartjourney.co.uk/id/interval/#{Guid.new.to_s}"), graph_uri || Interval.graph_uri)
     self.rdf_type ||= Interval.rdf_type
     self.label ||= "an interval" #TODO: auto gen based on contents, before_save
+  end
+
+   def self.all
+    query = "
+      SELECT ?uri (<#{Interval.graph_uri}> AS ?graph)
+      WHERE {
+        GRAPH <#{Interval.graph_uri}> {
+          ?uri ?p ?o .
+        }
+      }"
+    self.where(query)
   end
 
   def self.delete_all

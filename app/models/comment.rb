@@ -47,6 +47,17 @@ class Comment
     self[Comment.creator_predicate] = new_user.uri
   end
 
+  def self.all
+    query = "
+      SELECT ?uri (<#{Comment.graph_uri}> AS ?graph)
+      WHERE {
+        GRAPH <#{Comment.graph_uri}> {
+          ?uri ?p ?o .
+        }
+      }"
+    self.where(query)
+  end
+
   def self.delete_all
     Tripod::SparqlClient::Update::update(
       "DELETE {graph <#{Comment.graph_uri}> {?s ?p ?o}}

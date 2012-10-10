@@ -17,18 +17,6 @@ describe Report do
     subject.rdf_type.should == Report.rdf_type
   end
 
-
-
-  # context 'without a zone' do
-
-  #   it 'is invalid' do
-  #     subject.should_not be_valid
-  #     subject.errors[:zone].should_not be_empty
-  #     subject.errors[:zone].should include("can't be blank")
-  #   end
-
-  # end
-
   context 'with a missing label' do
     it 'is invalid' do
       subject.label = nil
@@ -120,6 +108,101 @@ describe Report do
       Report.delete_all
       Report.all.length.should == 0
     end
+  end
+
+  describe "create report and children in a transaction" do
+
+    # this is just testing my transaction pattern works!
+
+    context "everything works" do
+
+      before do
+        @interval = Interval.new()
+        @incident = Incident.new()
+        @place = Place.new()
+        @report = Report.new()
+
+        @place.latitude = 53.1
+        @place.longitude = 2.1
+
+        @incident.description = 'hello'
+
+        @report.incident = @incident
+        @place.associate_zone()
+        @incident.place = @place
+        @incident.interval = @interval
+        @interval.begins_at = @report.created_at
+
+        t = Tripod::Persistence::Transaction.new
+
+        success = @report.save_report_and_children(transaction: t)
+
+        success.should be_true # all works
+
+        if success
+          t.commit
+        else
+          t.abort
+        end
+      end
+
+      it "should save everything" do
+
+        Report.all.length.should be > 0
+        Incident.all.length.should be > 0
+        Place.all.length.should be > 0
+        Interval.all.length.should be > 0
+
+        @report.incident.should == @incident
+        @incident.place.should == @place
+        @incident.interval.should == @interval
+
+      end
+
+    end
+
+    context "something fails" do
+
+      before do
+        @interval = Interval.new()
+        @incident = Incident.new()
+        @place = Place.new()
+        @report = Report.new()
+
+        @place.latitude = 53.1
+        @place.longitude = 'bleh' #dodgy!
+
+        @incident.description = 'hello'
+
+        @report.incident = @incident
+        @place.associate_zone()
+        @incident.place = @place
+        @incident.interval = @interval
+        @interval.begins_at = @report.created_at
+
+        t = Tripod::Persistence::Transaction.new
+
+        success = @report.save_report_and_children(transaction: t)
+
+        @report.errors[:longitude].should_not be_empty
+
+        success.should be_false # place longitude causes validation fail
+
+        if success
+          t.commit
+        else
+          t.abort
+        end
+      end
+
+      it "should save nothing" do
+        Report.all.length.should == 0
+        Incident.all.length.should == 0
+        Place.all.length.should == 0
+        Interval.all.length.should == 0
+      end
+    end
+
   end
 
 
