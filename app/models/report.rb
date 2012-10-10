@@ -164,7 +164,8 @@ class Report
       latitude: self.latitude,
       longitude: self.longitude,
       tags: self.tags,
-      tags_string: self.tags_string
+      tags_string: self.tags_string,
+      guid: self.guid
     }
     hash[:creator] = creator.screen_name if creator
     hash
