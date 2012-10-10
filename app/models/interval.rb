@@ -29,7 +29,7 @@ class Interval
       SELECT ?uri (<#{Interval.graph_uri}> AS ?graph)
       WHERE {
         GRAPH <#{Interval.graph_uri}> {
-          ?uri ?p ?o .
+           ?uri a <#{Interval.rdf_type}> .
         }
       }"
     self.where(query)

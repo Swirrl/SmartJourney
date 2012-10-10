@@ -52,7 +52,7 @@ class Comment
       SELECT ?uri (<#{Comment.graph_uri}> AS ?graph)
       WHERE {
         GRAPH <#{Comment.graph_uri}> {
-          ?uri ?p ?o .
+           ?uri a <#{Comment.rdf_type}> .
         }
       }"
     self.where(query)

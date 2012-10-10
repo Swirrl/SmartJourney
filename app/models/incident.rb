@@ -70,7 +70,7 @@ class Incident
       SELECT ?uri (<#{Incident.graph_uri}> AS ?graph)
       WHERE {
         GRAPH <#{Incident.graph_uri}> {
-          ?uri ?p ?o .
+          ?uri a <#{Incident.rdf_type}> .
         }
       }"
     self.where(query)

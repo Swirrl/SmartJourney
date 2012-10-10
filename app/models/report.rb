@@ -120,6 +120,7 @@ class Report
       WHERE {
         GRAPH <#{Report.graph_uri}> {
           ?uri <#{Report.created_at_predicate.to_s}> ?created .
+          ?uri a <#{Report.rdf_type}> .
         }
       }
       ORDER BY DESC(?created)"
