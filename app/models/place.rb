@@ -58,7 +58,7 @@ class Place
       SELECT ?uri (<#{Place.graph_uri}> AS ?graph)
       WHERE {
         GRAPH <#{Place.graph_uri}> {
-          ?uri ?p ?o .
+          ?uri a <#{Place.rdf_type}> .
         }
       }"
     self.where(query)
