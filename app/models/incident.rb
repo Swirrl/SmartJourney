@@ -36,7 +36,7 @@ class Incident
     if @place
       @place
     elsif !self[Incident.place_predicate].empty?
-      Place.find(self[Incident.place_predicate].first)
+      @place = Place.find(self[Incident.place_predicate].first)
     else
       nil
     end
@@ -53,7 +53,7 @@ class Incident
     if @interval
       @interval
     elsif !self[Incident.interval_predicate].empty?
-      Incident.find(self[Incident.interval_predicate].first)
+      @interval = Interval.find(self[Incident.interval_predicate].first)
     else
       nil
     end

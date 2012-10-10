@@ -34,7 +34,7 @@ class Place
     if @zone
       @zone
     elsif !self[Place.zone_predicate].empty?
-      Zone.find(self[Place.zone_predicate].first)
+      @zone = Zone.find(self[Place.zone_predicate].first)
     else
       nil
     end

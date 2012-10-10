@@ -27,7 +27,7 @@ class ReportsController < ApplicationController
     @report.tags_string = params[:report][:tags_string]
     @report.creator = current_user if current_user
 
-    # associoate
+    # associate
     @report.incident = @incident
     @place.associate_zone()
     @incident.place = @place
@@ -45,6 +45,7 @@ class ReportsController < ApplicationController
     end
 
     if success
+      flash[:notice] = 'Succesfully created report'
       redirect_to reports_path
     else
       render 'new'
@@ -53,17 +54,62 @@ class ReportsController < ApplicationController
   end
 
   def show
-    uri = "http://data.smartjourney.co.uk/id/report/#{params[:id]}"
-    @report = Report.find(uri)
+    get_report
   end
 
   def update
-    # save all the data passed in.
+    get_report
+
+    @incident = @report.incident
+    @place = @incident.place
+
+    # @interval = @incident.interval # not needed yet
+    Rails.logger.debug "lat before " + @report.incident.place.latitude
+
+    Rails.logger.debug "lat passed " + params[:report][:latitude]
+
+    @place.latitude = params[:report][:latitude]
+    @place.longitude = params[:report][:longitude]
+
+
+    Rails.logger.debug "lat after " + @report.incident.place.latitude
+
+    @place.associate_zone()
+
+    @report.tags_string = params[:report][:tags_string]
+
+    t = Tripod::Persistence::Transaction.new
+
+    success = @report.save_report_and_children(transaction: t)
+
+    if success
+      t.commit
+    else
+      t.abort
+    end
+
+    if success
+      flash[:notice] = 'Succesfully updated report'
+      redirect_to report_path(@report)
+    else
+      render 'show'
+    end
   end
 
   # PUT /reports/:id/close
   def close
+    get_report
+
+    authorize! :update, @report # this is a non-restful action, so manually auth.
+
     # todo: Set the end time of the incident.
+  end
+
+  private
+
+  def get_report
+    uri = "http://data.smartjourney.co.uk/id/report/#{params[:id]}"
+    @report = Report.find(uri)
   end
 
 end

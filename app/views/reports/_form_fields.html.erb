@@ -49,8 +49,8 @@
         marker.addTo(map);
       }
 
-      $("form#new_report input#report_latitude").val(e.latlng.lat);
-      $("form#new_report input#report_longitude").val(e.latlng.lng);
+      $("input#report_latitude").val(e.latlng.lat);
+      $("input#report_longitude").val(e.latlng.lng);
     }
 
     map.on('click', onMapClick);

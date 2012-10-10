@@ -82,7 +82,7 @@ class Report
     if @incident
       @incident
     elsif !self[Report.incident_predicate].empty?
-      Incident.find(self[Report.incident_predicate].first)
+      @incident = Incident.find(self[Report.incident_predicate].first)
     else
       nil
     end
@@ -105,10 +105,18 @@ class Report
 
   def save_report_and_children(opts={})
 
-    interval_success = incident.interval.save(opts)
-    place_success = incident.place.save(opts)
+    interval = incident.interval
+    place = incident.place
+
+    interval_success = interval.save(opts)
+    place_success = place.save(opts)
     incident_success = incident.save(opts)
     report_success = self.save(opts)
+
+    Rails.logger.debug ("INTERVAL ERRORS: " + interval.errors.messages.inspect) unless interval_success
+    Rails.logger.debug ("INCIDENT ERRORS: " + incident.errors.messages.inspect) unless incident
+    Rails.logger.debug ("PLACE ERRORS: " + place.errors.messages.inspect) unless place_success
+    Rails.logger.debug ("REPORT ERRORS: " + self.errors.messages.inspect) unless report_success
 
     success = interval_success && place_success && incident_success && report_success
 
@@ -154,6 +162,10 @@ class Report
   end
 
   def to_param
+    guid
+  end
+
+  def id
     guid
   end
 

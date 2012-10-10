@@ -1,36 +1,63 @@
+<% content_for :javascripts do %>
+  <%= render 'shared/leaflet_js' %>
+<% end %>
+
+<% content_for :stylesheets do %>
+  <%= render 'shared/leaflet_css' %>
+<% end %>
+
+
 <h1>Report</h1>
 
 <%= form_for(@report) do |form| %>
 
-  <%= form.label 'reported by' %>
+  <% #uses dynamic_form gem (for now) %>
+  <%= error_messages_for(@report)  %>
+
+  <h4>reported by</h4>
   <%= @report.creator.screen_name %>
-  <%= '(this is you!)' if @report.creator.screen_name == @current_user.screen_name %>
+  <% if current_user && @report.creator.screen_name == current_user.screen_name %>
+    (this is you!)
+  <% elsif !current_user %>
+    (Is this you? Log in to edit this report)
+  <% end %>
+
   <br/><br/>
 
-  <%= form.label 'description' %>
-
   <% if can_update_report? %>
+    <%= form.label 'description' %>
     <%= form.text_area :description, rows: 4 %><br/><br/>
   <% else %>
+    <h4>description</h4>
     <%= @report.description %><br/><br/>
   <% end %>
 
-  <%= form.label 'tags (comma separated)' %>
 
   <% if can_update_report? %>
+    <%= form.label 'tags (comma separated)' %>
     <%= form.text_field :tags_string  %><br/><br/>
   <% else %>
+    <h4>tags</h4>
     <%= @report.tags_string %><br/><br/>
   <% end %>
 
   <% if can_update_report? %>
-    <%= form.label 'location (click to move pin)' %>
+    <h4>location (click to move pin)</h4>
   <% else %>
-    <%= form.label 'location' %>
+    <h4>location</h4>
+  <% end %>
+
+  <% if can_update_report? %>
+    <div id="latlong" >
+      <%= form.label 'latitude' %>
+      <%= form.text_field :latitude %>
+
+      <%= form.label 'longitude' %>
+      <%= form.text_field :longitude %>
+    </div>
   <% end %>
 
   <div id="report-map" style="height:300px; width:300px; margin-bottom:20px">
-   [TODO: Map here]
   </div>
 
   <% if can_update_report? %>
@@ -44,3 +71,37 @@
     <%= submit_tag "Close This Report", :confirm => "Are you sure you want to close this report?" %>
   <% end %>
 <% end %>
+
+<%= link_to "Back to reports list", reports_path %>
+
+<script type="text/javascript">
+  // runs on doc rdy.
+  $(function() {
+   $('#latlong').hide();
+
+    var map = L.map('report-map').setView([<%= @report.latitude %>, <%= @report.longitude %>], 13);
+
+    var tileUrl = 'http://{s}.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png',
+    subDomains = ['otile1','otile2','otile3','otile4'],
+    attrib = 'Map tiles: <a href="http://open.mapquest.co.uk" target="_blank">MapQuest</a>, <a href="http://www.openstreetmap.org/" target="_blank">OpenStreetMap</a> and contributors.';
+
+    var tileLayer = new L.TileLayer(tileUrl, {maxZoom: 18, attribution: attrib, subdomains: subDomains});
+    tileLayer.addTo(map);
+
+    var marker = L.marker([<%= @report.latitude %>, <%= @report.longitude %>]);
+    marker.addTo(map);
+
+    <% if can_update_report? %>
+
+      function onMapClick(e) {
+        marker.setLatLng(e.latlng);
+        marker.update();
+
+        $("input#report_latitude").val(e.latlng.lat);
+        $("input#report_longitude").val(e.latlng.lng);
+      }
+
+      map.on('click', onMapClick);
+    <% end %>
+  });
+</script>
