@@ -7,7 +7,7 @@ class Place
   end
 
   def self.rdf_type
-    RDF::URI("http://www.w3.org/2003/01/geo/wgs84_pos#spatialThing")
+    RDF::URI("http://www.w3.org/2003/01/geo/wgs84_pos#SpatialThing")
   end
 
   def self.graph_uri
