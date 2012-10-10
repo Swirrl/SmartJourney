@@ -4,7 +4,7 @@ class ReportsController < ApplicationController
 
   def index
     # @recent_reports = Report.all
-    @recent_reports = Report.recent_open_reports(Time.now, 60*60*24)
+    @recent_reports = Report.open_reports(20)
   end
 
   def new

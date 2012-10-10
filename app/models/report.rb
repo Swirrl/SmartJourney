@@ -119,28 +119,34 @@ class Report
       SELECT ?uri (<#{Report.graph_uri}> AS ?graph)
       WHERE {
         GRAPH <#{Report.graph_uri}> {
-          ?uri <#{Report.created_at_predicate.to_s}> ?created .
           ?uri a <#{Report.rdf_type}> .
         }
-      }
-      ORDER BY DESC(?created)"
+      }"
     self.where(query)
   end
 
-  def self.recent_open_reports(time, seconds_old=(60*60*24), limit=nil)
+  def self.open_reports(limit=nil)
     query = "
       PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-      SELECT ?uri (<#{Report.graph_uri}> AS ?graph)
+      SELECT ?report (<#{Report.graph_uri}> AS ?graph)
       WHERE {
         GRAPH <#{Report.graph_uri}> {
-          ?uri <#{Report.created_at_predicate.to_s}> ?dt .
+          ?report a <#{Report.rdf_type}> .
+          ?report <#{Report.created_at_predicate.to_s}> ?created .
+          ?report <#{Report.incident_predicate.to_s}> ?incident .
+          ?incident <#{Incident.interval_predicate.to_s}> ?interval .
+          OPTIONAL { ?interval <#{Interval.ends_at_predicate}> ?ends . }
+
+          FILTER (
+            (!bound( ?ends )) ||
+            (?ends > \"#{Time.now.iso8601()}\"^^xsd:dateTime)
+          ) .
         }
-        FILTER ( ?dt > \"#{time.advance(:seconds => -seconds_old).iso8601()}\"^^xsd:dateTime ) .
       }
-      ORDER BY DESC(?dt)"
+      ORDER BY DESC(?created)"
     query += " LIMIT #{limit}" if limit
 
-    self.where(query)
+    self.where(query, {uri_variable: 'report'})
   end
 
   def guid
@@ -168,7 +174,7 @@ class Report
   def self.delete_all_from_graph
     Tripod::SparqlClient::Update::update(
       "DELETE {graph <#{Report.graph_uri}> {?s ?p ?o}}
-      WHERE {graph <#{Report.graph_uri}> {?s ?p ?o}}"
+      WHERE {graph <#{Report.graph_uri}> {?s ?p ?o}};"
     )
   end
 

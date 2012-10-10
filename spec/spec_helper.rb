@@ -41,8 +41,7 @@ RSpec.configure do |config|
     `rake fuseki:seed RAILS_ENV=test`
   end
 
-  config.before(:each)  do
-
+  config.before(:each) do
     Report.delete_all_from_graph
     RdfUser.delete_all
 

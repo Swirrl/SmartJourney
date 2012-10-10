@@ -110,6 +110,67 @@ describe Report do
     end
   end
 
+  describe "open_reports" do
+    it "should return open ended or still-open reports" do
+
+      #check no reports before we start
+      Report.all.length.should == 0
+      initial_open_reports = Report.open_reports
+      initial_open_reports.length.should == 0
+
+      # this one ends in the future
+      report1 = Report.new
+      incident1 = FactoryGirl.build(:incident)
+      interval1 = FactoryGirl.build(:interval)
+      place1 = FactoryGirl.build(:place)
+
+      report1.incident = incident1
+      incident1.place = place1
+      interval1.begins_at = report1.created_at
+      interval1.ends_at = Time.now.advance(:days => 1)
+      incident1.interval = interval1
+
+      report1.save_report_and_children.should == true # should save
+
+      # this one doesn't end
+      report2 = Report.new
+      incident2 = FactoryGirl.build(:incident)
+      interval2 = FactoryGirl.build(:interval)
+      place2 = FactoryGirl.build(:place)
+
+      report2.incident = incident2
+      incident2.place = place2
+      interval2.begins_at = report2.created_at
+      interval2.ends_at.should == nil
+      incident2.interval = interval2
+
+      report2.save_report_and_children.should == true # should save
+
+      # this one has ended.
+      report3 = Report.new
+      incident3 = FactoryGirl.build(:incident)
+      interval3 = FactoryGirl.build(:interval)
+      place3 = FactoryGirl.build(:place)
+
+      report3.incident = incident3
+      incident3.place = place3
+      interval3.begins_at = report3.created_at
+      interval3.ends_at = Time.now.advance(:days => -1)
+      incident3.interval = interval3
+
+      report3.save_report_and_children.should == true # should save
+
+      open_reports = Report.open_reports.map {|r| r.uri.to_s }
+      open_reports.class.should == Array
+
+      open_reports.should include(report1.uri.to_s)
+      open_reports.should include(report2.uri.to_s)
+      open_reports.should_not include(report3.uri.to_s)
+
+      open_reports.length.should == 2
+    end
+  end
+
   describe "create report and children in a transaction" do
 
     # this is just testing my transaction pattern works!

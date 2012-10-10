@@ -76,11 +76,5 @@ class Incident
     self.where(query)
   end
 
-  def self.delete_all
-    Tripod::SparqlClient::Update::update(
-      "DELETE {graph <#{Incident.graph_uri}> {?s ?p ?o}}
-      WHERE {graph <#{Incident.graph_uri}> {?s ?p ?o}}"
-    )
-  end
 
 end

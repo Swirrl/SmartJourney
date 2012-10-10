@@ -10,8 +10,16 @@ class Interval
     RDF::URI("http://data.smartjourney.co.uk/graph/reports") # goes in the reports graph
   end
 
-  field :begins_at, 'http://purl.org/NET/c4dm/timeline.owl#beginsAtDateTime', :datatype => RDF::XSD.dateTime
-  field :ends_at, 'http://purl.org/NET/c4dm/timeline.owl#endsAtDateTime', :datatype => RDF::XSD.dateTime
+  def self.begins_at_predicate
+    RDF::URI('http://purl.org/NET/c4dm/timeline.owl#beginsAtDateTime')
+  end
+
+  def self.ends_at_predicate
+    RDF::URI('http://purl.org/NET/c4dm/timeline.owl#endsAtDateTime')
+  end
+
+  field :begins_at, Interval.begins_at_predicate, :datatype => RDF::XSD.dateTime
+  field :ends_at, Interval.ends_at_predicate, :datatype => RDF::XSD.dateTime
   field :rdf_type, RDF.type
   field :label, RDF::RDFS.label
 
@@ -35,11 +43,5 @@ class Interval
     self.where(query)
   end
 
-  def self.delete_all
-    Tripod::SparqlClient::Update::update(
-      "DELETE {graph <#{Interval.graph_uri}> {?s ?p ?o}}
-      WHERE {graph <#{Interval.graph_uri}> {?s ?p ?o}}"
-    )
-  end
 
 end
