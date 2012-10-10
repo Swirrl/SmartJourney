@@ -60,8 +60,8 @@ class User
   field :screen_name, type: String
   validates :screen_name,
     :presence => true,
-    :format => {:with => /\A[a-zA-Z0-9_\-]/, :message => "can only contain letters, numbers, hyphens and underscores." },
-    :length => { :in => 1..15 },
+    :format => {:with => /\A[a-zA-Z0-9_\-]*\z/, :message => "can only contain letters, numbers, hyphens and underscores." },
+    :length => { :in => 2..15 },
     :uniqueness => true
 
   field :uri, type: String
