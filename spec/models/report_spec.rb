@@ -105,7 +105,7 @@ describe Report do
       r.save!
 
       Report.all.length.should be > 0
-      Report.delete_all
+      Report.delete_all_from_graph
       Report.all.length.should == 0
     end
   end

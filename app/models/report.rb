@@ -164,7 +164,8 @@ class Report
     hash
   end
 
-  def self.delete_all
+  # deletes all report, incidents, places, intervals, comments
+  def self.delete_all_from_graph
     Tripod::SparqlClient::Update::update(
       "DELETE {graph <#{Report.graph_uri}> {?s ?p ?o}}
       WHERE {graph <#{Report.graph_uri}> {?s ?p ?o}}"

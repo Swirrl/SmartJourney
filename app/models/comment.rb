@@ -58,11 +58,5 @@ class Comment
     self.where(query)
   end
 
-  def self.delete_all
-    Tripod::SparqlClient::Update::update(
-      "DELETE {graph <#{Comment.graph_uri}> {?s ?p ?o}}
-      WHERE {graph <#{Comment.graph_uri}> {?s ?p ?o}}"
-    )
-  end
 
 end

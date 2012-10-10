@@ -43,11 +43,7 @@ RSpec.configure do |config|
 
   config.before(:each)  do
 
-    Place.delete_all
-    Interval.delete_all
-    Incident.delete_all
-    Report.delete_all
-    Comment.delete_all
+    Report.delete_all_from_graph
     RdfUser.delete_all
 
     # clean mongo
