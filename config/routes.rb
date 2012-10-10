@@ -5,7 +5,11 @@ PmdWinter::Application.routes.draw do
   devise_for :users
   root :to => 'reports#index'
 
-  resources :reports
+  resources :reports do
+    member do
+      put "close"
+    end
+  end
 
   resources :zones
 

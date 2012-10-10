@@ -15,14 +15,32 @@
     <%= @report.description %><br/><br/>
   <% end %>
 
-  <% if can_update_report? %>
+  <%= form.label 'tags (comma separated)' %>
 
+  <% if can_update_report? %>
+    <%= form.text_field :tags_string  %><br/><br/>
   <% else %>
-
+    <%= @report.tags_string %><br/><br/>
   <% end %>
 
   <% if can_update_report? %>
-    <%= form.submit %>
+    <%= form.label 'location (click to move pin)' %>
+  <% else %>
+    <%= form.label 'location' %>
   <% end %>
 
+  <div id="report-map" style="height:300px; width:300px; margin-bottom:20px">
+   [TODO: Map here]
+  </div>
+
+  <% if can_update_report? %>
+    <%= form.submit "Update Report Details" %>
+  <% end %>
+
+<% end %>
+
+<% if can_update_report? %>
+  <%= form_tag(close_report_path, :method => :put ) do%>
+    <%= submit_tag "Close This Report", :confirm => "Are you sure you want to close this report?" %>
+  <% end %>
 <% end %>

@@ -58,7 +58,12 @@ class ReportsController < ApplicationController
   end
 
   def update
+    # save all the data passed in.
+  end
 
+  # PUT /reports/:id/close
+  def close
+    # todo: Set the end time of the incident.
   end
 
 end
