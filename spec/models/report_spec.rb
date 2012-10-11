@@ -187,7 +187,6 @@ describe Report do
         @incident.description = 'hello'
 
         @report.incident = @incident
-        @place.associate_zone()
         @incident.place = @place
         @incident.interval = @interval
 
@@ -233,10 +232,8 @@ describe Report do
         @incident.description = 'hello'
 
         @report.incident = @incident
-        @place.associate_zone()
         @incident.place = @place
         @incident.interval = @interval
-        @interval.begins_at = @report.created_at
 
         t = Tripod::Persistence::Transaction.new
 

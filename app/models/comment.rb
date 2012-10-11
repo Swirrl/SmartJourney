@@ -61,6 +61,12 @@ class Comment
     self.where(query)
   end
 
+  private
+
+  def before_save
+    self.label = comment.content.truncate(20) + " by #{self.creator.screen_name}"
+  end
+
 
 
 

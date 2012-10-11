@@ -49,8 +49,7 @@ class Place
     self[Place.zone_predicate] = new_zone.uri
   end
 
-  # associates this report with a single zone, based on this report's lat-longs.
-  # TODO: call this before every save time? Use callbacks? (need to add to tripod).
+  # associates this report with a single zone, based on this report's lat-longs
   def associate_zone
     z = Zone.zone_for_lat_long(self.latitude, self.latitude)
     self.zone = z if z
@@ -68,6 +67,7 @@ class Place
   end
 
   def before_save
+    associate_zone()
     self.label = self.latitude.to_s + ', ' + self.longitude.to_s
   end
 

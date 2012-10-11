@@ -47,6 +47,8 @@ class Interval
     self.where(query)
   end
 
+  private
+
   def before_save
     self.label = "begins: #{I18n.l(Time.parse(self.begins_at), :format => :long)}"
     self.label += ", ends:  #{I18n.l(Time.parse(self.ends_at), :format => :long)}" if self.ends_at

@@ -29,7 +29,6 @@ class ReportsController < ApplicationController
 
     # associate
     @report.incident = @incident
-    @place.associate_zone()
     @incident.place = @place
     @incident.interval = @interval
 
