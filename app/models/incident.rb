@@ -1,6 +1,7 @@
 class Incident
 
   include Tripod::Resource
+  include BeforeSave
 
   def self.place_predicate
     RDF::URI("http://purl.org/NET/c4dm/event.owl#place")
@@ -28,7 +29,9 @@ class Incident
   def initialize(uri=nil, graph_uri=nil)
     super(uri || RDF::URI("http://data.smartjourney.co.uk/id/incident/#{Guid.new.to_s}"), graph_uri || Incident.graph_uri)
     self.rdf_type ||= Incident.rdf_type
-    self.label ||= "an incident" #TODO: auto gen based on contents, before_save
+
+    #these will get stomped on by before_save, but they make it valid for now...
+    self.label ||= "incident"
   end
 
   # get an instance of a place object, based on the uri in this incident's place predicate
@@ -74,6 +77,15 @@ class Incident
         }
       }"
     self.where(query)
+  end
+
+  private
+
+   def before_save
+    self.label = "Incident at "
+    self.label += "[#{self.place.latitude.to_s}, #{self.place.longitude.to_s}]"
+    self.label += ", begins: #{I18n.l(Time.parse(self.interval.begins_at), :format => :long)}"
+    self.label += ", ends:  #{I18n.l(Time.parse(self.interval.ends_at), :format => :long)}" if self.interval.ends_at
   end
 
 

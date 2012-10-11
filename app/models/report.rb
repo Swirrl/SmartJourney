@@ -1,6 +1,7 @@
 class Report
 
   include Tripod::Resource
+  include BeforeSave
 
   # need to define this before we use it below.
   def self.created_at_predicate
@@ -44,8 +45,10 @@ class Report
   def initialize(uri=nil, graph_uri=nil)
     super(uri || RDF::URI("http://data.smartjourney.co.uk/id/report/#{Guid.new.to_s}"), graph_uri || Report.graph_uri)
     self.rdf_type ||= Report.rdf_type
-    self.label ||= "a report" # TODO: autogen before_save based on contents.
-    self.created_at ||= Time.now # TODO: autogen before_save based on current time then.
+
+    #these will get stomped on by before_save, but they make it valid for now...
+    self.label ||= "report"
+    self.created_at ||= Time.now
   end
 
   # PROXIED METHODS
@@ -61,7 +64,6 @@ class Report
   def description
     self.incident.description if self.incident
   end
-
 
   # returns a user object.
   def creator
@@ -189,6 +191,18 @@ class Report
       "DELETE {graph <#{Report.graph_uri}> {?s ?p ?o}}
       WHERE {graph <#{Report.graph_uri}> {?s ?p ?o}};"
     )
+  end
+
+  private
+
+  def before_save
+    now = Time.now
+    self.created_at = now if self.new_record?
+    self.incident.interval.begins_at = now unless self.incident.interval.begins_at
+
+    self.label = "Report: self.description.truncate(20)"
+    self.label += ", created #{I18n.l(Time.parse(self.created_at), :format => :long)}"
+    self.label += "by #{self.creator.screen_name}" if self.creator
   end
 
 

@@ -1,6 +1,7 @@
 class Place
 
   include Tripod::Resource
+  include BeforeSave
 
   def self.zone_predicate
     RDF::URI("http://data.smartjourney.co.uk/def/zone")
@@ -26,7 +27,9 @@ class Place
   def initialize(uri=nil, graph_uri=nil)
     super(uri || RDF::URI("http://data.smartjourney.co.uk/id/place/#{Guid.new.to_s}"), graph_uri || Place.graph_uri)
     self.rdf_type ||= Place.rdf_type
-    self.label ||= "a place" #TODO: auto gen based on contents, before_save
+
+    #these will get stomped on by before_save, but they make it valid for now...
+    self.label ||= "place"
   end
 
   # get an instance of a zone object, based on the uri in this report's zone predicate
@@ -62,6 +65,10 @@ class Place
         }
       }"
     self.where(query)
+  end
+
+  def before_save
+    self.label = self.latitude.to_s + ', ' + self.longitude.to_s
   end
 
 

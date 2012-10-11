@@ -1,6 +1,7 @@
 class Comment
 
   include Tripod::Resource
+  include BeforeSave
 
   def self.created_at_predicate
     RDF::URI('http://purl.org/dc/terms/created')
@@ -29,8 +30,10 @@ class Comment
   def initialize(uri=nil, graph_uri=nil)
     super(uri || RDF::URI("http://data.smartjourney.co.uk/id/place/#{Guid.new.to_s}"), graph_uri || Place.graph_uri)
     self.rdf_type ||= Place.rdf_type
-    self.label ||= "a comment" #TODO: auto gen based on contents, before_save
-    self.created_at ||= Time.now #TODO: do this before save instead
+
+    #these will get stomped on by before_save, but they make it valid for now...
+    self.label ||= "comment"
+    self.created_at ||= Time.now
   end
 
   # returns a user object.
@@ -57,6 +60,8 @@ class Comment
       }"
     self.where(query)
   end
+
+
 
 
 end

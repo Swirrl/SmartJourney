@@ -140,7 +140,6 @@ describe Report do
 
       report2.incident = incident2
       incident2.place = place2
-      interval2.begins_at = report2.created_at
       interval2.ends_at.should == nil
       incident2.interval = interval2
 
@@ -154,7 +153,6 @@ describe Report do
 
       report3.incident = incident3
       incident3.place = place3
-      interval3.begins_at = report3.created_at
       interval3.ends_at = Time.now.advance(:days => -1)
       incident3.interval = interval3
 
@@ -192,7 +190,6 @@ describe Report do
         @place.associate_zone()
         @incident.place = @place
         @incident.interval = @interval
-        @interval.begins_at = @report.created_at
 
         t = Tripod::Persistence::Transaction.new
 

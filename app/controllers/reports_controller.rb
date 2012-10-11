@@ -32,7 +32,6 @@ class ReportsController < ApplicationController
     @place.associate_zone()
     @incident.place = @place
     @incident.interval = @interval
-    @interval.begins_at = @report.created_at
 
     t = Tripod::Persistence::Transaction.new
 
@@ -63,16 +62,8 @@ class ReportsController < ApplicationController
     @incident = @report.incident
     @place = @incident.place
 
-    # @interval = @incident.interval # not needed yet
-    Rails.logger.debug "lat before " + @report.incident.place.latitude
-
-    Rails.logger.debug "lat passed " + params[:report][:latitude]
-
     @place.latitude = params[:report][:latitude]
     @place.longitude = params[:report][:longitude]
-
-
-    Rails.logger.debug "lat after " + @report.incident.place.latitude
 
     @place.associate_zone()
 

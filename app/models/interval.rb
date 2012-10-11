@@ -1,6 +1,7 @@
 class Interval
 
   include Tripod::Resource
+  include BeforeSave
 
   def self.rdf_type
     RDF::URI("http://purl.org/NET/c4dm/timeline.owl#Interval")
@@ -23,13 +24,16 @@ class Interval
   field :rdf_type, RDF.type
   field :label, RDF::RDFS.label
 
-  validates :label, :rdf_type, :presence => true
+  validates :label, :begins_at, :rdf_type, :presence => true
 
   # override initialise
   def initialize(uri=nil, graph_uri=nil)
     super(uri || RDF::URI("http://data.smartjourney.co.uk/id/interval/#{Guid.new.to_s}"), graph_uri || Interval.graph_uri)
     self.rdf_type ||= Interval.rdf_type
-    self.label ||= "an interval" #TODO: auto gen based on contents, before_save
+
+    #these will get stomped on by before_save, but they make it valid for now...
+    self.label ||= "interval"
+    self.begins_at ||= Time.now
   end
 
    def self.all
@@ -43,5 +47,9 @@ class Interval
     self.where(query)
   end
 
+  def before_save
+    self.label = "begins: #{I18n.l(Time.parse(self.begins_at), :format => :long)}"
+    self.label += ", ends:  #{I18n.l(Time.parse(self.ends_at), :format => :long)}" if self.ends_at
+  end
 
 end
