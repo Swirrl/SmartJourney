@@ -240,7 +240,7 @@ GEM
     treetop (1.4.10)
       polyglot
       polyglot (>= 0.3.1)
-    tripod (0.0.9)
+    tripod (0.0.10)
       activemodel (~> 3.1)
       equivalent-xml
       guid
@@ -288,6 +288,6 @@ DEPENDENCIES
   rails (= 3.2.8)
   rdiscount
   rspec-rails (~> 2.0)
-  tripod (= 0.0.9)
+  tripod (= 0.0.10)
   webmock
   yui-compressor

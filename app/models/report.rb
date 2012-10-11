@@ -32,7 +32,7 @@ class Report
   field :label, RDF::RDFS.label
   field :tags, Report.tag_predicate, :multivalued => true
 
-  validates :created_at,  :label, :rdf_type, :presence => true
+  validates :created_at, :label, :rdf_type, :presence => true
   validates :incident, :presence => true #associated incident
 
   # allow validation of lat and long here by using the proxy methods
