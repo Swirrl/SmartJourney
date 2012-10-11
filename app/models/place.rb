@@ -66,6 +66,7 @@ class Place
     self.where(query)
   end
 
+  private
   def before_save
     associate_zone()
     self.label = self.latitude.to_s + ', ' + self.longitude.to_s

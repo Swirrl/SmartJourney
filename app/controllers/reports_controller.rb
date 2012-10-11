@@ -27,10 +27,15 @@ class ReportsController < ApplicationController
     @report.tags_string = params[:report][:tags_string]
     @report.creator = current_user if current_user
 
+    if can? :create, :planned_incident
+      @interval.begins_at = params[:report][:incident_begins_at] if params[:report][:incident_begins_at].present?
+      @interval.ends_at = params[:report][:incident_ends_at] if params[:report][:incident_ends_at].present?
+    end
+
     # associate
     @report.incident = @incident
-    @incident.place = @place
     @incident.interval = @interval
+    @incident.place = @place
 
     t = Tripod::Persistence::Transaction.new
 

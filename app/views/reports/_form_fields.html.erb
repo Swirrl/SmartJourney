@@ -6,19 +6,44 @@
   <%= render 'shared/leaflet_css' %>
 <% end %>
 
-<%= form.label 'description' %>
+<%= form.label :description %>
 <%= form.text_area :description, rows: 4%>
 
-<%= form.label 'tags (comma separated)' %>
+<%= form.label :tags, 'tags (comma separated)' %>
 <%= form.text_field :tags_string  %>
 
 <div id="latlong">
-  <%= form.label 'latitude' %>
+  <%= form.label :latitude %>
   <%= form.text_field :latitude %>
 
-  <%= form.label 'longitude' %>
+  <%= form.label :longitude %>
   <%= form.text_field :longitude %>
 </div>
+
+<% if can? :create, :planned_incident %>
+  <%= form.label :incident_begins_at, 'planned start (leave blank to start now)' %>
+  <%= form.text_field :incident_begins_at %>
+
+  <%= form.label :incident_ends_at, 'planned end (leave blank for open ended: you can close later)' %>
+  <%= form.text_field :incident_ends_at %>
+
+  <script type="text/javascript">
+    $(function() {
+      var beginsDatePicker = $( "#report_incident_begins_at" ).datepicker(
+        {
+          dateFormat: 'yy-mm-dd'
+        }
+      );
+
+      var endsDatePicker = $( "#report_incident_ends_at" ).datepicker(
+        {
+          dateFormat: 'yy-mm-dd'
+        }
+      );
+
+    });
+  </script>
+<% end %>
 
 <h4>Click to drop a pin at the location of the incident</h4>
 <div id="report-map" style="height:300px; width:300px; margin-bottom:20px"></div>

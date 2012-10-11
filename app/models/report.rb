@@ -33,13 +33,14 @@ class Report
   field :label, RDF::RDFS.label
   field :tags, Report.tag_predicate, :multivalued => true
 
-  validates :created_at, :label, :rdf_type, :presence => true
+  validates :created_at, :label, :rdf_type, :description, :presence => true
   validates :incident, :presence => true #associated incident
 
   # allow validation of lat and long here by using the proxy methods
   validates :latitude, :longitude, :format => { :with => %r([0-9]+\.[0-9]*) }, :if => Proc.new {|p| (p.latitude.present? && p.longitude.present?) }
   validates :longitude, :latitude, :presence => true
-  validates :description, :presence => true
+  # likewise, begin end times (from interval)
+  validate :validate_begin_and_end_times
 
   # override initialise
   def initialize(uri=nil, graph_uri=nil)
@@ -64,6 +65,16 @@ class Report
   def description
     self.incident.description if self.incident
   end
+
+  def incident_begins_at
+    self.incident.interval.begins_at if self.incident && self.incident.interval
+  end
+
+  def incident_ends_at
+    self.incident.interval.ends_at if self.incident && self.incident.interval
+  end
+
+  # END PROXIED METHODS
 
   # returns a user object.
   def creator
@@ -196,13 +207,16 @@ class Report
   private
 
   def before_save
-    now = Time.now
-    self.created_at = now if self.new_record?
-    self.incident.interval.begins_at = now unless self.incident.interval.begins_at
+    self.created_at = Time.now if self.new_record?
 
     self.label = "Report: self.description.truncate(20)"
     self.label += ", created #{I18n.l(Time.parse(self.created_at), :format => :long)}"
     self.label += "by #{self.creator.screen_name}" if self.creator
+  end
+
+  def validate_begin_and_end_times
+    errors.add(:incident_begins_at, 'must be a valid datetime') if ((incident_begins_at && DateTime.parse(incident_begins_at) rescue ArgumentError) == ArgumentError)
+    errors.add(:incident_ends_at, 'must be a valid datetime') if ((incident_ends_at && DateTime.parse(incident_ends_at) rescue ArgumentError) == ArgumentError)
   end
 
 

@@ -84,8 +84,8 @@ class Incident
   def before_save
     self.label = "Incident at "
     self.label += "[#{self.place.latitude.to_s}, #{self.place.longitude.to_s}]"
-    self.label += ", begins: #{I18n.l(Time.parse(self.interval.begins_at), :format => :long)}"
-    self.label += ", ends:  #{I18n.l(Time.parse(self.interval.ends_at), :format => :long)}" if self.interval.ends_at
+    self.label += ", begins: #{I18n.l(Time.parse(self.interval.begins_at), :format => :long)}" rescue nil
+    self.label += ", ends:  #{I18n.l(Time.parse(self.interval.ends_at), :format => :long)}" if self.interval.ends_at rescue nil
   end
 
 

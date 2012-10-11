@@ -25,6 +25,7 @@ class Interval
   field :label, RDF::RDFS.label
 
   validates :label, :begins_at, :rdf_type, :presence => true
+  validate :validate_begin_and_end_times
 
   # override initialise
   def initialize(uri=nil, graph_uri=nil)
@@ -49,7 +50,14 @@ class Interval
 
   private
 
+  def validate_begin_and_end_times
+    errors.add(:begins_at, 'must be a valid datetime') if ((begins_at && DateTime.parse(begins_at) rescue ArgumentError) == ArgumentError)
+    errors.add(:ends_at, 'must be a valid datetime') if ((ends_at && DateTime.parse(ends_at) rescue ArgumentError) == ArgumentError)
+  end
+
   def before_save
+    self.begins_at = Time.now unless self.begins_at
+
     self.label = "begins: #{I18n.l(Time.parse(self.begins_at), :format => :long)}"
     self.label += ", ends:  #{I18n.l(Time.parse(self.ends_at), :format => :long)}" if self.ends_at
   end
