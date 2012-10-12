@@ -227,7 +227,7 @@ class Report
   def before_save
     self.created_at = Time.now if self.new_record?
 
-    self.label = "Report: self.description.truncate(20)"
+    self.label = "Report: #{self.description.truncate(20)}"
     self.label += ", created #{I18n.l(Time.parse(self.created_at), :format => :long)}"
     self.label += "by #{self.creator.screen_name}" if self.creator
   end
