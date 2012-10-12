@@ -47,7 +47,7 @@ class Zone
     filelist.each do |f|
       file = File.new(f)
       zone = JSON.parse(file.read)
-      if Polygon.point_in_zone(long,lat,zone)
+      if Polygon.point_in_zone(long.to_f,lat.to_f,zone)
         zoneslug = f.split('/').last.gsub(/\.json/,'')
         file.close
         break  # assume only one polygon contains the point
@@ -55,8 +55,8 @@ class Zone
       file.close
     end
 
+    # TODO: needs fixing.
     uri = "http://data.smartjourney.co.uk/id/zone/" + zoneslug
-
     Zone.find(uri) rescue nil
   end
 
