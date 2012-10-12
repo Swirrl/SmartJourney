@@ -229,7 +229,7 @@ class Report
 
     self.label = "Report: #{self.description.truncate(20)}"
     self.label += ", created #{I18n.l(Time.parse(self.created_at), :format => :long)}"
-    self.label += "by #{self.creator.screen_name}" if self.creator
+    self.label += " by #{self.creator.screen_name}" if self.creator
   end
 
   def validate_begin_and_end_times
