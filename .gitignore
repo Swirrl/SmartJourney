@@ -20,4 +20,4 @@
 /log/*.log
 /tmp
 
-/public/boundaries
+/public/zone_boundaries
