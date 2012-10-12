@@ -14,7 +14,7 @@
         <% end %>
 
         <% if report.creator %>
-          Reported by: <%= report.creator.screen_name %>,
+          Reported by: <%= report.creator.screen_name %><%= ' (admin)' if report.creator.role? 'super_user' %>,
         <% end %>
         <%= l(Time.parse(report.created_at), :format => :long) %><br/>
         <%= link_to "details", report_path(report.guid) %>
