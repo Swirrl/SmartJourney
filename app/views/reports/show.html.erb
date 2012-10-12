@@ -15,11 +15,15 @@
   <%= error_messages_for(@report)  %>
 
   <h4>reported by</h4>
-  <%= @report.creator.screen_name if @report.creator %>
-  <% if current_user && @report.creator && @report.creator.screen_name == current_user.screen_name %>
-    (this is you!)
-  <% elsif !current_user %>
-    (Is this you? Log in to edit this report)
+  <% if @report.creator %>
+    <%= @report.creator.screen_name %>
+    <% if current_user && @report.creator && @report.creator.screen_name == current_user.screen_name %>
+      (this is you!)
+    <% elsif !current_user %>
+      (Is this you? Log in to edit this report)
+    <% end %>
+  <% else %>
+    (Anonymously reported)
   <% end %>
 
   <br/><br/>
