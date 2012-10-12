@@ -10,7 +10,7 @@ development:
   sparql_endpoint: http://127.0.0.1:3030/winter/sparql
   local_domain: data.smartjourney.co.uk
   sparql_timeout_seconds: 10
-  cache_sparql_results: true
+  cache_sparql_results: false
   record_analytics: true
 
 test:

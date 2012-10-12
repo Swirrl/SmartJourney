@@ -1,0 +1,48 @@
+<%= form.label :incident_begins_at, 'planned start (leave blank to start now)' %>
+<%= form.text_field :incident_begins_at %>
+<div id="begins_picker"></div><br/>
+
+<%= form.label :incident_ends_at, 'planned end (leave blank for open ended: you can close later)' %>
+<%= form.text_field :incident_ends_at %>
+<div id="ends_picker"></div><br/>
+
+<script type="text/javascript">
+ $(function() {
+    var beginsPicker = $( "#begins_picker" ).datepicker({
+      dateFormat: 'yy-mm-dd',
+      onSelect: function(date) {
+        $("#report_incident_begins_at").val(date);
+      }
+    });
+
+    var endsPicker = $( "#ends_picker" ).datepicker({
+      dateFormat: 'yy-mm-dd',
+      onSelect: function(date) {
+        $("#report_incident_ends_at").val(date);
+      }
+    });
+
+    var setBeginsPickerDate = function(e) {
+      var val = $("#report_incident_begins_at").val();
+      beginsPicker.datepicker("setDate", val);
+    }
+
+    var setEndsPickerDate = function(e) {
+      var val = $("#report_incident_ends_at").val();
+      endsPicker.datepicker("setDate", val);
+    }
+
+    // set initial values
+    <% if @report.incident_begins_at %>
+      setBeginsPickerDate();
+    <% end %>
+
+    <% if @report.incident_ends_at %>
+      setEndsPickerDate();
+    <% end %>
+
+    $("#report_incident_begins_at").bind("input paste change keyup", setBeginsPickerDate );
+    $("#report_incident_ends_at").bind("input paste change keyup", setEndsPickerDate );
+
+  });
+</script>

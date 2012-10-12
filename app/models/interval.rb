@@ -1,6 +1,7 @@
 class Interval
 
   include Tripod::Resource
+  include DateTimeValidator
   include BeforeSave
 
   def self.rdf_type
@@ -51,15 +52,23 @@ class Interval
   private
 
   def validate_begin_and_end_times
-    errors.add(:begins_at, 'must be a valid datetime') if ((begins_at && DateTime.parse(begins_at) rescue ArgumentError) == ArgumentError)
-    errors.add(:ends_at, 'must be a valid datetime') if ((ends_at && DateTime.parse(ends_at) rescue ArgumentError) == ArgumentError)
+    Rails.logger.debug "in interval validate begin/end"
+    errors.add(:begins_at, 'must be a valid datetime') unless is_valid_datetime? self.begins_at
+    (errors.add(:ends_at, 'must be a valid datetime') unless is_valid_datetime?(self.ends_at) ) if self.ends_at
   end
 
   def before_save
-    self.begins_at = Time.now unless self.begins_at
 
-    self.label = "begins: #{I18n.l(Time.parse(self.begins_at), :format => :long)}"
-    self.label += ", ends:  #{I18n.l(Time.parse(self.ends_at), :format => :long)}" if self.ends_at
+    if self.new_record?
+      self.begins_at = Time.now unless self.begins_at  # only for new records.
+    end
+
+    # make sure times in the db are full iso format
+    self.begins_at = Time.parse(self.begins_at).getlocal.iso8601().to_s if is_valid_datetime?(self.begins_at)
+    (self.ends_at = Time.parse(self.ends_at).getlocal.iso8601().to_s if is_valid_datetime?(self.ends_at) ) if self.ends_at
+
+    self.label = "begins: #{I18n.l(Time.parse(self.begins_at), :format => :long)}" rescue nil
+    self.label += ", ends:  #{I18n.l(Time.parse(self.ends_at), :format => :long)}" if self.ends_at rescue nil
   end
 
 end

@@ -82,6 +82,7 @@ class Incident
   private
 
   def before_save
+    Rails.logger.debug "in incident before save"
     self.label = "Incident at "
     self.label += "[#{self.place.latitude.to_s}, #{self.place.longitude.to_s}]"
     self.label += ", begins: #{I18n.l(Time.parse(self.interval.begins_at), :format => :long)}" rescue nil

@@ -27,6 +27,7 @@ class ReportsController < ApplicationController
     @report.tags_string = params[:report][:tags_string]
     @report.creator = current_user if current_user
 
+    # make sure that this is actually allowed to be changed by this user.
     if can? :create, :planned_incident
       @interval.begins_at = params[:report][:incident_begins_at] if params[:report][:incident_begins_at].present?
       @interval.ends_at = params[:report][:incident_ends_at] if params[:report][:incident_ends_at].present?
@@ -65,15 +66,22 @@ class ReportsController < ApplicationController
 
     @incident = @report.incident
     @place = @incident.place
+    @interval = @incident.interval
 
     @place.latitude = params[:report][:latitude]
     @place.longitude = params[:report][:longitude]
-
-    @place.associate_zone()
-
     @report.tags_string = params[:report][:tags_string]
 
+    # make sure that this is actually allowed to be changed by this user.
+    if can? :update, :planned_incident
+      @interval.begins_at = params[:report][:incident_begins_at].present? ? params[:report][:incident_begins_at] : Time.now
+      @interval.ends_at = params[:report][:incident_ends_at] if params[:report][:incident_ends_at].present?
+    end
+
     t = Tripod::Persistence::Transaction.new
+
+    Rails.logger.debug @interval.begins_at
+    Rails.logger.debug @interval.ends_at
 
     success = @report.save_report_and_children(transaction: t)
 

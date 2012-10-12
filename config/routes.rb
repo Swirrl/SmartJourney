@@ -1,6 +1,6 @@
 PmdWinter::Application.routes.draw do
 
-  mount PublishMyData::Engine => "/", :constraints => lambda {|req| req.host.split('.').first == 'data'} # mount at the root, so we fall back to engine if route not defined here.
+  mount PublishMyData::Engine => "/", :constraints => lambda {|req| sub = req.host.split('.').first; Rails.logger.debug("subdomain: #{sub}"); equal = sub.strip() == 'data'; Rails.logger.debug("equal data: #{equal}"); equal} # mount at the root, so we fall back to engine if route not defined here.
 
   devise_for :users
   root :to => 'reports#index'

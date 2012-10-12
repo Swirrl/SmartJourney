@@ -21,28 +21,7 @@
 </div>
 
 <% if can? :create, :planned_incident %>
-  <%= form.label :incident_begins_at, 'planned start (leave blank to start now)' %>
-  <%= form.text_field :incident_begins_at %>
-
-  <%= form.label :incident_ends_at, 'planned end (leave blank for open ended: you can close later)' %>
-  <%= form.text_field :incident_ends_at %>
-
-  <script type="text/javascript">
-    $(function() {
-      var beginsDatePicker = $( "#report_incident_begins_at" ).datepicker(
-        {
-          dateFormat: 'yy-mm-dd'
-        }
-      );
-
-      var endsDatePicker = $( "#report_incident_ends_at" ).datepicker(
-        {
-          dateFormat: 'yy-mm-dd'
-        }
-      );
-
-    });
-  </script>
+  <%= render 'begin_end_picker', form: form %>
 <% end %>
 
 <h4>Click to drop a pin at the location of the incident</h4>
@@ -63,6 +42,12 @@
     tileLayer.addTo(map);
 
     var marker;
+
+    <% if @report.latitude && @report.latitude %>
+    <% # plot on map if in the report object, e.g. after invalid attempt %>
+      marker = L.marker([<%= @report.latitude %>, <%= @report.longitude %>]);
+      marker.addTo(map);
+    <% end %>
 
     function onMapClick(e) {
       if (marker) {

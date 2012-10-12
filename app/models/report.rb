@@ -2,6 +2,9 @@ class Report
 
   include Tripod::Resource
   include BeforeSave
+  include DateTimeValidator
+
+  UI_DATE_FORMAT ="%Y-%m-%d %H:%M"
 
   # need to define this before we use it below.
   def self.created_at_predicate
@@ -67,11 +70,11 @@ class Report
   end
 
   def incident_begins_at
-    self.incident.interval.begins_at if self.incident && self.incident.interval
+    Time.parse(self.incident.interval.begins_at).strftime(Report::UI_DATE_FORMAT) if self.incident && self.incident.interval && self.incident.interval.begins_at
   end
 
   def incident_ends_at
-    self.incident.interval.ends_at if self.incident && self.incident.interval
+    Time.parse(self.incident.interval.ends_at).strftime(Report::UI_DATE_FORMAT) if self.incident && self.incident.interval && self.incident.interval.ends_at
   end
 
   # END PROXIED METHODS
@@ -121,7 +124,9 @@ class Report
     interval = incident.interval
     place = incident.place
 
+    Rails.logger.debug("about to save interval")
     interval_success = interval.save(opts)
+    Rails.logger.debug("saved interval")
     place_success = place.save(opts)
     incident_success = incident.save(opts)
     report_success = self.save(opts)
@@ -215,8 +220,8 @@ class Report
   end
 
   def validate_begin_and_end_times
-    errors.add(:incident_begins_at, 'must be a valid datetime') if ((incident_begins_at && DateTime.parse(incident_begins_at) rescue ArgumentError) == ArgumentError)
-    errors.add(:incident_ends_at, 'must be a valid datetime') if ((incident_ends_at && DateTime.parse(incident_ends_at) rescue ArgumentError) == ArgumentError)
+    errors.add(:incident_begins_at, 'must be a valid datetime') unless is_valid_datetime? self.incident_begins_at
+    (errors.add(:incident_ends_at, 'must be a valid datetime') unless is_valid_datetime?(self.incident_ends_at) ) if self.incident_ends_at
   end
 
 

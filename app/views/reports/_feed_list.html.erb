@@ -3,13 +3,18 @@
   <ul>
     <% @recent_reports.last(20).each do |report| %>
       <li>
-      <!--  uri: <%= report.uri %><br/>
-        id: <%= report.guid %><br/>
-      -->
         <%= report.description %><br/>
         tags: <%= report.tags.join(", ") %><br/>
+
+        <% if Time.parse(report.incident_begins_at) >= Time.now %>
+          begins: <%= l(Time.parse(report.incident_begins_at), :format => :long) %><br/>
+        <% end %>
+        <% if report.incident_ends_at && Time.parse(report.incident_ends_at) > Time.now %>
+          ends: <%= l(Time.parse(report.incident_ends_at), :format => :long) %><br/>
+        <% end %>
+
         <% if report.creator %>
-          <%= report.creator.screen_name %>,
+          Reported by: <%= report.creator.screen_name %>,
         <% end %>
         <%= l(Time.parse(report.created_at), :format => :long) %><br/>
         <%= link_to "details", report_path(report.guid) %>
