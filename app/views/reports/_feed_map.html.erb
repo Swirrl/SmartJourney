@@ -36,22 +36,23 @@
       var report = reports[i];
       var marker = new L.Marker(new L.LatLng(report.latitude, report.longitude));
 
-      var markerContent = "<strong>" + report.reportType + "</strong><br/>" +
-        report.description  + "<br/>";
+      var markerContent = report.description  + "<br/>";
+      markerContent +=  "Tags: " + report.tags_string + "<br/>";
 
-      if (report.reporter) {
-        markerContent += report.reporter  + ", ";
+      if (report.incident_begins_in_future) {
+        markerContent += "Begins: " + report.incident_begins_at + "<br/>";
       }
 
-      markerContent += report.datetime + "<br/>";
+      if (report.incident_ends_in_future) {
+        markerContent += "Ends: " + report.incident_ends_at + "<br/>";
+      }
 
-      marker.bindPopup(
-        report.description + "<br/>" +
-        "tags: " + report.tags_string + "<br/>" +
-        report.creator  + ", " + report.datetime + "<br/>" +
-        "<a href='/reports/" + report.guid + "'>details</a>"
-      );
-
+      if (report.creator) {
+        markerContent += "Reported by " + report.creator + "<br/>";
+      }
+      markerContent += "Reported: " + report.created_at + "<br/>";
+      markerContent += "<a href='/reports/" + report.guid + "'>details</a>";
+      marker.bindPopup(markerContent);
       markers.addLayer(marker);
     }
 

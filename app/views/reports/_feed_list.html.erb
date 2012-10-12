@@ -6,17 +6,17 @@
         <%= report.description %><br/>
         tags: <%= report.tags.join(", ") %><br/>
 
-        <% if Time.parse(report.incident_begins_at) >= Time.now %>
+        <% if report.incident_begins_in_future? %>
           begins: <%= l(Time.parse(report.incident_begins_at), :format => :long) %><br/>
         <% end %>
-        <% if report.incident_ends_at && Time.parse(report.incident_ends_at) > Time.now %>
+        <% if report.incident_ends_in_future? %>
           ends: <%= l(Time.parse(report.incident_ends_at), :format => :long) %><br/>
         <% end %>
 
         <% if report.creator %>
           Reported by: <%= report.creator.screen_name %><%= ' (admin)' if report.creator.role? 'super_user' %>,
         <% end %>
-        <%= l(Time.parse(report.created_at), :format => :long) %><br/>
+        Reported: <%= l(Time.parse(report.created_at), :format => :long) %><br/>
         <%= link_to "details", report_path(report.guid) %>
       </li>
     <% end %>

@@ -77,6 +77,14 @@ class Report
     Time.parse(self.incident.interval.ends_at).strftime(Report::UI_DATE_FORMAT) if self.incident && self.incident.interval && self.incident.interval.ends_at
   end
 
+  def incident_begins_in_future?
+    Time.parse(incident_begins_at) >= Time.now
+  end
+
+  def incident_ends_in_future?
+    incident_ends_at && Time.parse(incident_ends_at) >= Time.now
+  end
+
   # END PROXIED METHODS
 
   # returns a user object.
@@ -190,14 +198,19 @@ class Report
   def as_json(options = nil)
     hash = {
       description: self.description,
-      datetime: I18n.l(Time.parse(self.created_at), :format => :long),
+      created_at: I18n.l(Time.parse(self.created_at), :format => :long),
+      incident_begins_at: I18n.l(Time.parse(self.incident_begins_at), :format => :long),
+      incident_begins_in_future: self.incident_begins_in_future?,
+      incident_ends_in_future: self.incident_ends_in_future?,
       latitude: self.latitude,
       longitude: self.longitude,
       tags: self.tags,
       tags_string: self.tags_string,
-      guid: self.guid
+      guid: self.guid,
+
     }
     hash[:creator] = creator.screen_name if creator
+    hash[:incident_ends_at] = I18n.l(Time.parse(self.incident_ends_at), :format => :long) if self.incident_ends_at
     hash
   end
 
