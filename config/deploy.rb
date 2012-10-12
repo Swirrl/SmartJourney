@@ -32,7 +32,7 @@ set :branch, "master"
 set :deploy_via, :remote_cache
 
 after "deploy:setup", "deploy:upload_app_config"
-after "deploy:finalize_update", "deploy:symlink_app_config"
+after "deploy:finalize_update", "deploy:symlink_app_config", "deploy:symlink_zone_boundaries"
 
 namespace :deploy do
 
@@ -73,6 +73,11 @@ namespace :deploy do
   desc "Symlink the application's config files specified in :config_files to the latest release"
   task :symlink_app_config do
     config_files.each { |filename| run "ln -nfs #{shared_path}/#{filename} #{latest_release}/config/#{filename}" }
+  end
+
+  desc "Symlink zone boundaries"
+  task :symlink_zone_boundaries do
+    run "ln -nfs /home/rails/aberdeen-data/boundaries #{latest_release}/public/zone_boundaries"
   end
 
 end

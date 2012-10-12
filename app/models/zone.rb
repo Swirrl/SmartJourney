@@ -41,13 +41,23 @@ class Zone
   end
 
   def self.zone_for_lat_long(lat, long)
-    # TODO: return the zone that contains this lat/long, based on the boundary points
-    # for now, return the first zone, if there are any!
-    unless self.all.empty?
-      self.all.first
-    else
-      nil
+    # loop over files
+    filelist = Dir.glob("#{Rails.root}/public/zone_boundaries/*.json")
+    zoneslug = nil
+    filelist.each do |f|
+      file = File.new(f)
+      zone = JSON.parse(file.read)
+      if Polygon.point_in_zone(long,lat,zone)
+        zoneslug = f.split('/').last.gsub(/\.json/,'')
+        file.close
+        break  # assume only one polygon contains the point
+      end
+      file.close
     end
+
+    uri = "http://data.smartjourney.co.uk/id/zone/" + zoneslug
+
+    Zone.find(uri) rescue nil
   end
 
 end
