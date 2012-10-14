@@ -41,6 +41,7 @@ class Zone
   end
 
   def self.zone_for_lat_long(lat, long)
+    Rails.logger.debug( "in zone for lat long #{lat}, #{long}" )
     # loop over files
     filelist = Dir.glob("#{Rails.root}/public/zone_boundaries/*.json")
     zoneslug = nil
@@ -57,15 +58,18 @@ class Zone
 
     region = nil
     uri = nil
+
     if zoneslug
       if zoneslug[0,9] == "aberdeen-"
         region = "aberdeen-city/"
       else
         region = "aberdeenshire/"
       end
-
       uri = "http://data.smartjourney.co.uk/id/zone/" + region + zoneslug
     end
+
+    Rails.logger.debug "Zone URI #{uri}"
+
     Zone.find(uri) rescue nil # if it's not there, return nil.
   end
 

@@ -59,13 +59,6 @@ class Place
     end
   end
 
-  # associates this report with a single zone, based on this report's lat-longs
-  def associate_zone
-    Rails.logger.debug("associating zone")
-    z = Zone.zone_for_lat_long(self.latitude, self.latitude)
-    self.zone = z
-  end
-
   def self.all
     query = "
       SELECT ?uri (<#{Place.graph_uri}> AS ?graph)
@@ -78,6 +71,14 @@ class Place
   end
 
   private
+
+  # associates this report with a single zone, based on this report's lat-longs
+  def associate_zone
+    Rails.logger.debug("associating zone")
+    z = Zone.zone_for_lat_long(self.latitude, self.longitude)
+    Rails.logger.debug( "ZONE: #{z.inspect}" )
+    self.zone = z
+  end
 
   def set_label
     self.label = self.latitude.to_s + ', ' + self.longitude.to_s
