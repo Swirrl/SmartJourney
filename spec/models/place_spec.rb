@@ -98,6 +98,9 @@ describe Place do
 
   describe "#associate_zone" do
     it 'asisigns zone object based on this places lat and long' do
+
+      Zone.should_receive(:zone_for_lat_long).and_return(Zone.all.first)
+
       subject.associate_zone
       subject.zone.should_not be_nil
     end

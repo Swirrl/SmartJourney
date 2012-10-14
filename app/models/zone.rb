@@ -55,9 +55,18 @@ class Zone
       file.close
     end
 
-    # TODO: needs fixing.
-    uri = "http://data.smartjourney.co.uk/id/zone/" + zoneslug
-    Zone.find(uri) rescue nil
+    region = nil
+    uri = nil
+    if zoneslug
+      if zoneslug[0,9] == "aberdeen-"
+        region = "aberdeen-city/"
+      else
+        region = "aberdeenshire/"
+      end
+
+      uri = "http://data.smartjourney.co.uk/id/zone/" + region + zoneslug
+    end
+    Zone.find(uri) rescue nil # if it's not there, return nil.
   end
 
 end
