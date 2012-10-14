@@ -176,16 +176,17 @@ describe Report do
     context "everything works" do
 
       before do
+
         @interval = Interval.new()
         @incident = Incident.new()
         @place = Place.new()
         @report = Report.new()
 
-        @place.latitude = 53.1
-        @place.longitude = 2.1
+        # this is in aberdeen
+        @place.latitude = 57.15
+        @place.longitude = -2.10
 
         @incident.description = 'hello'
-
         @report.incident = @incident
         @incident.place = @place
         @incident.interval = @interval

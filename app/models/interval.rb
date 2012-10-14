@@ -58,6 +58,7 @@ class Interval
   end
 
   def before_save
+    Rails.logger.debug "in interval before save"
 
     if self.new_record?
       self.begins_at = Time.now unless self.begins_at  # only for new records.

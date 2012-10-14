@@ -44,15 +44,25 @@ class Place
   end
 
   # make an association to a zone by passing in a zone object.
+  # TODO: this pattern of deleting a triple should for a predicate should be moved into tripod.
   def zone=(new_zone)
     @zone = new_zone
-    self[Place.zone_predicate] = new_zone.uri
+    if new_zone
+      self[Place.zone_predicate] = new_zone.uri
+    else
+      Rails.logger.debug "deleting zone"
+      # delete the zone statement.
+      self.repository.query( [:subject, RDF::URI.new(Place.zone_predicate), :object] ) do |statement|
+        self.repository.delete(statement)
+      end
+    end
   end
 
   # associates this report with a single zone, based on this report's lat-longs
   def associate_zone
+    Rails.logger.debug("associating zone")
     z = Zone.zone_for_lat_long(self.latitude, self.latitude)
-    self.zone = z if z
+    self.zone = z
   end
 
   def self.all
@@ -67,7 +77,9 @@ class Place
   end
 
   private
+
   def before_save
+    Rails.logger.debug("in place before save")
     associate_zone()
     self.label = self.latitude.to_s + ', ' + self.longitude.to_s
   end

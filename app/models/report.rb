@@ -39,11 +39,14 @@ class Report
   validates :created_at, :label, :rdf_type, :description, :presence => true
   validates :incident, :presence => true #associated incident
 
-  # allow validation of lat and long here by using the proxy methods
+  # PROXIED VALIDATIONS
   validates :latitude, :longitude, :format => { :with => %r([0-9]+\.[0-9]*) }, :if => Proc.new {|p| (p.latitude.present? && p.longitude.present?) }
   validates :longitude, :latitude, :presence => true
-  # likewise, begin end times (from interval)
-  validate :validate_begin_and_end_times
+
+  validate :validate_begin_and_end_times # likewise, begin end times (from interval)
+
+
+  # END PROXIED VALIDATIONS
 
   # override initialise
   def initialize(uri=nil, graph_uri=nil)
@@ -129,22 +132,32 @@ class Report
 
   def save_report_and_children(opts={})
 
+    Rails.logger.debug('save_report_and_children')
     interval = incident.interval
     place = incident.place
 
-    Rails.logger.debug("about to save interval")
-    interval_success = interval.save(opts)
-    Rails.logger.debug("saved interval")
+    Rails.logger.debug('saving place...')
     place_success = place.save(opts)
-    incident_success = incident.save(opts)
-    report_success = self.save(opts)
+    Rails.logger.debug("place success: #{place_success}")
 
+    Rails.logger.debug('saving interval...')
+    interval_success = interval.save(opts)
+    Rails.logger.debug("interval success: #{interval_success}")
+
+    Rails.logger.debug('saving incident...')
+    incident_success = incident.save(opts)
+    Rails.logger.debug("incident success: #{incident_success}")
+
+    Rails.logger.debug('saving report...')
+    report_success = self.save(opts)
+    Rails.logger.debug("report success: #{report_success}")
+
+    Rails.logger.debug ("PLACE ERRORS: " + place.errors.messages.inspect) unless place_success
     Rails.logger.debug ("INTERVAL ERRORS: " + interval.errors.messages.inspect) unless interval_success
     Rails.logger.debug ("INCIDENT ERRORS: " + incident.errors.messages.inspect) unless incident
-    Rails.logger.debug ("PLACE ERRORS: " + place.errors.messages.inspect) unless place_success
     Rails.logger.debug ("REPORT ERRORS: " + self.errors.messages.inspect) unless report_success
 
-    success = interval_success && place_success && incident_success && report_success
+    success = place_success && interval_success && incident_success && report_success
 
   end
 
@@ -233,8 +246,14 @@ class Report
   end
 
   def validate_begin_and_end_times
-    errors.add(:incident_begins_at, 'must be a valid datetime') unless is_valid_datetime? self.incident_begins_at
-    (errors.add(:incident_ends_at, 'must be a valid datetime') unless is_valid_datetime?(self.incident_ends_at) ) if self.incident_ends_at
+
+    if incident && incident.interval
+      errors[:incident_begins_at] += incident.interval.errors[:begins_at] if incident.interval.errors.include?(:begins_at)
+      errors[:incident_ends_at] += incident.interval.errors[:ends_at] if incident.interval.errors.include?(:ends_at)
+    end
+
+    # errors.add(:incident_begins_at, 'must be a valid datetime') unless is_valid_datetime? self.incident_begins_at
+    # (errors.add(:incident_ends_at, 'must be a valid datetime') unless is_valid_datetime?(self.incident_ends_at) ) if self.incident_ends_at
   end
 
 
