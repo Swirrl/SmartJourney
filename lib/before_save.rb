@@ -12,7 +12,8 @@ module BeforeSave
   end
 
   def call_before_save
-    if defined?(:before_save)
+
+    if self.respond_to?(:before_save)
       Rails.logger.debug "before save defined"
       if self.valid?
         Rails.logger.debug("valid")
@@ -24,6 +25,7 @@ module BeforeSave
     else
       Rails.logger.debug "before save not defined"
     end
+
   end
 
 end

@@ -2,6 +2,7 @@ class Place
 
   include Tripod::Resource
   include BeforeSave
+  include ActiveModel::Validations::Callbacks
 
   def self.zone_predicate
     RDF::URI("http://data.smartjourney.co.uk/def/zone")
@@ -21,15 +22,15 @@ class Place
   field :label, RDF::RDFS.label
 
   validates :latitude, :longitude, :format => { :with => %r([0-9]+\.[0-9]*) }, :if => Proc.new {|p| (p.latitude.present? && p.longitude.present?) }
-  validates :label, :rdf_type, :longitude, :latitude, :presence => true
+  validates :label, :rdf_type, :longitude, :latitude, :zone, :presence => true
+
+  before_validation :set_label
+  before_validation :associate_zone
 
    # override initialise
   def initialize(uri=nil, graph_uri=nil)
     super(uri || RDF::URI("http://data.smartjourney.co.uk/id/place/#{Guid.new.to_s}"), graph_uri || Place.graph_uri)
     self.rdf_type ||= Place.rdf_type
-
-    #these will get stomped on by before_save, but they make it valid for now...
-    self.label ||= "place"
   end
 
   # get an instance of a zone object, based on the uri in this report's zone predicate
@@ -78,11 +79,8 @@ class Place
 
   private
 
-  def before_save
-    Rails.logger.debug("in place before save")
-    associate_zone()
+  def set_label
     self.label = self.latitude.to_s + ', ' + self.longitude.to_s
   end
-
 
 end

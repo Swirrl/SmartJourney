@@ -18,11 +18,10 @@ describe Report do
   end
 
   context 'with a missing label' do
-    it 'is invalid' do
+    it 'validation should set it!' do
       subject.label = nil
-      subject.should_not be_valid
-      subject.errors[:label].should_not be_empty
-      subject.errors[:label].should include("can't be blank")
+      subject.valid?
+      subject.label.should_not be_empty
     end
   end
 
@@ -111,7 +110,10 @@ describe Report do
   end
 
   describe "open_reports" do
+
     it "should return open ended or still-open reports" do
+
+      Zone.should_receive(:zone_for_lat_long).at_least(:once).and_return(Zone.all.first)
 
       #check no reports before we start
       Report.all.length.should == 0
@@ -126,7 +128,7 @@ describe Report do
 
       report1.incident = incident1
       incident1.place = place1
-      interval1.begins_at = report1.created_at
+      interval1.begins_at = Time.now
       interval1.ends_at = Time.now.advance(:days => 1)
       incident1.interval = interval1
 
@@ -177,6 +179,8 @@ describe Report do
 
       before do
 
+        Zone.should_receive(:zone_for_lat_long).at_least(:once).and_return(Zone.all.first)
+
         @interval = Interval.new()
         @incident = Incident.new()
         @place = Place.new()
@@ -222,6 +226,9 @@ describe Report do
     context "something fails" do
 
       before do
+
+        Zone.should_receive(:zone_for_lat_long).at_least(:once).and_return(Zone.all.first)
+
         @interval = Interval.new()
         @incident = Incident.new()
         @place = Place.new()

@@ -3,6 +3,7 @@ class Report
   include Tripod::Resource
   include BeforeSave
   include DateTimeValidator
+  include ActiveModel::Validations::Callbacks
 
   UI_DATE_FORMAT ="%Y-%m-%d %H:%M"
 
@@ -44,14 +45,13 @@ class Report
   validate :validate_begin_and_end_times
   # END PROXIED VALIDATIONS
 
+  before_validation :set_created_at
+  before_validation :set_label
+
   # override initialise
   def initialize(uri=nil, graph_uri=nil)
     super(uri || RDF::URI("http://data.smartjourney.co.uk/id/report/#{Guid.new.to_s}"), graph_uri || Report.graph_uri)
     self.rdf_type ||= Report.rdf_type
-
-    #these will get stomped on by before_save, but they make it valid for now...
-    self.label ||= "report"
-    self.created_at ||= Time.now
   end
 
   # PROXIED METHODS
@@ -241,12 +241,19 @@ class Report
 
   private
 
-  def before_save
+  def set_created_at
     self.created_at = Time.now if self.new_record?
+  end
 
-    self.label = "Report: #{self.description.truncate(20)}"
+  def set_label
+    self.label = "Report:"
+    self.label += " #{self.description.truncate(20)}" if self.description
     self.label += ", created #{I18n.l(Time.parse(self.created_at), :format => :long)}"
     self.label += " by #{self.creator.screen_name}" if self.creator
+  end
+
+  def before_save
+    self.created_at = Time.now if self.new_record? # make sure the created at time is just before save
   end
 
   def validate_begin_and_end_times
@@ -261,7 +268,7 @@ class Report
   def validate_location
     # proxy errors from incident, but make them more user friendly for report form
     if incident && incident.place
-      errors.add(:location, 'must be supplied') if incident.place.errors.any?
+      errors.add(:location, 'must be supplied (and in Aberdeenshire)') if incident.place.errors.any?
     end
   end
 
