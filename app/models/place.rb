@@ -1,7 +1,6 @@
 class Place
 
   include Tripod::Resource
-  include BeforeSave
   include ActiveModel::Validations::Callbacks
 
   def self.zone_predicate
@@ -70,8 +69,6 @@ class Place
     self.where(query)
   end
 
-  private
-
   # associates this report with a single zone, based on this report's lat-longs
   def associate_zone
     Rails.logger.debug("associating zone")
@@ -79,6 +76,8 @@ class Place
     Rails.logger.debug( "ZONE: #{z.inspect}" )
     self.zone = z
   end
+
+  private
 
   def set_label
     self.label = self.latitude.to_s + ', ' + self.longitude.to_s

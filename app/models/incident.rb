@@ -1,7 +1,6 @@
 class Incident
 
   include Tripod::Resource
-  include BeforeSave
   include ActiveModel::Validations::Callbacks
 
   def self.place_predicate

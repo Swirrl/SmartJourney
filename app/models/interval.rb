@@ -3,7 +3,10 @@ class Interval
   include Tripod::Resource
   include DateTimeValidator
   include BeforeSave
+  extend ActiveModel::Callbacks
   include ActiveModel::Validations::Callbacks
+
+  define_model_callbacks :update, :only => :before
 
   def self.rdf_type
     RDF::URI("http://purl.org/NET/c4dm/timeline.owl#Interval")
@@ -73,8 +76,8 @@ class Interval
     Rails.logger.debug "in interval before save"
 
     # make sure times in the db are full iso format
-    self.begins_at = Time.parse(self.begins_at).getlocal.iso8601().to_s if is_valid_datetime?(self.begins_at) rescue nil
-    ((self.ends_at = Time.parse(self.ends_at).getlocal.iso8601().to_s if is_valid_datetime?(self.ends_at) ) if self.ends_at) rescue nil
+    self.begins_at = Time.parse(self.begins_at).getlocal.iso8601().to_s if is_valid_datetime?(self.begins_at)
+    ((self.ends_at = Time.parse(self.ends_at).getlocal.iso8601().to_s if is_valid_datetime?(self.ends_at) ) if self.ends_at)
   end
 
 end

@@ -186,11 +186,19 @@ class Report
           ?report <#{Report.created_at_predicate.to_s}> ?created .
           ?report <#{Report.incident_predicate.to_s}> ?incident .
           ?incident <#{Incident.interval_predicate.to_s}> ?interval .
-          OPTIONAL { ?interval <#{Interval.ends_at_predicate}> ?ends . }
+
+          ?interval <#{Interval.begins_at_predicate.to_s}> ?begins .
+          OPTIONAL { ?interval <#{Interval.ends_at_predicate.to_s}> ?ends . }
 
           FILTER (
-            (!bound( ?ends )) ||
-            (?ends > \"#{Time.now.iso8601()}\"^^xsd:dateTime)
+            (
+              (!bound( ?ends )) ||
+              (?ends >= \"#{Time.now.iso8601()}\"^^xsd:dateTime)
+            )
+            &&
+            (
+              ?begins <= \"#{Time.now.iso8601()}\"^^xsd:dateTime
+            )
           ) .
         }
       }
