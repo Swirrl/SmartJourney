@@ -10,7 +10,7 @@ class Zone
     RDF::URI("http://data.smartjourney.co.uk/graph/zones")
   end
 
-  field :label, RDF.label
+  field :label, RDF::RDFS.label
   field :rdf_type, RDF.type
   field :notation, RDF::URI.new('http://www.w3.org/2004/02/skos/core#notation')
 
