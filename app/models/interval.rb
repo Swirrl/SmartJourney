@@ -65,8 +65,8 @@ class Interval
     end
 
     # make sure times in the db are full iso format
-    self.begins_at = Time.parse(self.begins_at).getlocal.iso8601().to_s if is_valid_datetime?(self.begins_at)
-    (self.ends_at = Time.parse(self.ends_at).getlocal.iso8601().to_s if is_valid_datetime?(self.ends_at) ) if self.ends_at
+    self.begins_at = Time.parse(self.begins_at).getlocal.iso8601().to_s if is_valid_datetime?(self.begins_at) rescue nil
+    ((self.ends_at = Time.parse(self.ends_at).getlocal.iso8601().to_s if is_valid_datetime?(self.ends_at) ) if self.ends_at) rescue nil
 
     self.label = "begins: #{I18n.l(Time.parse(self.begins_at), :format => :long)}" rescue nil
     self.label += ", ends:  #{I18n.l(Time.parse(self.ends_at), :format => :long)}" if self.ends_at rescue nil

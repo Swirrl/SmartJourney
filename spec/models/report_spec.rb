@@ -240,7 +240,7 @@ describe Report do
 
         success = @report.save_report_and_children(transaction: t)
 
-        @report.errors[:longitude].should_not be_empty
+        @report.errors[:location].should_not be_empty
 
         success.should be_false # place longitude causes validation fail
 

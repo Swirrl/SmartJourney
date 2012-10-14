@@ -43,7 +43,7 @@
 
     var marker;
 
-    <% if @report.latitude && @report.latitude %>
+    <% if @report.latitude && @report.latitude && !@report.errors[:location].present? %>
     <% # plot on map if in the report object, e.g. after invalid attempt %>
       marker = L.marker([<%= @report.latitude %>, <%= @report.longitude %>]);
       marker.addTo(map);

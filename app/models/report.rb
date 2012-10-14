@@ -40,12 +40,8 @@ class Report
   validates :incident, :presence => true #associated incident
 
   # PROXIED VALIDATIONS
-  validates :latitude, :longitude, :format => { :with => %r([0-9]+\.[0-9]*) }, :if => Proc.new {|p| (p.latitude.present? && p.longitude.present?) }
-  validates :longitude, :latitude, :presence => true
-
-  validate :validate_begin_and_end_times # likewise, begin end times (from interval)
-
-
+  validate :validate_location
+  validate :validate_begin_and_end_times
   # END PROXIED VALIDATIONS
 
   # override initialise
@@ -73,11 +69,19 @@ class Report
   end
 
   def incident_begins_at
-    Time.parse(self.incident.interval.begins_at).strftime(Report::UI_DATE_FORMAT) if self.incident && self.incident.interval && self.incident.interval.begins_at
+    begin
+      Time.parse(self.incident.interval.begins_at).strftime(Report::UI_DATE_FORMAT) if self.incident && self.incident.interval && self.incident.interval.begins_at
+    rescue
+      self.incident.interval.begins_at
+    end
   end
 
   def incident_ends_at
-    Time.parse(self.incident.interval.ends_at).strftime(Report::UI_DATE_FORMAT) if self.incident && self.incident.interval && self.incident.interval.ends_at
+    begin
+      Time.parse(self.incident.interval.ends_at).strftime(Report::UI_DATE_FORMAT) if self.incident && self.incident.interval && self.incident.interval.ends_at
+    rescue
+      self.incident.interval.ends_at
+    end
   end
 
   def incident_begins_in_future?
@@ -246,14 +250,19 @@ class Report
   end
 
   def validate_begin_and_end_times
-
+    # proxy the errors from interval.
     if incident && incident.interval
       errors[:incident_begins_at] += incident.interval.errors[:begins_at] if incident.interval.errors.include?(:begins_at)
       errors[:incident_ends_at] += incident.interval.errors[:ends_at] if incident.interval.errors.include?(:ends_at)
     end
 
-    # errors.add(:incident_begins_at, 'must be a valid datetime') unless is_valid_datetime? self.incident_begins_at
-    # (errors.add(:incident_ends_at, 'must be a valid datetime') unless is_valid_datetime?(self.incident_ends_at) ) if self.incident_ends_at
+  end
+
+  def validate_location
+    # proxy errors from incident, but make them more user friendly for report form
+    if incident && incident.place
+      errors.add(:location, 'must be supplied') if incident.place.errors.any?
+    end
   end
 
 

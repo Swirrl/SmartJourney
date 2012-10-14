@@ -3,14 +3,14 @@ module DateTimeValidator
     if dt
       begin
         dt = dt.is_a?(DateTime) ? dt : DateTime.parse(dt)
-      rescue ArgumentError
+      rescue ArgumentError => e
         Rails.logger.debug "#{dt.inspect} is invalid"
-        false
+        return false
       end
       Rails.logger.debug "#{dt.inspect} is valid"
-      true
+      return dt
     else
-      false
+      return false
     end
 
   end
