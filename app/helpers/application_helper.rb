@@ -5,7 +5,7 @@ module ApplicationHelper
   end
 
   def get_zones
-    Zone.all
+    Zone.all.sort{ |z1, z2| z1.label.downcase <=> z2.label.downcase }
   end
 
   def zone_chosen?(z)
