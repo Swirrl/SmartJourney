@@ -1,0 +1,22 @@
+SmartJourney new report alert
+=============================
+
+The following report was created on smartjourney.co.uk:
+
+Report information:
+-------------------
+<%= @report.description %>
+Zone: <%= @report.incident.place.zone.label %>
+Tags: <%= @report.tags_string %>
+Reported: <%= Time.parse(@report.created_at).to_s(:long) %>
+Reporter: <%= @report.creator.screen_name %>
+Begins: <%= Time.parse(@report.incident.interval.begins_at).to_s(:long) %>
+<% if @report.incident && @report.incident.interval && @report.incident.interval.ends_at -%>
+Ends: <%= Time.parse(@report.incident.interval.ends_at).to_s(:long) %>
+<% end -%>
+
+To view full details of the report, just follow this link: <%= report_url(@report) %>
+
+Thanks for using SmartJourney.
+
+Note: You received this email as this incident report matched the criteria in your account preferences.  To edit your email preferences, log in at http://smartjourney.co.uk, and go to the My Account section.

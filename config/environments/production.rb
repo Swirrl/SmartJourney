@@ -53,6 +53,8 @@ PmdWinter::Application.configure do
   config.assets.precompile += %w( data.js )
   config.assets.precompile += %w( data.css )
 
+  config.action_mailer.default_url_options = { :host => "smartjourney.co.uk" }
+
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false

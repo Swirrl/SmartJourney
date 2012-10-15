@@ -2,6 +2,9 @@ class ReportsController < ApplicationController
 
   authorize_resource
 
+  after_filter :send_new_report_alerts, :only => [:create]
+  after_filter :send_report_update_alerts, :only => [:update]
+
   def index
     # @recent_reports = Report.all
     @recent_reports = Report.open_reports(20)
@@ -40,15 +43,15 @@ class ReportsController < ApplicationController
 
     t = Tripod::Persistence::Transaction.new
 
-    success = @report.save_report_and_children(transaction: t)
+    @success = @report.save_report_and_children(transaction: t)
 
-    if success
+    if @success
       t.commit
     else
       t.abort
     end
 
-    if success
+    if @success
       flash[:notice] = 'Succesfully created report'
       redirect_to reports_path
     else
@@ -85,15 +88,15 @@ class ReportsController < ApplicationController
     Rails.logger.debug @interval.begins_at
     Rails.logger.debug @interval.ends_at
 
-    success = @report.save_report_and_children(transaction: t)
+    @success = @report.save_report_and_children(transaction: t)
 
-    if success
+    if @success
       t.commit
     else
       t.abort
     end
 
-    if success
+    if @success
       flash[:notice] = 'Succesfully updated report'
       redirect_to report_path(@report)
     else
@@ -111,6 +114,20 @@ class ReportsController < ApplicationController
   end
 
   private
+
+  def send_new_report_alerts
+    if @success
+      recipients = @report.new_report_recipients(current_user)
+      UserMailer.new_report_alert(@report, recipients).deliver if recipients.any?
+    end
+  end
+
+  def send_report_update_alerts
+    if @success
+      recipients = @report.report_update_recipients(current_user)
+      UserMailer.report_update_alert(@report, recipients).deliver if recipients.any?
+    end
+  end
 
   def get_report
     uri = "http://data.smartjourney.co.uk/id/report/#{params[:id]}"

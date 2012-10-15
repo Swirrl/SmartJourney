@@ -16,7 +16,7 @@
 
   <h3>Email Preferences</h3>
   <div>
-    <%= f.label :email_zones, "Receive email alerts for reports in your zones" %>
+    <%= f.label :email_zones, "Receive email alerts for reports in your chosen zones" %>
     <%= f.check_box :email_zones %>
   </div>
   <br/>
@@ -27,10 +27,12 @@
   </div>
   <br/>
 
+  <!--
   <div>
     <%= f.label :email_zones, "Receive email alerts for comments on reports you've created" %>
     <%= f.check_box :email_comments %>
   </div>
+  -->
 
   <br/>
   <div><%= f.submit "Update" %></div>

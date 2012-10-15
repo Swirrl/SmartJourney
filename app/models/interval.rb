@@ -68,8 +68,8 @@ class Interval
   end
 
   def set_label
-    self.label = "begins: #{I18n.l(Time.parse(self.begins_at), :format => :long)}" rescue nil
-    self.label += ", ends:  #{I18n.l(Time.parse(self.ends_at), :format => :long)}" if self.ends_at rescue nil
+    self.label = "begins: #{Time.parse(self.begins_at).to_s(:long)}" rescue nil
+    self.label += ", ends:  #{Time.paree(self.ends_at).to_s(:long)}" if self.ends_at rescue nil
   end
 
   def before_save

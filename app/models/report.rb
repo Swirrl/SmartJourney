@@ -223,8 +223,8 @@ class Report
   def as_json(options = nil)
     hash = {
       description: self.description,
-      created_at: I18n.l(Time.parse(self.created_at), :format => :long),
-      incident_begins_at: I18n.l(Time.parse(self.incident_begins_at), :format => :long),
+      created_at: Time.parse(self.created_at).to_s(:long),
+      incident_begins_at: Time.parse(self.incident_begins_at).to_s(:long),
       incident_begins_in_future: self.incident_begins_in_future?,
       incident_ends_in_future: self.incident_ends_in_future?,
       latitude: self.latitude,
@@ -235,8 +235,47 @@ class Report
 
     }
     hash[:creator] = creator.screen_name if creator
-    hash[:incident_ends_at] = I18n.l(Time.parse(self.incident_ends_at), :format => :long) if self.incident_ends_at
+    hash[:incident_ends_at] = Time.parse(self.incident_ends_at).to_s(:long) if self.incident_ends_at
     hash
+  end
+
+  def report_update_recipients(updating_user)
+    recipients = []
+
+    User.all.each do |user|
+      if (
+          (user != updating_user.uri) && # don't send to updating user.
+          (
+            ( user.email_reports && self.creator.uri == user.uri ) || # they want emails about their own reports, and this is one of theirs
+            ( user.email_zones && self.in_user_zone?(user) ) # or they want zone emails, and this report is in one of their zones.
+          )
+        )
+        recipients << user.email
+      end
+    end
+
+    recipients
+  end
+
+  def new_report_recipients(creating_user)
+    recipients = []
+
+    User.all.each do |user|
+      if (
+          (user != creating_user.uri) && # don't send to creating user.
+          (
+            ( user.email_zones && self.in_user_zone?(user) ) # or they want zone emails, and this report is in one of their zones.
+          )
+        )
+        recipients << user.email
+      end
+    end
+
+    recipients
+  end
+
+  def in_user_zone?(user)
+    user.zone_uris.include?(self.incident.place.zone.uri.to_s )
   end
 
   # deletes all report, incidents, places, intervals, comments
@@ -256,7 +295,7 @@ class Report
   def set_label
     self.label = "Report:"
     self.label += " #{self.description.truncate(20)}" if self.description
-    self.label += ", created #{I18n.l(Time.parse(self.created_at), :format => :long)}"
+    self.label += ", created #{Time.parse(self.created_at).to_s(:long)}"
     self.label += " by #{self.creator.screen_name}" if self.creator
   end
 

@@ -83,8 +83,8 @@ class Incident
   def set_label
     self.label = "Incident at "
     self.label += "[#{self.place.latitude.to_s}, #{self.place.longitude.to_s}]"
-    self.label += ", begins: #{I18n.l(Time.parse(self.interval.begins_at), :format => :long)}" rescue nil
-    (self.label += ", ends:  #{I18n.l(Time.parse(self.interval.ends_at), :format => :long)}" if self.interval.ends_at) rescue nil
+    self.label += ", begins: #{Time.parse(self.interval.begins_at).to_s(:long)}" rescue nil
+    (self.label += ", ends:  #{Time.parse(self.interval.ends_at).to_s(:long)}" if self.interval.ends_at) rescue nil
   end
 
 end

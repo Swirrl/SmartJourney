@@ -14,7 +14,7 @@ class User
   # :lockable, :timeoutable and :omniauthable
   devise  :database_authenticatable,
           :registerable,
-        #  :recoverable,
+          :recoverable,
           :rememberable,
         #  :trackable,
           :validatable
@@ -27,8 +27,8 @@ class User
   validates_presence_of :encrypted_password
 
   ## Recoverable
-  #field :reset_password_token,   :type => String
-  #field :reset_password_sent_at, :type => Time
+  field :reset_password_token,   :type => String
+  field :reset_password_sent_at, :type => Time
 
   ## Rememberable
   field :remember_created_at, :type => Time
