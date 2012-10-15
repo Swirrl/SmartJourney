@@ -67,6 +67,8 @@ class User
   validate :validate_zones
 
   field :uri, type: String
+  index({ uri: 1 }, { unique: true })
+
 
   field :receive_zone_emails, type: Boolean, :default => false
   field :receive_report_emails, type: Boolean, :default => false

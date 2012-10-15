@@ -116,21 +116,11 @@ class ReportsController < ApplicationController
   private
 
   def send_new_report_alerts
-    if @success
-      Rails.logger.debug('in send_new_report_alerts')
-      recipients = @report.new_report_recipients(current_user)
-      Rails.logger.debug("recipients: #{recipients.join(', ')}")
-      UserMailer.new_report_alert(@report, recipients).deliver if recipients.any?
-    end
+    UserMailer.new_report_alert(@report, current_user) if @success
   end
 
   def send_report_update_alerts
-    if @success
-       Rails.logger.debug('in send_report_update_alerts')
-      recipients = @report.report_update_recipients(current_user)
-      Rails.logger.debug("recipients: #{recipients.join(', ')}")
-      UserMailer.report_update_alert(@report, recipients).deliver if recipients.any?
-    end
+    UserMailer.report_update_alert(@report, current_user) if @success
   end
 
   def get_report
