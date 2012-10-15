@@ -255,7 +255,7 @@ class Report
           (user.uri != updating_user.uri) && # don't send to updating user.
           (
             ( user.receive_report_emails && self.creator.uri == user.uri ) || # they want emails about their own reports, and this is one of theirs
-            ( user.receive_zone_emails && Report.in_user_zone?(user, current_zone) ) # or they want zone emails, and this report is in one of their zones.
+            ( user.receive_zone_emails && user.in_zones?(current_zone) ) # or they want zone emails, and this report is in one of their zones.
           )
         )
         recipients << user.email
@@ -277,7 +277,7 @@ class Report
       if (
           (user.uri != creating_user.uri) && # don't send to creating user.
           (
-            ( user.receive_zone_emails && Report.in_user_zone?(user, current_zone) ) # they want zone emails, and this report is in one of their zones.
+            ( user.receive_zone_emails && user.in_zones?(current_zone) ) # they want zone emails, and this report is in one of their zones.
           )
         )
         recipients << user.email
@@ -285,13 +285,6 @@ class Report
     end
 
     recipients
-  end
-
-  def self.in_user_zone?(user, zone)
-    Rails.logger.debug("in_user_zone?")
-    in_zone = user.zone_uris.include?(zone.uri.to_s)
-    Rails.logger.debug in_zone.inspect
-    in_zone
   end
 
   # deletes all report, incidents, places, intervals, comments

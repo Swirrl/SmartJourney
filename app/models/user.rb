@@ -107,6 +107,10 @@ class User
     zones.include?(z.uri)
   end
 
+  def in_zones?(zone)
+    zone_uris.include?(zone.uri.to_s)
+  end
+
   protected
 
   def validate_zones
