@@ -4,9 +4,11 @@ PmdWinter::Application.routes.draw do
     mount PublishMyData::Engine => "/"
   end
 
-  devise_for :users
+  devise_for :users, :controllers => { :registrations => "users" }
 
-  match '/users/zones' => 'users#update_zones', :via => :put
+  devise_scope :user do
+    match '/users/zones' => 'users#update_zones', :via => :put
+  end
 
   root :to => 'reports#index'
 

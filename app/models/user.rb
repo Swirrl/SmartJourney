@@ -68,6 +68,10 @@ class User
 
   field :uri, type: String
 
+  field :email_zones, type: Boolean, :default => false
+  field :email_reports, type: Boolean, :default => false
+  field :email_comments, type: Boolean, :default => false
+
   field :zone_uris, type: Array, :default => []
 
   field :roles_mask, type: Integer # this will contain a bitwise mask of the users roles.
