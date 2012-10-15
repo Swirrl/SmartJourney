@@ -5,6 +5,9 @@ PmdWinter::Application.routes.draw do
   end
 
   devise_for :users
+
+  match '/users/zones' => 'users#update_zones', :via => :put
+
   root :to => 'reports#index'
 
   resources :reports do

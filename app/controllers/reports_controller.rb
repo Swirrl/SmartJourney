@@ -68,6 +68,8 @@ class ReportsController < ApplicationController
     @place = @incident.place
     @interval = @incident.interval
 
+    @incident.description = params[:report][:description]
+
     @place.latitude = params[:report][:latitude]
     @place.longitude = params[:report][:longitude]
     @report.tags_string = params[:report][:tags_string]

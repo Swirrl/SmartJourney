@@ -7,14 +7,21 @@ class Ability
 
     # if logged in.
     if user
-      #reports.
+
+
       if user.role?(:super_user)
-        can :manage, Report #super users can manage all reports
+        #super users
+
+        can :manage, Report
         can :manage, :planned_incident
+
       else
+        #non super users.
+
         can :manage, Report do |r|
-          r.creator.uri == user.uri #can only manage reports reported by themselves
+          r.creator.uri.to_s == user.uri.to_s #can only manage reports reported by themselves
         end
+
       end
     end
 

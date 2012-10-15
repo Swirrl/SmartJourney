@@ -1,0 +1,16 @@
+<%= form_tag(users_zones_path, :method => 'put') do %>
+
+  <p>Choose the zones you're interested in.</p>
+
+  <%= submit_tag 'Save Zones'%>
+  <br/><br/>
+
+  <ul>
+    <% get_zones().each do |z| %>
+      <li> <%= check_box_tag z.slug, 1, zone_chosen?(z), :name => "zones[#{z.slug}]" %> <%= z.label %> </li>
+    <% end %>
+  </ul>
+
+  <%= submit_tag 'Save Zones'%>
+<% end %>
+

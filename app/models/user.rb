@@ -64,7 +64,11 @@ class User
     :length => { :in => 2..15 },
     :uniqueness => true
 
+  validate :validate_zones
+
   field :uri, type: String
+
+  field :zone_uris, type: Array, :default => []
 
   field :roles_mask, type: Integer # this will contain a bitwise mask of the users roles.
 
@@ -90,7 +94,27 @@ class User
     roles.include? role.to_s
   end
 
+  # this isn't very efficient.
+  def zones
+    zone_uris.map{ |u| Zone.find(u) }
+  end
+
+  def zone_selected?(z)
+    zones.include?(z.uri)
+  end
+
   protected
+
+  def validate_zones
+
+    begin
+      #just call zones. this will error if one doesn't exist.
+      zones
+    rescue
+      errors.add(:zones, 'contains an invalid entry')
+    end
+
+  end
 
   def generate_uri
     #only do on new ones and if the screen name is present.

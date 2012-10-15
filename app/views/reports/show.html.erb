@@ -12,7 +12,7 @@
 <%= form_for(@report) do |form| %>
 
   <% #uses dynamic_form gem (for now) %>
-  <%= error_messages_for(@report)  %>
+  <%= error_messages_for(@report) %>
 
   <h4>reported by</h4>
   <% if @report.creator %>

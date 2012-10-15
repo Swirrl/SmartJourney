@@ -40,6 +40,24 @@ class Zone
     "http://data.smartjourney.co.uk/zone_boundaries/#{notation}.json"
   end
 
+  def region
+    uri.to_s.split('/')[-2]
+  end
+
+  def zoneslug
+    uri.to_s.split('/').last
+  end
+
+  def slug
+    region + '_' + zoneslug
+  end
+
+  def self.uri_from_slug(the_slug)
+    Rails.logger.debug('in uri from slug')
+    Rails.logger.debug("the slug: #{the_slug}")
+    "http://data.smartjourney.co.uk/id/zone/" + the_slug.split('_').first + '/' + the_slug.split('_').last
+  end
+
   def self.zone_for_lat_long(lat, long)
     Rails.logger.debug( "in zone for lat long #{lat}, #{long}" )
     # loop over files
