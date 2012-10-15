@@ -68,6 +68,10 @@ class Report
     self.incident.description if self.incident
   end
 
+  def zone
+    self.incident.place.zone if self.incident && self.incident.place
+  end
+
   def incident_begins_at
     begin
       Time.parse(self.incident.interval.begins_at).strftime(Report::UI_DATE_FORMAT) if self.incident && self.incident.interval && self.incident.interval.begins_at
@@ -240,14 +244,18 @@ class Report
   end
 
   def report_update_recipients(updating_user)
+    Rails.logger.debug(updating_user.inspect)
     recipients = []
+
+    current_zone = self.zone
+    Rails.logger.debug "current zone #{current_zone.uri.to_s}"
 
     User.all.each do |user|
       if (
-          (user != updating_user.uri) && # don't send to updating user.
+          (user.uri != updating_user.uri) && # don't send to updating user.
           (
-            ( user.email_reports && self.creator.uri == user.uri ) || # they want emails about their own reports, and this is one of theirs
-            ( user.email_zones && self.in_user_zone?(user) ) # or they want zone emails, and this report is in one of their zones.
+            ( user.receive_report_emails && self.creator.uri == user.uri ) || # they want emails about their own reports, and this is one of theirs
+            ( user.receive_zone_emails && Report.in_user_zone?(user, current_zone) ) # or they want zone emails, and this report is in one of their zones.
           )
         )
         recipients << user.email
@@ -258,13 +266,18 @@ class Report
   end
 
   def new_report_recipients(creating_user)
+    Rails.logger.debug(creating_user.inspect)
+
     recipients = []
+
+    current_zone = self.zone
+    Rails.logger.debug "current zone #{current_zone.uri.to_s}"
 
     User.all.each do |user|
       if (
-          (user != creating_user.uri) && # don't send to creating user.
+          (user.uri != creating_user.uri) && # don't send to creating user.
           (
-            ( user.email_zones && self.in_user_zone?(user) ) # or they want zone emails, and this report is in one of their zones.
+            ( user.receive_zone_emails && Report.in_user_zone?(user, current_zone) ) # they want zone emails, and this report is in one of their zones.
           )
         )
         recipients << user.email
@@ -274,8 +287,11 @@ class Report
     recipients
   end
 
-  def in_user_zone?(user)
-    user.zone_uris.include?(self.incident.place.zone.uri.to_s )
+  def self.in_user_zone?(user, zone)
+    Rails.logger.debug("in_user_zone?")
+    in_zone = user.zone_uris.include?(zone.uri.to_s)
+    Rails.logger.debug in_zone.inspect
+    in_zone
   end
 
   # deletes all report, incidents, places, intervals, comments

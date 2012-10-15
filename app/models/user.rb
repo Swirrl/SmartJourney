@@ -68,8 +68,8 @@ class User
 
   field :uri, type: String
 
-  field :email_zones, type: Boolean, :default => false
-  field :email_reports, type: Boolean, :default => false
+  field :receive_zone_emails, type: Boolean, :default => false
+  field :receive_report_emails, type: Boolean, :default => false
   field :email_comments, type: Boolean, :default => false
 
   field :zone_uris, type: Array, :default => []
