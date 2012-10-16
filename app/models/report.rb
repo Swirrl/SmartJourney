@@ -295,6 +295,19 @@ class Report
     )
   end
 
+  def self.expire_old_reports!(age_in_seconds)
+    reports_expired = 0
+    Report.open_reports.each do |r|
+      if (!r.incident_ends_at) && (Time.parse(r.incident_begins_at) < Time.now.advance(:seconds => -age_in_seconds))
+        interval = r.incident.interval
+        interval.ends_at = Time.now
+        interval.save!
+        reports_expired +=1
+      end
+    end
+    reports_expired
+  end
+
   private
 
   def set_created_at
