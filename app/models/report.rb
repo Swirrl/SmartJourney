@@ -268,7 +268,7 @@ class Report
       tags: self.tags,
       tags_string: self.tags_string,
       guid: self.guid,
-
+      status: self.status
     }
     hash[:creator] = creator.screen_name if creator
     hash[:incident_ends_at] = Time.parse(self.incident_ends_at).to_s(:long) if self.incident_ends_at
@@ -319,6 +319,28 @@ class Report
     recipients
   end
 
+  def still_open?
+    (!self.incident_ends_at) || (Time.parse(self.incident_ends_at) > Time.now)
+  end
+
+  def planned?
+    (Time.parse(self.incident_begins_at) > Time.now)
+  end
+
+  def status
+    if still_open?
+      planned? ? "Planned" : "Open"
+    else
+     "Closed"
+    end
+  end
+
+  def close!
+    interval = self.incident.interval
+    interval.ends_at = Time.now
+    interval.save!
+  end
+
   # deletes all report, incidents, places, intervals, comments
   def self.delete_all_from_graph
     Tripod::SparqlClient::Update::update(
@@ -331,9 +353,7 @@ class Report
     reports_expired = 0
     Report.open_reports.each do |r|
       if (!r.incident_ends_at) && (Time.parse(r.incident_begins_at) < Time.now.advance(:seconds => -age_in_seconds))
-        interval = r.incident.interval
-        interval.ends_at = Time.now
-        interval.save!
+        r.close!
         reports_expired +=1
       end
     end

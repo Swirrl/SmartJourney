@@ -6,13 +6,15 @@
   <%= render 'shared/leaflet_css' %>
 <% end %>
 
-
 <h1>Report</h1>
 
 <%= form_for(@report) do |form| %>
 
   <% #uses dynamic_form gem (for now) %>
   <%= error_messages_for(@report) %>
+
+  <h4>Status</h4>
+  <%= @report.status %>
 
   <h4>reported by</h4>
   <% if @report.creator %>
@@ -26,14 +28,29 @@
     (Anonymously reported)
   <% end %>
 
-  <br/><br/>
+  <br/>
+
+  <h4>Reported</h4>
+  <%= Time.parse(@report.created_at).to_s(:long) %>
+
+  <% if can? :update, :planned_incident %>
+     <%= render 'begin_end_picker', form: form %>
+  <% else %>
+    <h4>Begins</h4>
+    <%= Time.parse(@report.incident_begins_at).to_s(:long) %></br>
+
+    <% if @report.incident_ends_at %>
+      <h4>Ends</h4>
+      <%= Time.parse(@report.incident_ends_at).to_s(:long) %></br>
+    <% end %>
+  <% end %>
 
   <% if can_update_report? %>
     <%= form.label 'description' %>
-    <%= form.text_area :description, rows: 4 %><br/><br/>
+    <%= form.text_area :description, rows: 4 %><br/>
   <% else %>
     <h4>description</h4>
-    <%= @report.description %><br/><br/>
+    <%= @report.description %><br/>
   <% end %>
 
   <% if can_update_report? %>
@@ -45,14 +62,10 @@
   <% end %>
 
   <% if @report.tags.any? %>
-    <%= link_to "view other reports with these tags", reports_path(:tags => @report.tags_string) %>
+    <%= link_to "see open reports with these tags", reports_path(:tags => @report.tags_string) %>
     <br/>
   <% end %>
   <br/>
-
-  <% if can? :update, :planned_incident %>
-     <%= render 'begin_end_picker', form: form %>
-  <% end %>
 
   <% if can_update_report? %>
     <h4>location (click to move pin)</h4>
@@ -74,14 +87,14 @@
   </div>
 
   <% if can_update_report? %>
-    <%= form.submit "Update Report Details" %>
+    <%= form.submit "Update report details" %>
   <% end %>
 
 <% end %>
 
 <% if can_update_report? %>
   <%= form_tag(close_report_path, :method => :put ) do%>
-    <%= submit_tag "Close This Report", :confirm => "Are you sure you want to close this report?" %>
+    <%= submit_tag "Mark report as closed", :confirm => "Are you sure? Warning: Once a report has been closed it can no longer be edited." %>
   <% end %>
 <% end %>
 

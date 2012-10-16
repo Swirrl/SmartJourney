@@ -1,7 +1,7 @@
 module ApplicationHelper
 
   def can_update_report?
-    can? :update, @report
+    can?(:update, @report) && @report.still_open?
   end
 
   def get_zones
@@ -10,6 +10,13 @@ module ApplicationHelper
 
   def zone_chosen?(z)
     current_user.zone_uris.include?(z.uri.to_s)
+  end
+
+  def tag_link(tag)
+    opts = {:tags => tag}
+    opts.merge!(:future => params[:future]) if params[:future]
+    opts.merge!(:selected_zones_only => params[:selected_zones_only]) if params[:selected_zones_only]
+    link_to tag, reports_path(opts)
   end
 
 end

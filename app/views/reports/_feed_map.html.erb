@@ -37,20 +37,25 @@
       var marker = new L.Marker(new L.LatLng(report.latitude, report.longitude));
 
       var markerContent = report.description  + "<br/>";
-      markerContent +=  "Tags: " + report.tags_string + "<br/>";
+
+      if( report.tags_string.length > 0 ) {
+        markerContent +=  "<b>Tags:</b> " + report.tags_string + "<br/>";
+      }
+
+      markerContent += "<b>Status:</b> " + report.status + "<br/>";
 
       if (report.incident_begins_in_future) {
-        markerContent += "Begins: " + report.incident_begins_at + "<br/>";
+        markerContent += "<b>Begins:</b> " + report.incident_begins_at + "<br/>";
       }
 
       if (report.incident_ends_in_future) {
-        markerContent += "Ends: " + report.incident_ends_at + "<br/>";
+        markerContent += "<b>Ends:</b> " + report.incident_ends_at + "<br/>";
       }
 
       if (report.creator) {
-        markerContent += "Reporter: " + report.creator + "<br/>";
+        markerContent += "<b>Reporter:</b> " + report.creator + "<br/>";
       }
-      markerContent += "Reported: " + report.created_at + "<br/>";
+      markerContent += "<b>Reported:</b> " + report.created_at + "<br/>";
       markerContent += "<a href='/reports/" + report.guid + "'>details</a>";
       marker.bindPopup(markerContent);
       markers.addLayer(marker);

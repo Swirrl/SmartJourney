@@ -4,16 +4,20 @@
       <li>
         <%= report.description %><br/>
 
-        tags: <% report.tags.each do |t| %>
-          <%= link_to t, reports_path(:tags => t) %>
+        <% if report.tags.any? %>
+          Tags: <% report.tags.each do |t| %>
+            <%= tag_link(t) %>
+          <% end %>
+          <br/>
         <% end %>
-        <br/>
+
+        Status: <%= report.status %><br/>
 
         <% if report.incident_begins_in_future? %>
-          begins: <%= Time.parse(report.incident_begins_at).to_s(:long) %><br/>
+          Begins: <%= Time.parse(report.incident_begins_at).to_s(:long) %><br/>
         <% end %>
         <% if report.incident_ends_in_future? %>
-          ends: <%= Time.parse(report.incident_ends_at).to_s(:long) %><br/>
+          Ends: <%= Time.parse(report.incident_ends_at).to_s(:long) %><br/>
         <% end %>
 
         <% if report.creator %>

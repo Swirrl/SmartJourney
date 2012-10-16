@@ -123,7 +123,10 @@ class ReportsController < ApplicationController
 
     authorize! :update, @report # this is a non-restful action, so manually auth.
 
-    # todo: Set the end time of the incident.
+    @report.close! # this shouldn't ever fail. If it does it's an exception.
+
+    flash[:notice] = 'Succesfully closed report'
+    redirect_to report_path(@report)
   end
 
   private
