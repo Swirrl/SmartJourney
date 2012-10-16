@@ -38,11 +38,17 @@
 
   <% if can_update_report? %>
     <%= form.label 'tags (comma separated)' %>
-    <%= form.text_field :tags_string  %><br/><br/>
+    <%= form.text_field :tags_string  %><br/>
   <% else %>
     <h4>tags</h4>
-    <%= @report.tags_string %><br/><br/>
+    <%= @report.tags_string %><br/>
   <% end %>
+
+  <% if @report.tags.any? %>
+    <%= link_to "view other reports with these tags", reports_path(:tags => @report.tags_string) %>
+    <br/>
+  <% end %>
+  <br/>
 
   <% if can? :update, :planned_incident %>
      <%= render 'begin_end_picker', form: form %>

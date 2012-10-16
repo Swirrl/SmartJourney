@@ -28,7 +28,7 @@
     var tileLayer = new L.TileLayer(tileUrl, {maxZoom: 18, attribution: attrib, subdomains: subDomains});
     tileLayer.addTo(map);
 
-    var reports = <%= raw(@recent_reports.to_json) %>;
+    var reports = <%= raw(@reports.to_json) %>;
     var markers = new L.MarkerClusterGroup();
 
     for (var i = 0; i < reports.length; i++) {

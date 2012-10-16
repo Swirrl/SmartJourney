@@ -1,10 +1,14 @@
 <h3>Recent reports</h3>
-<% if @recent_reports.any? %>
+<% if @reports.any? %>
   <ul>
-    <% @recent_reports.last(20).each do |report| %>
+    <% @reports.last(20).each do |report| %>
       <li>
         <%= report.description %><br/>
-        tags: <%= report.tags.join(", ") %><br/>
+
+        tags: <% report.tags.each do |t| %>
+          <%= link_to t, reports_path(:tags => t) %>
+        <% end %>
+        <br/>
 
         <% if report.incident_begins_in_future? %>
           begins: <%= Time.parse(report.incident_begins_at).to_s(:long) %><br/>
@@ -14,7 +18,7 @@
         <% end %>
 
         <% if report.creator %>
-          Reporter: <%= report.creator.screen_name %><%= ' (admin)' if report.creator.role? 'super_user' %>, <br/>
+          Reporter: <%= report.creator.screen_name %><%= ' (admin)' if report.creator.role? 'super_user' %> <br/>
         <% end %>
         Reported: <%= Time.parse(report.created_at).to_s(:long) %><br/>
         <%= link_to "details", report_path(report.guid) %>

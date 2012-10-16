@@ -195,19 +195,51 @@ class Report
           OPTIONAL { ?interval <#{Interval.ends_at_predicate.to_s}> ?ends . }
 
           FILTER (
+            # begin in the past
+            (?begins <= \"#{Time.now.iso8601()}\"^^xsd:dateTime)
+            &&
+            # don't end or end in future.
             (
               (!bound( ?ends )) ||
               (?ends >= \"#{Time.now.iso8601()}\"^^xsd:dateTime)
-            )
-            &&
-            (
-              ?begins <= \"#{Time.now.iso8601()}\"^^xsd:dateTime
             )
           ) .
         }
       }
       ORDER BY DESC(?created)"
     query += " LIMIT #{limit}" if limit
+
+    self.where(query, {uri_variable: 'report'})
+  end
+
+  def self.future_reports(limit=nil)
+    query = "
+      PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+      SELECT ?report (<#{Report.graph_uri}> AS ?graph)
+      WHERE {
+        GRAPH <#{Report.graph_uri}> {
+          ?report a <#{Report.rdf_type}> .
+          ?report <#{Report.created_at_predicate.to_s}> ?created .
+          ?report <#{Report.incident_predicate.to_s}> ?incident .
+          ?incident <#{Incident.interval_predicate.to_s}> ?interval .
+
+          ?interval <#{Interval.begins_at_predicate.to_s}> ?begins .
+          OPTIONAL { ?interval <#{Interval.ends_at_predicate.to_s}> ?ends . }
+
+          FILTER (
+            # begin in the future
+            (?begins > \"#{Time.now.iso8601()}\"^^xsd:dateTime)
+            &&
+            # don't end or end in future.
+            (
+              (!bound( ?ends )) ||
+              (?ends >= \"#{Time.now.iso8601()}\"^^xsd:dateTime)
+            )
+          ) .
+        }
+      }
+      ORDER BY DESC(?created)
+    "
 
     self.where(query, {uri_variable: 'report'})
   end

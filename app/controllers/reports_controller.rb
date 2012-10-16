@@ -6,8 +6,21 @@ class ReportsController < ApplicationController
   after_filter :send_report_update_alerts, :only => [:update]
 
   def index
-    # @recent_reports = Report.all
-    @recent_reports = Report.open_reports(20)
+    @future = params[:future] && params[:future].to_bool
+    @selected_zones_only = current_user && params[:selected_zones_only] && params[:selected_zones_only].to_bool
+    @tags_string = params[:tags] if params[:tags].present? # not blank.
+
+    @tags = @tags_string.split(",").map {|t| t.strip } if @tags_string
+
+    if @future
+      @reports = Report.future_reports(20)
+    else
+      @reports = Report.open_reports(20)
+    end
+
+    #TODO: can we do these in the sparql?
+    @reports.select! { |r| current_user.in_zones?(r.zone) } if @selected_zones_only
+    @reports.select! { |r| (r.tags & @tags).any? } if @tags # return where there's at least one match
   end
 
   def new
