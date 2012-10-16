@@ -30,22 +30,6 @@
 
   <br/>
 
-  <h4>Reported</h4>
-  <%= Time.parse(@report.created_at).to_s(:long) %>
-
-  <% if can?(:update, :planned_incident) && @report.still_open? %>
-     <br/><br/>
-     <%= render 'begin_end_picker', form: form %>
-  <% else %>
-    <h4>Begins</h4>
-    <%= Time.parse(@report.incident_begins_at).to_s(:long) %></br>
-
-    <% if @report.incident_ends_at %>
-      <h4>Ends</h4>
-      <%= Time.parse(@report.incident_ends_at).to_s(:long) %></br>
-    <% end %>
-  <% end %>
-
   <% if can_update_report? %>
     <br/>
     <%= form.label 'description' %>
@@ -68,6 +52,23 @@
     <br/>
   <% end %>
   <br/>
+
+  <h4>Reported</h4>
+  <%= Time.parse(@report.created_at).to_s(:long) %>
+
+  <% if can?(:update, :planned_incident) && @report.still_open? %>
+     <br/><br/>
+     <%= render 'begin_end_picker', form: form %>
+  <% else %>
+    <h4>Begins</h4>
+    <%= Time.parse(@report.incident_begins_at).to_s(:long) %></br>
+
+    <% if @report.incident_ends_at %>
+      <h4>Ends</h4>
+      <%= Time.parse(@report.incident_ends_at).to_s(:long) %></br>
+    <% end %>
+  <% end %>
+
 
   <% if can_update_report? %>
     <h4>location (click to move pin)</h4>
