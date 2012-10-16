@@ -284,9 +284,9 @@ class Report
 
     User.all.each do |user|
       if (
-          (user.uri != updating_user.uri) && # don't send to updating user.
+          ((!updating_user) || (user.uri != updating_user.uri)) && # don't send to updating user.
           (
-            ( user.receive_report_emails && self.creator.uri == user.uri ) || # they want emails about their own reports, and this is one of theirs
+            ( user.receive_report_emails && self.creator && self.creator.uri == user.uri ) || # they want emails about their own reports, and this is one of theirs
             ( user.receive_zone_emails && user.in_zones?(current_zone) ) # or they want zone emails, and this report is in one of their zones.
           )
         )
@@ -307,7 +307,7 @@ class Report
 
     User.all.each do |user|
       if (
-          (user.uri != creating_user.uri) && # don't send to creating user.
+          ((!creating_user) || (user.uri != creating_user.uri)) && # don't send to creating user.
           (
             ( user.receive_zone_emails && user.in_zones?(current_zone) ) # they want zone emails, and this report is in one of their zones.
           )

@@ -9,7 +9,7 @@ Report information:
 Zone: <%= @report.incident.place.zone.label %>
 Tags: <%= @report.tags_string %>
 Reported: <%= Time.parse(@report.created_at).to_s(:long) %>
-Reporter: <%= @report.creator.screen_name %>
+Reporter: <%= @report.creator ? @report.creator.screen_name : "anonymously reported" %>
 Begins: <%= Time.parse(@report.incident.interval.begins_at).to_s(:long) %>
 <% if @report.incident && @report.incident.interval && @report.incident.interval.ends_at -%>
 Ends: <%= Time.parse(@report.incident.interval.ends_at).to_s(:long) %>
