@@ -109,7 +109,7 @@ class Report
 
   # pass in an instance of a user object.
   def creator=(new_user)
-    self[Report.creator_predicate] = new_user.uri
+    self[Report.creator_predicate] = RDF::URI(new_user.uri)
   end
 
   # returns an incident object.

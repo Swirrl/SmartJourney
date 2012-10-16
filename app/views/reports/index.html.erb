@@ -5,4 +5,6 @@
 
 <%= render 'filters' %>
 <%= render 'feed_map' %>
-<%= render 'feed_list' %>
+
+<h3>Reports</h3>
+<%= render 'feed_list', :reports => @reports.last(20) %>

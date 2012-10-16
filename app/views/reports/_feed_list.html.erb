@@ -1,7 +1,6 @@
-<h3>Recent reports</h3>
-<% if @reports.any? %>
+<% if reports.any? %>
   <ul>
-    <% @reports.last(20).each do |report| %>
+    <% reports.each do |report| %>
       <li>
         <%= report.description %><br/>
 
@@ -26,5 +25,5 @@
     <% end %>
   </ul>
 <% else %>
-  No recent reports.
+  No reports to display
 <% end %>

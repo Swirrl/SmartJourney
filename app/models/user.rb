@@ -113,6 +113,42 @@ class User
     zone_uris.include?(zone.uri.to_s)
   end
 
+  # all of this user's reports.
+  def open_reports(limit=nil)
+    query = "
+      PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+      SELECT ?report (<#{Report.graph_uri}> AS ?graph)
+      WHERE {
+        GRAPH <#{Report.graph_uri}> {
+          ?report a <#{Report.rdf_type}> .
+
+          # reported by me
+          ?report <#{Report.creator_predicate.to_s}> <#{self.uri.to_s}> .
+
+          ?report <#{Report.created_at_predicate.to_s}> ?created .
+          ?report <#{Report.incident_predicate.to_s}> ?incident .
+          ?incident <#{Incident.interval_predicate.to_s}> ?interval .
+
+          ?interval <#{Interval.begins_at_predicate.to_s}> ?begins .
+          OPTIONAL { ?interval <#{Interval.ends_at_predicate.to_s}> ?ends . }
+
+          FILTER (
+            # we don't care when it starts.
+
+            # don't end or end in future.
+            (
+              (!bound( ?ends )) ||
+              (?ends >= \"#{Time.now.iso8601()}\"^^xsd:dateTime)
+            )
+          ) .
+        }
+      }
+      ORDER BY DESC(?created)"
+    query += " LIMIT #{limit}" if limit
+
+    Report.where(query, {uri_variable: 'report'})
+  end
+
   protected
 
   def validate_zones
