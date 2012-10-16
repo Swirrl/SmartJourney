@@ -33,7 +33,8 @@
   <h4>Reported</h4>
   <%= Time.parse(@report.created_at).to_s(:long) %>
 
-  <% if can? :update, :planned_incident %>
+  <% if can?(:update, :planned_incident) && @report.still_open? %>
+     <br/><br/>
      <%= render 'begin_end_picker', form: form %>
   <% else %>
     <h4>Begins</h4>
@@ -46,6 +47,7 @@
   <% end %>
 
   <% if can_update_report? %>
+    <br/>
     <%= form.label 'description' %>
     <%= form.text_area :description, rows: 4 %><br/>
   <% else %>
