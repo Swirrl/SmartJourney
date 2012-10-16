@@ -3,7 +3,8 @@ class ReportsController < ApplicationController
   authorize_resource
 
   after_filter :send_new_report_alerts, :only => [:create]
-  after_filter :send_report_update_alerts, :only => [:update]
+  after_filter :send_report_update_alerts, :only => [:update, :close]
+  before_filter :round_lat_longs, :only => [:create, :update]
 
   def index
     @future = params[:future] && params[:future].to_bool
@@ -131,12 +132,17 @@ class ReportsController < ApplicationController
 
   private
 
+  def round_lat_longs
+    params[:report][:latitude] = params[:report][:latitude].to_f.round(6) if params[:report] && params[:report][:latitude]
+    params[:report][:longitude] = params[:report][:longitude].to_f.round(6) if params[:report] && params[:report][:longitude]
+  end
+
   def send_new_report_alerts
-    UserMailer.new_report_alert(@report, current_user) if @success
+    UserMailer.new_report_alert(@report, current_user).deliver if @success
   end
 
   def send_report_update_alerts
-    UserMailer.report_update_alert(@report, current_user) if @success
+    UserMailer.report_update_alert(@report, current_user).deliver if @success
   end
 
   def get_report
