@@ -54,4 +54,5 @@
 
 <h2>My Open Reports</h2>
 
-<%= render 'reports/feed_list', :reports => resource.open_reports # this is all reports that this user has opened, which end in the future (or have no end date) %>
+<% # this is all reports that this user has opened, which end in the future (or have no end date)  %>
+<%= render 'reports/feed_list', :reports => resource.open_reports %>
