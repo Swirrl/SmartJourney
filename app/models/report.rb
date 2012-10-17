@@ -1,7 +1,6 @@
 class Report
 
   include Tripod::Resource
-  include BeforeSave
   include DateTimeValidator
   include ActiveModel::Validations::Callbacks
 
@@ -54,18 +53,47 @@ class Report
     self.rdf_type ||= Report.rdf_type
   end
 
+  def check_associations_exist!
+    if new_record?
+      self.incident = Incident.new unless self.incident
+      self.incident.place = Place.new unless self.incident.place
+      self.incident.interval = Interval.new unless self.incident.interval
+      @interval_changed = @incident_changed = @place_changed = true # all changed.
+    end
+    # for existing records, they will exist or it wouldn't have been valid
+  end
+
   # PROXIED METHODS
 
   def latitude
     self.incident.place.latitude if self.incident && self.incident.place
   end
 
+  def latitude=(val)
+    check_associations_exist!
+    self.incident.place.latitude = val
+    @incident_changed = true
+    @place_changed = true
+  end
+
   def longitude
     self.incident.place.longitude if self.incident && self.incident.place
   end
 
+  def longitude=(val)
+    check_associations_exist!
+    self.incident.place.longitude = val
+    @place_changed = true
+  end
+
   def description
     self.incident.description if self.incident
+  end
+
+  def description=(val)
+    check_associations_exist!
+    self.incident.description = val
+    @incident_changed = true
   end
 
   def zone
@@ -80,12 +108,24 @@ class Report
     end
   end
 
+  def incident_begins_at=(val)
+    check_associations_exist!
+    self.incident.interval.begins_at = val
+    @interval_changed = true
+  end
+
   def incident_ends_at
     begin
       Time.parse(self.incident.interval.ends_at).strftime(Report::UI_DATE_FORMAT) if self.incident && self.incident.interval && self.incident.interval.ends_at
     rescue
       self.incident.interval.ends_at
     end
+  end
+
+  def incident_ends_at=(val)
+    check_associations_exist!
+    self.incident.interval.ends_at = val
+    @interval_changed = true
   end
 
   def incident_begins_in_future?
@@ -136,37 +176,6 @@ class Report
 
   def tags_string
     self.tags.join(", ")
-  end
-
-  def save_report_and_children(opts={})
-
-    Rails.logger.debug('save_report_and_children')
-    interval = incident.interval
-    place = incident.place
-
-    Rails.logger.debug('saving place...')
-    place_success = place.save(opts)
-    Rails.logger.debug("place success: #{place_success}")
-
-    Rails.logger.debug('saving interval...')
-    interval_success = interval.save(opts)
-    Rails.logger.debug("interval success: #{interval_success}")
-
-    Rails.logger.debug('saving incident...')
-    incident_success = incident.save(opts)
-    Rails.logger.debug("incident success: #{incident_success}")
-
-    Rails.logger.debug('saving report...')
-    report_success = self.save(opts)
-    Rails.logger.debug("report success: #{report_success}")
-
-    Rails.logger.debug ("PLACE ERRORS: " + place.errors.messages.inspect) unless place_success
-    Rails.logger.debug ("INTERVAL ERRORS: " + interval.errors.messages.inspect) unless interval_success
-    Rails.logger.debug ("INCIDENT ERRORS: " + incident.errors.messages.inspect) unless incident
-    Rails.logger.debug ("REPORT ERRORS: " + self.errors.messages.inspect) unless report_success
-
-    success = place_success && interval_success && incident_success && report_success
-
   end
 
   def self.all
@@ -240,6 +249,7 @@ class Report
       }
       ORDER BY DESC(?created)
     "
+    query += " LIMIT #{limit}" if limit
 
     self.where(query, {uri_variable: 'report'})
   end
@@ -360,6 +370,44 @@ class Report
     reports_expired
   end
 
+  # override save, so that it
+  def save(opts={})
+
+    # start a new transaction unless one's passed in
+    t = opts[:transaction] ||= Tripod::Persistence::Transaction.new
+
+    place = incident.place
+    interval = incident.interval
+
+    place_success = place.save(opts) if @place_changed
+    interval_success = interval.save(opts) if @interval_changed
+    incident_success = incident.save(opts) if @incident_changed
+
+    self.created_at = Time.now if self.new_record?
+    report_success = super(opts)
+
+    Rails.logger.debug ("PLACE ERRORS: " + place.errors.messages.inspect) unless place_success
+    Rails.logger.debug ("INTERVAL ERRORS: " + interval.errors.messages.inspect) unless interval_success
+    Rails.logger.debug ("INCIDENT ERRORS: " + incident.errors.messages.inspect) unless incident
+    Rails.logger.debug ("REPORT ERRORS: " + self.errors.messages.inspect) unless report_success
+
+    success = (
+      (!@place_changed || place_success) && # place hasn't changed or it succeeded save
+      (!@interval_changed || interval_success) && # interval hasn't changed or it succeeded save
+      (!@incident_changed || incident_success) && # incident hasn't changed or it succeeded save
+      report_success
+    )
+
+    if success
+     t.commit
+    else
+      t.abort
+    end
+
+    success
+
+  end
+
   private
 
   def set_created_at
@@ -371,10 +419,6 @@ class Report
     self.label += " #{self.description.truncate(20)}" if self.description
     self.label += ", created #{Time.parse(self.created_at).to_s(:long)}"
     self.label += " by #{self.creator.screen_name}" if self.creator
-  end
-
-  def before_save
-    self.created_at = Time.now if self.new_record? # make sure the created at time is just before save
   end
 
   def validate_begin_and_end_times
@@ -389,7 +433,7 @@ class Report
   def validate_location
     # proxy errors from incident, but make them more user friendly for report form
     if incident && incident.place
-      errors.add(:location, 'must be supplied (and in Aberdeenshire)') if incident.place.errors.any?
+      errors.add(:location, 'must be supplied (and in Aberdeen/Aberdeenshire)') if incident.place.errors.any?
     end
   end
 

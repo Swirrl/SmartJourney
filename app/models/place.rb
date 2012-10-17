@@ -2,6 +2,7 @@ class Place
 
   include Tripod::Resource
   include ActiveModel::Validations::Callbacks
+  include BeforeSave
 
   def self.zone_predicate
     RDF::URI("http://data.smartjourney.co.uk/def/zone")
@@ -78,6 +79,11 @@ class Place
   end
 
   private
+
+  def before_save
+    self.latitude = self.latitude.to_f.round(6)
+    self.longitude = self.longitude.to_f.round(6)
+  end
 
   def set_label
     self.label = self.latitude.to_s + ', ' + self.longitude.to_s

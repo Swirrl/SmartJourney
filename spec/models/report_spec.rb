@@ -37,9 +37,7 @@ describe Report do
   context 'with everything OK' do
 
     subject do
-      r= Report.new()
-      r.incident = FactoryGirl.create(:incident)
-      r
+      FactoryGirl.build(:report)
     end
 
     it 'is valid' do
@@ -50,13 +48,11 @@ describe Report do
   describe ".all" do
 
     before do
-      r = Report.new()
-      r.incident = FactoryGirl.create(:incident)
-      r.save!
+      r = FactoryGirl.build(:report)
+      r.save.should be_true
 
-      r2 = Report.new()
-      r2.incident = FactoryGirl.create(:incident)
-      r2.save!
+      r2 = FactoryGirl.build(:report)
+      r2.save.should be_true
     end
 
     it "returns all the reports" do
@@ -99,9 +95,8 @@ describe Report do
 
   describe ".delete_all" do
     it "deletes all reports" do
-      r = Report.new()
-      r.incident = FactoryGirl.create(:incident)
-      r.save!
+      r = FactoryGirl.build(:report)
+      r.save.should be_true
 
       Report.all.length.should be > 0
       Report.delete_all_from_graph
@@ -121,104 +116,147 @@ describe Report do
       initial_open_reports.length.should == 0
 
       # this one ends in the future
-      report1 = Report.new
-      incident1 = FactoryGirl.build(:incident)
-      interval1 = FactoryGirl.build(:interval)
-      place1 = FactoryGirl.build(:place)
-
-      report1.incident = incident1
-      incident1.place = place1
-      interval1.begins_at = Time.now
-      interval1.ends_at = Time.now.advance(:days => 1)
-      incident1.interval = interval1
-
-      report1.save_report_and_children.should == true # should save
+      @report1 = Report.new()
+      @report1.latitude = 57.15
+      @report1.longitude = -2.1
+      @report1.description = 'hello'
+      @report1.incident_ends_at = Time.now.advance(:days => 1)
+      @report1.save.should be_true
 
       # this one doesn't end
-      report2 = Report.new
-      incident2 = FactoryGirl.build(:incident)
-      interval2 = FactoryGirl.build(:interval)
-      place2 = FactoryGirl.build(:place)
-
-      report2.incident = incident2
-      incident2.place = place2
-      interval2.ends_at.should == nil
-      incident2.interval = interval2
-
-      report2.save_report_and_children.should == true # should save
+      @report2 = Report.new()
+      @report2.latitude = 57.15
+      @report2.longitude = -2.1
+      @report2.description = 'hello'
+      @report2.save.should be_true
 
       # this one has ended.
-      report3 = Report.new
-      incident3 = FactoryGirl.build(:incident)
-      interval3 = FactoryGirl.build(:interval)
-      place3 = FactoryGirl.build(:place)
-
-      report3.incident = incident3
-      incident3.place = place3
-      interval3.ends_at = Time.now.advance(:days => -1)
-      incident3.interval = interval3
-
-      report3.save_report_and_children.should == true # should save
+      @report3 = Report.new()
+      @report3.latitude = 57.15
+      @report3.longitude = -2.1
+      @report3.description = 'hello'
+      @report3.incident_ends_at = Time.now.advance(:days => -1)
+      @report3.save.should be_true
 
       open_reports = Report.open_reports.map {|r| r.uri.to_s }
       open_reports.class.should == Array
 
-      open_reports.should include(report1.uri.to_s)
-      open_reports.should include(report2.uri.to_s)
-      open_reports.should_not include(report3.uri.to_s)
+      open_reports.should include(@report1.uri.to_s)
+      open_reports.should include(@report2.uri.to_s)
+      open_reports.should_not include(@report3.uri.to_s)
 
       open_reports.length.should == 2
     end
   end
 
-  describe "create report and children in a transaction" do
-
-    # this is just testing my transaction pattern works!
+  describe 'save' do
 
     context "everything works" do
 
       before do
-
         Zone.should_receive(:zone_for_lat_long).at_least(:once).and_return(Zone.all.first)
 
-        @interval = Interval.new()
-        @incident = Incident.new()
-        @place = Place.new()
         @report = Report.new()
-
-        # this is in aberdeen
-        @place.latitude = 57.15
-        @place.longitude = -2.10
-
-        @incident.description = 'hello'
-        @report.incident = @incident
-        @incident.place = @place
-        @incident.interval = @interval
-
-        t = Tripod::Persistence::Transaction.new
-
-        success = @report.save_report_and_children(transaction: t)
-
-        success.should be_true # all works
-
-        if success
-          t.commit
-        else
-          t.abort
-        end
+        @report.latitude = 57.15
+        @report.longitude = -2.1
+        @report.description = 'hello'
+        @report.incident_ends_at = '2013-01-01'
+        @report.save.should be_true
       end
 
       it "should save everything" do
-
         Report.all.length.should be > 0
         Incident.all.length.should be > 0
         Place.all.length.should be > 0
         Interval.all.length.should be > 0
 
-        @report.incident.should == @incident
-        @incident.place.should == @place
-        @incident.interval.should == @interval
+        report = Report.all.first
+        report.incident.should == Incident.all.first
+        report.incident.place.should == Place.all.first
+        report.incident.interval.should == Interval.all.first
 
+        # check values are saved ok.
+        report.latitude.should == "57.15"
+        report.longitude.should == "-2.1"
+        report.description.should == 'hello'
+
+        begins = Time.parse(report.incident_begins_at).to_s(:long)
+        created_at = Time.parse(report.created_at).to_s(:long)
+
+        begins.should == created_at
+        Time.parse(report.incident_ends_at).to_s(:long).should == Time.parse('2013-01-01').to_s(:long)
+
+      end
+
+    end
+
+    context 'with no begins specified' do
+
+      subject do
+        Zone.should_receive(:zone_for_lat_long).at_least(:once).and_return(Zone.all.first)
+
+        report = Report.new()
+        report.latitude = 57.15
+        report.longitude = -2.1
+        report.description = 'hello'
+        report.incident_ends_at = '2013-01-01'
+        report.save.should be_true
+        report
+      end
+
+      it 'should set it to created date' do
+        Time.parse(subject.incident_begins_at).to_s(:long).should == Time.parse(subject.created_at).to_s(:long)
+      end
+
+    end
+
+    it "should round lat longs to 6 dp" do
+      subject.latitude = 57.151231514125123
+      subject.longitude = -2.1123124124213
+      subject.description = 'hello'
+      subject.save.should be_true
+
+      report = Report.all.first
+      report.latitude.should == "57.151232"
+      report.longitude.should == "-2.112312"
+    end
+
+    it "should set a created date automatically" do
+      r = FactoryGirl.build(:report)
+      r.save.should be_true
+      r.created_at.should_not be_nil
+    end
+
+    it "should set a zone" do
+      r = FactoryGirl.build(:report)
+      r.save.should be_true
+      r.zone.should_not be_nil
+    end
+
+    context 'with a user assigned' do
+
+      subject do
+        r = FactoryGirl.build(:report)
+        r.creator = FactoryGirl.create(:user)
+        r
+      end
+
+      it 'should include the user in the label' do
+        subject.save.should be_true
+        subject.label.should == "Report: hello this is a v..., created #{Time.parse(subject.created_at).to_s(:long)} by ricroberts"
+      end
+
+    end
+
+    context 'without a user assigned' do
+
+      subject do
+        r = FactoryGirl.build(:report)
+      end
+
+      it 'should not include the user in the label' do
+        subject.save.should be_true
+        subject.label.should == "Report: hello this is a v..., created #{Time.parse(subject.created_at).to_s(:long)}"
       end
 
     end
@@ -226,36 +264,15 @@ describe Report do
     context "something fails" do
 
       before do
-
         Zone.should_receive(:zone_for_lat_long).at_least(:once).and_return(Zone.all.first)
 
-        @interval = Interval.new()
-        @incident = Incident.new()
-        @place = Place.new()
         @report = Report.new()
-
-        @place.latitude = 53.1
-        @place.longitude = 'bleh' #dodgy!
-
-        @incident.description = 'hello'
-
-        @report.incident = @incident
-        @incident.place = @place
-        @incident.interval = @interval
-
-        t = Tripod::Persistence::Transaction.new
-
-        success = @report.save_report_and_children(transaction: t)
+        @report.latitude = 57.15
+        @report.longitude = 'bleh' #dodgy!
+        @report.description = 'hello'
+        @report.save.should be_false # fail!
 
         @report.errors[:location].should_not be_empty
-
-        success.should be_false # place longitude causes validation fail
-
-        if success
-          t.commit
-        else
-          t.abort
-        end
       end
 
       it "should save nothing" do
@@ -264,10 +281,8 @@ describe Report do
         Place.all.length.should == 0
         Interval.all.length.should == 0
       end
+
     end
-
   end
-
-
 
 end

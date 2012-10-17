@@ -6,13 +6,13 @@ The following report was created on smartjourney.co.uk:
 Report information:
 -------------------
 <%= @report.description %>
-Zone: <%= @report.incident.place.zone.label %>
+Zone: <%= @report.zone.label %>
 Tags: <%= @report.tags_string %>
 Reported: <%= Time.parse(@report.created_at).to_s(:long) %>
 Reporter: <%= @report.creator ? @report.creator.screen_name : "anonymously reported" %>
-Begins: <%= Time.parse(@report.incident.interval.begins_at).to_s(:long) %>
-<% if @report.incident && @report.incident.interval && @report.incident.interval.ends_at -%>
-Ends: <%= Time.parse(@report.incident.interval.ends_at).to_s(:long) %>
+Begins: <%= Time.parse(@report.incident_begins_at).to_s(:long) %>
+<% if @report.incident_ends_at -%>
+Ends: <%= Time.parse(@report.incident_ends_at).to_s(:long) %>
 <% end -%>
 
 To view full details of the report, just follow this link: <%= report_url(@report) %>

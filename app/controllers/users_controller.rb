@@ -13,7 +13,7 @@ class UsersController < Devise::RegistrationsController
     if @user.update_attributes(params[:user])
       # Sign in the user bypassing validation in case his password changed
       sign_in @user, :bypass => true
-      flash[:notice] = 'Succesfully updated user settings'
+      flash[:notice] = 'successfully updated user settings'
       redirect_to edit_user_registration_path
     else
       render "edit"
@@ -28,7 +28,7 @@ class UsersController < Devise::RegistrationsController
     current_user.zone_uris = zone_uris
 
     if current_user.save
-      flash[:notice] = 'Succesfully updated zones'
+      flash[:notice] = 'successfully updated zones'
       redirect_to edit_user_registration_path
     else
       render edit_user_registration_path

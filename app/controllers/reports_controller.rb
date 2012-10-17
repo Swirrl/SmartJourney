@@ -4,7 +4,6 @@ class ReportsController < ApplicationController
 
   after_filter :send_new_report_alerts, :only => [:create]
   after_filter :send_report_update_alerts, :only => [:update, :close]
-  before_filter :round_lat_longs, :only => [:create, :update]
 
   def index
     @future = params[:future] && params[:future].to_bool
@@ -30,43 +29,25 @@ class ReportsController < ApplicationController
   end
 
   def create
-
-    @interval = Interval.new()
-    @incident = Incident.new()
-    @place = Place.new()
     @report = Report.new()
 
-    @place.latitude = params[:report][:latitude]
-    @place.longitude = params[:report][:longitude]
+    if params[:report]
+      @report.latitude = params[:report][:latitude]
+      @report.longitude = params[:report][:longitude]
+      @report.description = params[:report][:description]
+      @report.tags_string = params[:report][:tags_string]
+      @report.creator = current_user if current_user
 
-    @incident.description = params[:report][:description]
-
-    @report.tags_string = params[:report][:tags_string]
-    @report.creator = current_user if current_user
-
-    # make sure that this is actually allowed to be changed by this user.
-    if can? :create, :planned_incident
-      @interval.begins_at = params[:report][:incident_begins_at] if params[:report][:incident_begins_at].present?
-      @interval.ends_at = params[:report][:incident_ends_at] if params[:report][:incident_ends_at].present?
+      if can? :create, :planned_incident
+        @report.incident_begins_at = params[:report][:incident_begins_at] if params[:report][:incident_begins_at].present?
+        @report.incident_begins_at = params[:report][:incident_ends_at] if params[:report][:incident_ends_at].present?
+      end
     end
 
-    # associate
-    @report.incident = @incident
-    @incident.interval = @interval
-    @incident.place = @place
-
-    t = Tripod::Persistence::Transaction.new
-
-    @success = @report.save_report_and_children(transaction: t)
+    @success = @report.save
 
     if @success
-      t.commit
-    else
-      t.abort
-    end
-
-    if @success
-      flash[:notice] = 'Succesfully created report'
+      flash[:notice] = 'successfully created report'
       redirect_to reports_path
     else
       render 'new'
@@ -81,37 +62,22 @@ class ReportsController < ApplicationController
   def update
     get_report
 
-    @incident = @report.incident
-    @place = @incident.place
-    @interval = @incident.interval
+    if params[:report]
+      @report.latitude = params[:report][:latitude]
+      @report.longitude = params[:report][:longitude]
+      @report.description = params[:report][:description]
+      @report.tags_string = params[:report][:tags_string]
 
-    @incident.description = params[:report][:description]
-
-    @place.latitude = params[:report][:latitude]
-    @place.longitude = params[:report][:longitude]
-    @report.tags_string = params[:report][:tags_string]
-
-    # make sure that this is actually allowed to be changed by this user.
-    if can? :update, :planned_incident
-      @interval.begins_at = params[:report][:incident_begins_at].present? ? params[:report][:incident_begins_at] : Time.now
-      @interval.ends_at = params[:report][:incident_ends_at] if params[:report][:incident_ends_at].present?
+      if can? :update, :planned_incident
+        @report.incident_begins_at = params[:report][:incident_begins_at].present? ? params[:report][:incident_begins_at] : Time.now
+        @report.incident_begins_at = params[:report][:incident_ends_at] if params[:report][:incident_ends_at].present?
+      end
     end
 
-    t = Tripod::Persistence::Transaction.new
-
-    Rails.logger.debug @interval.begins_at
-    Rails.logger.debug @interval.ends_at
-
-    @success = @report.save_report_and_children(transaction: t)
+    @success = @report.save
 
     if @success
-      t.commit
-    else
-      t.abort
-    end
-
-    if @success
-      flash[:notice] = 'Succesfully updated report'
+      flash[:notice] = 'successfully updated report'
       redirect_to report_path(@report)
     else
       render 'show'
@@ -126,16 +92,11 @@ class ReportsController < ApplicationController
 
     @report.close! # this shouldn't ever fail. If it does it's an exception.
 
-    flash[:notice] = 'Succesfully closed report'
+    flash[:notice] = 'successfully closed report'
     redirect_to report_path(@report)
   end
 
   private
-
-  def round_lat_longs
-    params[:report][:latitude] = params[:report][:latitude].to_f.round(6) if params[:report] && params[:report][:latitude]
-    params[:report][:longitude] = params[:report][:longitude].to_f.round(6) if params[:report] && params[:report][:longitude]
-  end
 
   def send_new_report_alerts
     UserMailer.new_report_alert(@report, current_user).deliver if @success

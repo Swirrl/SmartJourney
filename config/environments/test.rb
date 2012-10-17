@@ -33,6 +33,8 @@ PmdWinter::Application.configure do
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
 
+  config.action_mailer.default_url_options = { :host => "test.local" }
+
   # configure any settings for testing...
   Tripod.configure do |config|
     config.update_endpoint = 'http://127.0.0.1:3030/winter-test/update'

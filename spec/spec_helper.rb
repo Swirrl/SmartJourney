@@ -21,8 +21,9 @@ Capybara.configure do |config|
 end
 
 RSpec.configure do |config|
-  config.mock_with :rspec
 
+  config.mock_with :rspec
+  config.include Devise::TestHelpers, :type => :controller
   config.include PublishMyData::Engine.routes.url_helpers
 
   DatabaseCleaner.strategy = :truncation
