@@ -33,7 +33,6 @@ describe Report do
     end
   end
 
-
   context 'with everything OK' do
 
     subject do
@@ -283,6 +282,160 @@ describe Report do
       end
 
     end
+  end
+
+  describe '#report_update_alert_recipients' do
+
+    before do
+      @report = FactoryGirl.build(:report)
+
+      @reporter = FactoryGirl.create(:user)
+      @updating_user = FactoryGirl.create(:user2)
+      @another_user = FactoryGirl.create(:user3)
+
+      @report.creator = @reporter # set the reporter on the report
+      @report.save!
+    end
+
+    context 'the original reporter has signed up for alerts on his own reports' do
+
+      before do
+        @reporter.receive_report_emails = true
+        @reporter.save!
+      end
+
+      it 'should include the original reporter' do
+        @report.report_update_alert_recipients(@updating_user).should include(@reporter.email)
+      end
+
+    end
+
+    context 'the original reporter has NOT signed up for alerts on his own emails' do
+
+      before do
+        @reporter.receive_report_emails = false
+        @reporter.save!
+      end
+
+      it 'should NOT include the original reporter' do
+        @report.report_update_alert_recipients(@updating_user).should_not include(@reporter.email)
+      end
+    end
+
+    context 'someone has chosen to receive zone alerts' do
+
+      before do
+        @another_user.receive_zone_emails = true
+        @another_user.save!
+      end
+
+      context 'the zone is in their list' do
+
+        before do
+          @another_user.zone_uris = [@report.zone.uri.to_s]
+          @another_user.save!
+        end
+
+        it 'should include that user' do
+          @report.report_update_alert_recipients(@updating_user).should include(@another_user.email)
+        end
+
+      end
+
+      context 'the zone is not in their list' do
+
+        before do
+          @another_user.zone_uris = [Zone.all.first.uri.to_s, Zone.all.last.uri.to_s]
+          @another_user.save!
+        end
+
+        it 'should not include that user' do
+          @report.report_update_alert_recipients(@updating_user).should_not include(@another_user.email)
+        end
+
+      end
+
+    end
+
+    context "even if it matches updating user's criteria" do
+
+      before do
+        @updating_user = @reporter
+        @updating_user.receive_report_emails = true # they want alerts on their own reports
+        @updating_user.zone_uris = [@report.zone.uri.to_s] #AND they have it in their zones
+        @updating_user.save!
+      end
+
+      it 'should not include that user' do
+        @report.report_update_alert_recipients(@updating_user).should_not include(@updating_user.email)
+      end
+
+    end
+
+  end
+
+  describe '#new_report_alert_recipients' do
+
+    before do
+      @report = FactoryGirl.build(:report)
+
+      @reporter = FactoryGirl.create(:user)
+      @creating_user = FactoryGirl.create(:user2)
+      @another_user = FactoryGirl.create(:user3)
+
+      @report.creator = @reporter # set the reporter on the report
+      @report.save!
+    end
+
+    context 'someone has chosen to receive zone alerts' do
+
+      before do
+        @another_user.receive_zone_emails = true
+        @another_user.save!
+      end
+
+      context 'the zone is in their list' do
+
+        before do
+          @another_user.zone_uris = [@report.zone.uri.to_s]
+          @another_user.save!
+        end
+
+        it 'should include that user' do
+          @report.report_update_alert_recipients(@creating_user).should include(@another_user.email)
+        end
+
+      end
+
+      context 'the zone is not in their list' do
+
+        before do
+          @another_user.zone_uris = [Zone.all.first.uri.to_s, Zone.all.last.uri.to_s]
+          @another_user.save!
+        end
+
+        it 'should not include that user' do
+          @report.report_update_alert_recipients(@creating_user).should_not include(@another_user.email)
+        end
+
+      end
+
+    end
+
+    context "even if it matches updating user's criteria" do
+
+      before do
+        @creating_user = @reporter
+        @creating_user.zone_uris = [@report.zone.uri.to_s] #AND they have it in their zones
+        @creating_user.save!
+      end
+
+      it 'should not include that user' do
+        @report.report_update_alert_recipients(@creating_user).should_not include(@creating_user.email)
+      end
+
+    end
+
   end
 
 end

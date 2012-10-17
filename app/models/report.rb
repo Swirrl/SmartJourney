@@ -285,12 +285,9 @@ class Report
     hash
   end
 
-  def report_update_recipients(updating_user)
-    Rails.logger.debug(updating_user.inspect)
+  def report_update_alert_recipients(updating_user)
     recipients = []
-
     current_zone = self.zone
-    Rails.logger.debug "current zone #{current_zone.uri.to_s}"
 
     User.all.each do |user|
       if (
@@ -307,13 +304,9 @@ class Report
     recipients
   end
 
-  def new_report_recipients(creating_user)
-    Rails.logger.debug(creating_user.inspect)
-
+  def new_report_alert_recipients(creating_user)
     recipients = []
-
     current_zone = self.zone
-    Rails.logger.debug "current zone #{current_zone.uri.to_s}"
 
     User.all.each do |user|
       if (

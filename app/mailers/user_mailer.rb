@@ -5,7 +5,7 @@ class UserMailer < ActionMailer::Base
 
   def report_update_alert(report, current_user)
     @report = report
-    recipients = report.report_update_recipients(current_user)
+    recipients = report.report_update_alert_recipients(current_user)
     Rails.logger.debug("UPDATE ALERT RECIPIENTS")
     Rails.logger.debug(recipients)
     mail(:bcc => recipients, :subject => 'Report updated on smartjourney.co.uk')
@@ -13,7 +13,7 @@ class UserMailer < ActionMailer::Base
 
   def new_report_alert(report, current_user)
     @report = report
-    recipients = report.new_report_recipients(current_user)
+    recipients = report.new_report_alert_recipients(current_user)
     Rails.logger.debug("NEW REPORT ALERT RECIPIENTS")
     Rails.logger.debug(recipients)
     mail(:bcc => recipients, :subject => 'New report on smartjourney.co.uk')

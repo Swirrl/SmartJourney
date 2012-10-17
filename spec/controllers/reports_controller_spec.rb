@@ -68,7 +68,7 @@ describe ReportsController do
       before do
         @recipients = ['email1@example.com', 'email2@example.com']
         r = FactoryGirl.build(:report)
-        r.should_receive(:new_report_recipients).and_return(@recipients)
+        r.should_receive(:new_report_alert_recipients).and_return(@recipients)
         Report.should_receive(:new).and_return(r)
       end
 
@@ -152,7 +152,7 @@ describe ReportsController do
         @r.creator = User.where(:email => @user.email).first
         @r.save!
 
-        @r.should_receive(:report_update_recipients).and_return(@recipients)
+        @r.should_receive(:report_update_alert_recipients).and_return(@recipients)
         Report.should_receive(:find).with('http://data.smartjourney.co.uk/id/report/guid').and_return(@r)
       end
 

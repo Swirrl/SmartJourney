@@ -69,9 +69,12 @@ class User
   field :uri, type: String
   index({ uri: 1 }, { unique: true })
 
-
+  # receive emails for reports in zones I've selected.
   field :receive_zone_emails, type: Boolean, :default => false
+
+  # receive emails for reports I've created
   field :receive_report_emails, type: Boolean, :default => false
+
   field :email_comments, type: Boolean, :default => false
 
   field :zone_uris, type: Array, :default => []
