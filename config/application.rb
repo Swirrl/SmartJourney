@@ -70,5 +70,11 @@ module PmdWinter
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
+     initializer :after_append_asset_paths,
+            :group => :all,
+            :after => :append_assets_path do
+       config.assets.paths.unshift Rails.root.join("vendor", "assets", "stylesheets", "jquery-ui-darkness").to_s
+    end
   end
 end
