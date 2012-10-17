@@ -292,7 +292,7 @@ describe ReportsController do
       it_behaves_like "update_with_perms"
     end
 
-    context 'signed in as user who did not creat the report' do
+    context 'signed in as user who did not create the report' do
       before do
         @user = FactoryGirl.create(:user)
 
