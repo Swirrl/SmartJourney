@@ -1,6 +1,9 @@
 class ReportsController < ApplicationController
 
-  authorize_resource
+  before_filter :get_existing_report, :only => [:show, :update, :close]
+  before_filter :instantiate_new_report, :only => [:new, :create]
+
+  load_and_authorize_resource # this will only load a resource if there isn't one in @report already.
 
   after_filter :send_new_report_alerts, :only => [:create]
   after_filter :send_report_update_alerts, :only => [:update, :close]
@@ -23,14 +26,9 @@ class ReportsController < ApplicationController
     @reports.select! { |r| (r.tags & @tags).any? } if @tags # return where there's at least one match
   end
 
-  def new
-    # prepare to make a new report
-    @report = Report.new()
-  end
+  def new;; end
 
   def create
-    @report = Report.new()
-
     if params[:report]
       @report.latitude = params[:report][:latitude]
       @report.longitude = params[:report][:longitude]
@@ -48,19 +46,16 @@ class ReportsController < ApplicationController
 
     if @success
       flash[:notice] = 'successfully created report'
-      redirect_to reports_path
+      redirect_to reports_url
     else
       render 'new'
     end
 
   end
 
-  def show
-    get_report
-  end
+  def show;; end
 
   def update
-    get_report
 
     if params[:report]
       @report.latitude = params[:report][:latitude]
@@ -78,7 +73,7 @@ class ReportsController < ApplicationController
 
     if @success
       flash[:notice] = 'successfully updated report'
-      redirect_to report_path(@report)
+      redirect_to report_url(@report)
     else
       render 'show'
     end
@@ -86,14 +81,13 @@ class ReportsController < ApplicationController
 
   # PUT /reports/:id/close
   def close
-    get_report
 
     authorize! :update, @report # this is a non-restful action, so manually auth.
 
     @report.close! # this shouldn't ever fail. If it does it's an exception.
 
     flash[:notice] = 'successfully closed report'
-    redirect_to report_path(@report)
+    redirect_to report_url(@report)
   end
 
   private
@@ -106,9 +100,13 @@ class ReportsController < ApplicationController
     UserMailer.report_update_alert(@report, current_user).deliver if @success
   end
 
-  def get_report
+  def get_existing_report
     uri = "http://data.smartjourney.co.uk/id/report/#{params[:id]}"
     @report = Report.find(uri)
+  end
+
+  def instantiate_new_report
+    @report = Report.new()
   end
 
 end

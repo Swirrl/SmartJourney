@@ -8,24 +8,24 @@ class Ability
     # if logged in.
     if user
 
+      Rails.logger.debug "logged in as #{user.screen_name}"
 
       if user.role?(:super_user)
-        #super users
-
+        Rails.logger.debug "super user"
         can :manage, Report
         can :manage, :planned_incident
 
       else
-        #non super users.
-
-        can :manage, Report do |r|
-          r.creator.uri.to_s == user.uri.to_s #can only manage reports reported by themselves
+        Rails.logger.debug "not super user"
+        can :update, Report do |r|
+          r.creator.uri.to_s == user.uri.to_s #can only update reports reported by themselves
         end
-
       end
+    else
+      Rails.logger.debug "not logged in"
     end
 
-    # not logged in users can create and read reports.
+    # all users can create and read reports.
     can [:create, :read], Report
 
 

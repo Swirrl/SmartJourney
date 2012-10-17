@@ -404,6 +404,7 @@ class Report
       t.abort
     end
 
+    Rails.logger.debug "REPORT SAVE SUCCESS: #{success.inspect}"
     success
 
   end
