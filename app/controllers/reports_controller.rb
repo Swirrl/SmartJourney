@@ -92,12 +92,22 @@ class ReportsController < ApplicationController
 
   private
 
+  #TODO: change to delayed job?
+  # note: Would need to pass in a hash of strings, as @report can't be serialized as yaml by delayed_job!
   def send_new_report_alerts
-    UserMailer.new_report_alert(@report, current_user).deliver if @success
+    if @success
+      @report.new_report_alert_recipients(current_user).each do |e|
+        UserMailer.new_report_alert(@report, current_user, e).deliver
+      end
+    end
   end
 
   def send_report_update_alerts
-    UserMailer.report_update_alert(@report, current_user).deliver if @success
+    if @success
+      @report.report_update_alert_recipients(current_user).each do |e|
+        UserMailer.report_update_alert(@report, current_user, e).deliver
+      end
+    end
   end
 
   def get_existing_report

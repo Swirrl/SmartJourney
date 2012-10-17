@@ -78,12 +78,13 @@ describe ReportsController do
         response.should redirect_to reports_url
       end
 
-      it 'should send emails' do
+      it 'should send 2 emails' do
         expect do
           post :create
-        end.to change {ActionMailer::Base.deliveries.length}.by 1
+        end.to change {ActionMailer::Base.deliveries.length}.by 2
 
-        ActionMailer::Base.deliveries.last.bcc.should == @recipients
+        ActionMailer::Base.deliveries[-2].to.should == [@recipients.first]
+        ActionMailer::Base.deliveries.last.to.should == [@recipients.last]
       end
 
       it 'should set a flash message' do
@@ -162,12 +163,13 @@ describe ReportsController do
         response.should redirect_to report_url(@r)
       end
 
-      it 'should send emails' do
+      it 'should send 2 emails' do
         expect do
           put :update, :id => 'guid', :report => valid_update_params
-        end.to change {ActionMailer::Base.deliveries.length}.by 1
+        end.to change {ActionMailer::Base.deliveries.length}.by 2
 
-        ActionMailer::Base.deliveries.last.bcc.should == @recipients
+        ActionMailer::Base.deliveries[-2].to.should == [@recipients.first]
+        ActionMailer::Base.deliveries.last.to.should == [@recipients.last]
       end
 
       it 'should set a flash message' do

@@ -1,22 +1,16 @@
 class UserMailer < ActionMailer::Base
 
-  default :from => "notifications@smartjourney.co.uk"
-  default :to => "notifications@smartjourney.co.uk"
+  default :from => "donotreply@smartjourney.co.uk"
+  default :bcc => "smartjourney@swirrl.com"
 
-  def report_update_alert(report, current_user)
+  def report_update_alert(report, current_user, recipient_email)
     @report = report
-    recipients = report.report_update_alert_recipients(current_user)
-    Rails.logger.debug("UPDATE ALERT RECIPIENTS")
-    Rails.logger.debug(recipients)
-    mail(:bcc => recipients, :subject => 'Report updated on smartjourney.co.uk')
+    mail(:to => recipient_email, :subject => 'Report updated on smartjourney.co.uk')
   end
 
-  def new_report_alert(report, current_user)
+  def new_report_alert(report, current_user, recipient_email)
     @report = report
-    recipients = report.new_report_alert_recipients(current_user)
-    Rails.logger.debug("NEW REPORT ALERT RECIPIENTS")
-    Rails.logger.debug(recipients)
-    mail(:bcc => recipients, :subject => 'New report on smartjourney.co.uk')
+    mail(:to => recipient_email, :subject => 'New report on smartjourney.co.uk')
   end
 
 end
