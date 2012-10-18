@@ -1,24 +1,28 @@
 PmdWinter::Application.routes.draw do
 
-  constraints lambda {|req| return 'data' === req.host.split('.').first } do
+  # manual subdomain checking as nginx/apache diagree.
+  constraints lambda {|req| return 'data' == req.host.split('.').first } do
     mount PublishMyData::Engine => "/"
   end
 
-  devise_for :users, :controllers => { :registrations => "users" }
+  constraints lambda {|req| return 'data' != req.host.split('.').first } do
 
-  devise_scope :user do
-    match '/users/zones' => 'users#update_zones', :via => :put
-  end
+    devise_for :users, :controllers => { :registrations => "users" }
 
-  root :to => 'reports#index'
-
-  resources :reports do
-    member do
-      put "close"
+    devise_scope :user do
+      match '/users/zones' => 'users#update_zones', :via => :put
     end
-  end
 
-  resources :zones
+    root :to => 'reports#index'
+
+    resources :reports do
+      member do
+        put "close"
+      end
+    end
+
+    resources :zones
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
