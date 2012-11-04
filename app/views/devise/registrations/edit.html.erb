@@ -6,59 +6,72 @@
 
 <%= link_to "Back", :back %>
 
-<h2>User Settings</h2>
+<nav class="tabbed">
+  <ul class="tabs">
+    <li class="tab"><a id="default_tab" href="#settings">Settings</a></li>
+    <li class="tab"><a href="#zones">Zones</a></li>
+    <li class="tab"><a href="#reports">My Reports</a></li>
+  </ul>
+</nav>
 
-<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
-  <%= devise_error_messages! %>
+<section id="settings">
+  <div class="userview">
+    <div class="sixteen">
+      <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
+        <%= devise_error_messages! %>
 
-  <div><%= f.label :email %>
-  <%= f.email_field :email %></div>
+        <div><%= f.label :email %>
+        <%= f.email_field :email %></div>
 
-  <div><%= f.label :password, "password (leave blank if you don't want to change it"%>
-  <%= f.password_field :password, :autocomplete => "off" %></div>
+        <div><%= f.label :password, "password (leave blank if you don't want to change it"%>
+        <%= f.password_field :password, :autocomplete => "off" %></div>
 
-  <div><%= f.label :password_confirmation %>
-  <%= f.password_field :password_confirmation %></div>
+        <div><%= f.label :password_confirmation %>
+        <%= f.password_field :password_confirmation %></div>
 
-  <h3>Email Preferences</h3>
-  <div>
-    <%= f.label :receive_zone_emails, "Receive email alerts for reports in your chosen zones" %>
-    <%= f.check_box :receive_zone_emails %>
+        <h3>Email Preferences</h3>
+        <div>
+          <%= f.label :receive_zone_emails, "Receive email alerts for reports in your chosen zones" %>
+          <%= f.check_box :receive_zone_emails %>
+        </div>
+        <br/>
+
+        <div>
+          <%= f.label :receive_report_emails, "Receive email alerts for reports you've created" %>
+          <%= f.check_box :receive_report_emails %>
+        </div>
+        <br/>
+
+        <!--
+        <div>
+          <%= f.label :email_comments, "Receive email alerts for comments on reports you've created" %>
+          <%= f.check_box :email_comments %>
+        </div>
+        -->
+
+        <br/>
+        <div><%= f.submit "Update" %></div>
+      <% end %>
+
+      <h3>Cancel account</h3>
+      <p>Don't want your account any more? <%= link_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete %>.</p>
+
+      <h3>Sign out</h3>
+      <p>Click <%= link_to "here", destroy_user_session_path, :method => :delete %> to sign out.</p>
+
+    </div>
   </div>
-  <br/>
+</section>
 
-  <div>
-    <%= f.label :receive_report_emails, "Receive email alerts for reports you've created" %>
-    <%= f.check_box :receive_report_emails %>
+<section id="zones">
+  <div class="zonesview">
+    <div class="sixteen">
+      <%= render 'zones/form' %>
+    </div>
   </div>
-  <br/>
+</section>
 
-  <!--
-  <div>
-    <%= f.label :email_comments, "Receive email alerts for comments on reports you've created" %>
-    <%= f.check_box :email_comments %>
-  </div>
-  -->
-
-  <br/>
-  <div><%= f.submit "Update" %></div>
-<% end %>
-
-<h3>Cancel account</h3>
-<p>Don't want your account any more? <%= link_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete %>.</p>
-
-<h3>Sign out</h3>
-<p>Click <%= link_to "here", destroy_user_session_path, :method => :delete %> to sign out.</p>
-
-<hr/>
-
-<h2>Zones</h2>
-
-<%= render 'zones/form' %>
-
-<hr/>
-
-<h2>My Open Reports</h2>
 
 <% # this is all reports that this user has opened, which end in the future (or have no end date)  %>
 <%= render 'reports/feed_list', :reports => resource.open_reports %>
+
