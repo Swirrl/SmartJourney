@@ -21,8 +21,7 @@ PmdWinter::Application.configure do
   config.assets.compile = true #fall back for leaflet marker cluster etc.
 
   # Generate digests for assets URLs
-  config.assets.digest = false
-  # config.assets.digest = true
+  config.assets.digest = true
 
   # Defaults to nil and saved in location specified by config.assets.prefix
   # config.assets.manifest = YOUR_PATH
