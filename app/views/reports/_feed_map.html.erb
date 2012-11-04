@@ -12,56 +12,59 @@
   <![endif]-->
 <% end %>
 
-<h3>Map</h3>
+<section id="map">
+  <div class="mapview">
+    <div class="sixteen">
+      <div id="feed-map"></div>
+      <script type="text/javascript">
+        // runs on doc rdy.
+        $(function() {
+          var map = L.map('feed-map').setView([57.15, -2.1], 10);
 
-<div id="feed-map"></div>
+          var tileUrl = 'http://{s}.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png',
+          subDomains = ['otile1','otile2','otile3','otile4'],
+          attrib = 'Map tiles: <a href="http://open.mapquest.co.uk" target="_blank">MapQuest</a>, <a href="http://www.openstreetmap.org/" target="_blank">OpenStreetMap</a> and contributors.';
 
-<script type="text/javascript">
-  // runs on doc rdy.
-  $(function() {
-    var map = L.map('feed-map').setView([57.15, -2.1], 10);
+          var tileLayer = new L.TileLayer(tileUrl, {maxZoom: 18, attribution: attrib, subdomains: subDomains});
+          tileLayer.addTo(map);
 
-    var tileUrl = 'http://{s}.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png',
-    subDomains = ['otile1','otile2','otile3','otile4'],
-    attrib = 'Map tiles: <a href="http://open.mapquest.co.uk" target="_blank">MapQuest</a>, <a href="http://www.openstreetmap.org/" target="_blank">OpenStreetMap</a> and contributors.';
+          var reports = <%= raw(@reports.to_json) %>;
+          var markers = new L.MarkerClusterGroup();
 
-    var tileLayer = new L.TileLayer(tileUrl, {maxZoom: 18, attribution: attrib, subdomains: subDomains});
-    tileLayer.addTo(map);
+          for (var i = 0; i < reports.length; i++) {
 
-    var reports = <%= raw(@reports.to_json) %>;
-    var markers = new L.MarkerClusterGroup();
+            var report = reports[i];
+            var marker = new L.Marker(new L.LatLng(report.latitude, report.longitude));
 
-    for (var i = 0; i < reports.length; i++) {
+            var markerContent = report.description  + "<br/>";
 
-      var report = reports[i];
-      var marker = new L.Marker(new L.LatLng(report.latitude, report.longitude));
+            if( report.tags_string.length > 0 ) {
+              markerContent +=  "<b>Tags:</b> " + report.tags_string + "<br/>";
+            }
 
-      var markerContent = report.description  + "<br/>";
+            markerContent += "<b>Status:</b> " + report.status + "<br/>";
 
-      if( report.tags_string.length > 0 ) {
-        markerContent +=  "<b>Tags:</b> " + report.tags_string + "<br/>";
-      }
+            if (report.incident_begins_in_future) {
+              markerContent += "<b>Begins:</b> " + report.incident_begins_at + "<br/>";
+            }
 
-      markerContent += "<b>Status:</b> " + report.status + "<br/>";
+            if (report.incident_ends_in_future) {
+              markerContent += "<b>Ends:</b> " + report.incident_ends_at + "<br/>";
+            }
 
-      if (report.incident_begins_in_future) {
-        markerContent += "<b>Begins:</b> " + report.incident_begins_at + "<br/>";
-      }
+            if (report.creator) {
+              markerContent += "<b>Reporter:</b> " + report.creator + "<br/>";
+            }
+            markerContent += "<b>Reported:</b> " + report.created_at + "<br/>";
+            markerContent += "<a href='/reports/" + report.guid + "'>details</a>";
+            marker.bindPopup(markerContent);
+            markers.addLayer(marker);
+          }
 
-      if (report.incident_ends_in_future) {
-        markerContent += "<b>Ends:</b> " + report.incident_ends_at + "<br/>";
-      }
+          map.addLayer(markers);
 
-      if (report.creator) {
-        markerContent += "<b>Reporter:</b> " + report.creator + "<br/>";
-      }
-      markerContent += "<b>Reported:</b> " + report.created_at + "<br/>";
-      markerContent += "<a href='/reports/" + report.guid + "'>details</a>";
-      marker.bindPopup(markerContent);
-      markers.addLayer(marker);
-    }
-
-    map.addLayer(markers);
-
-  });
-</script>
+        });
+      </script>
+    </div>
+  </div>
+</section>

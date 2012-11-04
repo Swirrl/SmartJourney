@@ -2,14 +2,30 @@
   <%= link_to(root_path) do %>
     <%= image_tag "smart-journey.png", alt: "Smart Journey", name: "logo", width: 300, height: 90, id: "logo" %>
   <% end %>
-  <div id="toplinks">
-    <ul class="nav nav-list">
+  <div id="btnnav">
+    <ul class="btnnav-list">
       <% if current_user %>
-        <li><%= link_to "My Account", edit_user_registration_path %></li>
+        <li>
+          <!-- my acc -->
+          <%= link_to edit_user_registration_path do %>
+            <%= image_tag "user-icon.png", width:28, height:28, alt:"My Account", title:"My Account" %><span class="lnktxt"><%= current_user.screen_name %></span>
+          <% end %>
+        </li>
       <% else %>
-        <li><%= link_to "Sign In", new_user_session_path %></li>
+        <li>
+          <!-- sign in  -->
+          <%= link_to new_user_session_path do %>
+            <%= image_tag "user-icon.png", width:28, height:28, alt:"Sign In", title:"Sign In" %><span class="lnktxt">Sign In</span>
+          <% end %>
+        </li>
       <% end %>
-      <li><%= link_to "About", "#" %></li>
+
+      <li>
+        <!-- about  -->
+        <%= link_to "#" do %>
+          <%= image_tag "about-icon.png", width:28, height:28, alt:"About", title:"About" %><span class="lnktxt">About</span>
+        <% end %>
+      </li>
     </ul>
   </div>
 </div><!-- end header -->

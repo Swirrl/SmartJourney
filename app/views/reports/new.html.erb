@@ -1,4 +1,7 @@
-<h1>submit a new report!</h1>
+<% content_for :intro do %>
+  <h2>Submit a new report</h2>
+  <p class="lead">Please provide as much detail as possible</p>
+<% end %>
 
 <% unless current_user %>
   You're not logged in. You might want to <%= link_to "Sign in / up", new_user_session_path %>, so you can manage your reports later.

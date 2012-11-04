@@ -159,7 +159,8 @@ class User
     begin
       #just call zones. this will error if one doesn't exist.
       zones
-    rescue
+    rescue StandardError => e
+      Rails.logger.debug e.inspect
       errors.add(:zones, 'contains an invalid entry')
     end
 

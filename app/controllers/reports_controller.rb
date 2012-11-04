@@ -9,6 +9,7 @@ class ReportsController < ApplicationController
   after_filter :send_report_update_alerts, :only => [:update, :close]
 
   def index
+    @intro_colour = "blue"
     @future = params[:future] && params[:future].to_bool
     @selected_zones_only = current_user && params[:selected_zones_only] && params[:selected_zones_only].to_bool
     @tags_string = params[:tags] if params[:tags].present? # not blank.
@@ -26,7 +27,9 @@ class ReportsController < ApplicationController
     @reports.select! { |r| (r.tags & @tags).any? } if @tags # return where there's at least one match
   end
 
-  def new;; end
+  def new
+    @intro_colour = "red"
+  end
 
   def create
     if params[:report]
@@ -53,7 +56,9 @@ class ReportsController < ApplicationController
 
   end
 
-  def show;; end
+  def show;
+    @intro_colour = "orange"
+  end
 
   def update
 

@@ -1,5 +1,9 @@
 class UsersController < Devise::RegistrationsController
 
+  def show
+    @intro_colour = "green"
+  end
+
   #Notes: don't need to authorize as can only edit self here!
 
   def update
