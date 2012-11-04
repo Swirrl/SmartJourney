@@ -32,6 +32,7 @@ class ReportsController < ApplicationController
   end
 
   def create
+    @intro_colour = "red"
     if params[:report]
       @report.latitude = params[:report][:latitude]
       @report.longitude = params[:report][:longitude]
@@ -61,7 +62,7 @@ class ReportsController < ApplicationController
   end
 
   def update
-
+    @intro_colour = "orange"
     if params[:report]
       @report.latitude = params[:report][:latitude]
       @report.longitude = params[:report][:longitude]
@@ -86,7 +87,7 @@ class ReportsController < ApplicationController
 
   # PUT /reports/:id/close
   def close
-
+    @intro_colour = "orange"
     authorize! :update, @report # this is a non-restful action, so manually auth.
 
     @report.close! # this shouldn't ever fail. If it does it's an exception.

@@ -6,7 +6,10 @@
   <%= render 'shared/leaflet_css' %>
 <% end %>
 
-<h1>Report</h1>
+<% content_for :intro do %>
+  <h2>Report details</h2>
+  <p class="lead">Details submitted for this report</p>
+<% end %>
 
 <%= form_for(@report) do |form| %>
 
