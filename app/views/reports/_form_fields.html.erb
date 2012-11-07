@@ -6,26 +6,41 @@
   <%= render 'shared/leaflet_css' %>
 <% end %>
 
-<%= form.label :description %>
-<%= form.text_area :description, rows: 4%>
+<div class="clearfix">
+  <div class="description">
+    <%= form.label :description %>
+    <%= form.text_area :description, rows: 4, style:"width:100%" %>
+  </div>
 
-<%= form.label :tags, 'tags (comma separated)' %>
-<%= form.text_field :tags_string  %>
-
-<div id="latlong">
-  <%= form.label :latitude %>
-  <%= form.text_field :latitude %>
-
-  <%= form.label :longitude %>
-  <%= form.text_field :longitude %>
+  <div class="tags">
+    <%= form.label :tags, 'tags (comma separated)' %>
+    <%= form.text_area :tags_string, rows: 4, style:"width:100%" %>
+  </div>
 </div>
 
 <% if can? :create, :planned_incident %>
   <%= render 'begin_end_picker', form: form %>
 <% end %>
 
-<h4>Click to drop a pin at the location of the incident</h4>
-<div id="report-map" style="height:300px; width:300px; margin-bottom:20px"></div>
+
+<div class="clearfix">
+  <div class="location">
+
+    <h4>Click to drop a pin at the location of the incident</h4>
+
+    <div id="report-map" style="height:300px;margin-bottom:20px"></div>
+
+    <div id="latlong">
+      <%= form.label :latitude %>
+      <%= form.text_field :latitude %>
+
+      <%= form.label :longitude %>
+      <%= form.text_field :longitude %>
+    </div>
+
+  </div>
+</div>
+
 
 <script type="text/javascript">
   // runs on doc rdy.
@@ -67,5 +82,10 @@
 
   });
 </script>
+
+<% unless current_user %>
+  <strong>Note:</strong> You might want to <%= link_to "Sign in / up", new_user_session_path %> before reporting, so you can manage your reports later.
+  <br/><br/>
+<% end %>
 
 <%= form.submit %>

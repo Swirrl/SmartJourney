@@ -1,24 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>Smart Journey</title>
 
     <!-- styles -->
-
-    <%= stylesheet_link_tag    "application", :media => "all" %>
+    <%= stylesheet_link_tag "application", :media => "all" %>
     <%= yield :stylesheets %>
 
     <!-- scripts -->
-
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-
     <!-- get jquery from cdn -->
     <script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
-
     <%= javascript_include_tag "application" %>
     <%= yield :javascripts %>
 
@@ -34,8 +33,6 @@
     <div class="container">
       <%= render 'shared/header' %>
 
-      <div class="divider"></div>
-
       <% if content_for? :intro %>
         <%= render 'shared/intro' %>
       <% end %>
@@ -47,7 +44,7 @@
         <p class="alert"><%= alert %></p>
       <% end %>
 
-      <div class="main">
+      <div class="main <%= yield :main_classes %>">
         <%= yield %>
       </div>
 
@@ -57,7 +54,12 @@
 
       <%= render 'shared/footer' %>
 
-    </div><!-- end container -->
-    <p>&nbsp;</p>
+    </div>
+    <!-- end container -->
+    <div class="container" style="background:none">
+      <div class="sixteen" id="credits">
+        &copy; 2012 <a href="http://www.aberdeencity.gov.uk/">Aberdeen City Council</a>, <a href="http://www.aberdeenshire.gov.uk/">Aberdeenshire Council</a>. Built by <a href="http://swirrl.com">Swirrl</a>, branding by <a href="http://lighthouse.co">Lighthouse</a>, powered by <a href="http://publishmydata.com">PublishMyData</a>.
+      </div>
+    </div>
   </body>
 </html>

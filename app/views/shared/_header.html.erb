@@ -8,7 +8,8 @@
         <li>
           <!-- my acc -->
           <%= link_to edit_user_registration_path do %>
-            <%= image_tag "user-icon.png", width:28, height:28, alt:"My Account", title:"My Account" %><span class="lnktxt"><%= current_user.screen_name %></span>
+            <span class="lnktxt"><%= current_user.screen_name %></span>
+            <%= image_tag "user-icon.png", width:28, height:28, alt:"My Account", title:"My Account" %>
           <% end %>
         </li>
       <% else %>

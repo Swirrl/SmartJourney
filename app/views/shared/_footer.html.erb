@@ -1,12 +1,13 @@
 <div id="footer">
+  <% unless @reporting %>
+    <div class="reportbtn">
+      <%= link_to "Report It!", new_report_path, class:"report" %>
+    </div>
+  <% end %>
   <div class="footlinks">
     <p>
-      <a href="#">Help</a> |
-      <a href="#">Copyright</a>
+      <span><a href="#">Help</a></span> |
+      <span><a href="#">About</a></span>
     </p>
   </div>
-  <div class="reportbtn">
-    <%= link_to "Report It!", new_report_path, class:"report" %>
-  </div>
-
 </div><!-- end footer -->

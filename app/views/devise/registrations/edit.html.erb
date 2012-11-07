@@ -30,28 +30,31 @@
         <%= f.password_field :password_confirmation %></div>
 
         <h3>Email Preferences</h3>
-        <div>
-          <%= f.label :receive_zone_emails, "Receive email alerts for reports in your chosen zones" %>
-          <%= f.check_box :receive_zone_emails %>
-        </div>
-        <br/>
+        <div class="email-prefs">
+          <div>
+            <%= f.label :receive_zone_emails, "Receive email alerts for reports in your chosen zones" %>
+            <%= f.check_box :receive_zone_emails %>
+          </div>
+          <br/>
 
-        <div>
-          <%= f.label :receive_report_emails, "Receive email alerts for reports you've created" %>
-          <%= f.check_box :receive_report_emails %>
-        </div>
-        <br/>
+          <div>
+            <%= f.label :receive_report_emails, "Receive email alerts for reports you've created" %>
+            <%= f.check_box :receive_report_emails %>
+          </div>
+          <br/>
 
-        <!--
-        <div>
-          <%= f.label :email_comments, "Receive email alerts for comments on reports you've created" %>
-          <%= f.check_box :email_comments %>
+          <!--
+          <div>
+            <%= f.label :email_comments, "Receive email alerts for comments on reports you've created" %>
+            <%= f.check_box :email_comments %>
+          </div>
+          -->
         </div>
-        -->
-
         <br/>
         <div><%= f.submit "Update" %></div>
       <% end %>
+
+      <hr/>
 
       <h3>Cancel account</h3>
       <p>Don't want your account any more? <%= link_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete %>.</p>

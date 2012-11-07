@@ -26,6 +26,7 @@ gem 'haml-rails' # used for docs
 gem 'jquery-rails'
 gem 'mixable_engines' # allows overriding of individual controller actions: http://stackoverflow.com/questions/5045068/extending-controllers-of-a-rails-3-engine-in-the-main-app
 gem 'rdiscount'
+gem 'sass-rails'
 
 # for delayed job...
 #gem 'delayed_job_mongoid'

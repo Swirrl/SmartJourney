@@ -3,15 +3,14 @@
   <p class="lead">Please provide as much detail as possible</p>
 <% end %>
 
-<% unless current_user %>
-  You're not logged in. You might want to <%= link_to "Sign in / up", new_user_session_path %>, so you can manage your reports later.
-  <br/><br/>
-<% end %>
+<% content_for :main_classes do "no-pad" end %>
 
-<%= form_for(@report) do |f| %>
+<div style="margin:10px">
+  <%= form_for(@report) do |f| %>
 
-  <% #uses dynamic_form gem (for now) %>
-  <%= error_messages_for(@report)  %>
-  <%= render :partial => 'form_fields', :locals => {:report => @report, :form => f} %>
+    <% #uses dynamic_form gem (for now) %>
+    <%= error_messages_for(@report)  %>
+    <%= render :partial => 'form_fields', :locals => {:report => @report, :form => f} %>
 
-<% end %>
+  <% end %>
+</div>

@@ -1,10 +1,15 @@
-<%= form.label :incident_begins_at, 'planned start (leave blank to start now)' %>
-<%= form.text_field :incident_begins_at %>
-<div id="begins_picker"></div><br/>
-
-<%= form.label :incident_ends_at, 'planned end (leave blank for open ended: you can close later)' %>
-<%= form.text_field :incident_ends_at %>
-<div id="ends_picker"></div><br/>
+<div class="clearfix">
+  <div class="start-date">
+    <%= form.label :incident_begins_at, 'planned start (leave blank to start now)' %>
+    <%= form.text_field :incident_begins_at %>
+    <div id="begins_picker"></div><br/>
+  </div>
+  <div class='end-date'>
+    <%= form.label :incident_ends_at, 'planned end (leave blank for open ended: you can close later)' %>
+    <%= form.text_field :incident_ends_at %>
+    <div id="ends_picker"></div><br/>
+  </div>
+</div>
 
 <script type="text/javascript">
  $(function() {

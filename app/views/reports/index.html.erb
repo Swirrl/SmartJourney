@@ -6,11 +6,11 @@
 <nav class="tabbed">
   <ul class="tabs">
     <li class="tab"><a id="default_tab" href="#map"><%= image_tag 'map-icon.png' %>Map</a></li>
-    <li class="tab"><a href="#reports"><%= image_tag 'report-icon.png' %>Reports</a></li>
-    <li class="tab"><a href="#filters"><%= image_tag 'filter-icon.png' %>Filters</a></li>
+    <li class="tab"><a href="#reports"><%= image_tag 'report-icon.png' %>Recent Reports</a></li>
   </ul>
 </nav>
 
-<%= render 'filters' %>
 <%= render 'feed_map' %>
 <%= render 'feed_list', :reports => @reports.last(20) %>
+
+<%= render 'filters' %>

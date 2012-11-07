@@ -1,0 +1,368 @@
+/*!
+*
+* CSS from lighthouse
+*
+*/
+
+/* Global styles */
+
+h1{font-size:24px;line-height:26px}
+h2{font-size:18px;line-height:20px}
+h3{font-size:14px;line-height:16px}
+h4{font-size:12px;line-height:14px}
+h5{font-size:12px;line-height:14px}
+h6{font-size:12px;line-height:12px}
+
+body{
+  background-color:#FFF;
+}
+
+#header{
+  background:#0e344b;
+  background-image:url(/assets/back-header.jpg);
+  background-repeat:repeat-x;
+  background-position:left bottom;
+  height:70px;
+
+  @media only screen and (max-width:767px){
+    height:50px;
+  }
+
+  #logo {
+    float:left;
+    width:300px;
+    height:75px;
+
+    @media only screen and (max-width:767px){
+      width:200px;
+      height:50px;
+    }
+
+  }
+
+  #btnnav {
+
+    ul.btnnav-list{
+      margin:0;
+      padding:0;
+      list-style:none;
+      float:right;
+      display:block;
+      height: 28px;
+
+      li {
+        display:inline;
+        margin-right: 5px;
+        margin-top: 5px;
+        display:block;
+        height: 28px;
+        float:left;
+
+        a {
+          margin:0;
+          padding:0;
+          display:block;
+          color:#FFF;
+
+          &:hover{
+            background-color: #BED730;
+            margin:0;
+            padding:0;
+            color:#FFF;
+          }
+
+          span.lnktxt{
+            display:block;
+            float:left;
+            padding-top:3px;
+            padding-right:5px;
+            padding-left:5px;
+
+            @media only screen and (max-width: 479px) {
+              display:none;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.ie6, .ie7, .ie8 {
+  #btnnav li a {
+    width: 100px;
+    display:inline-block;
+    img {
+      display:block;
+      float:right;
+    }
+  }
+}
+
+.intro {
+  padding:10px;
+  color:#FFF;
+
+  background-image:url(/assets/arrow-tint-sml.png);
+  background-repeat: no-repeat;
+  background-position: right bottom;
+
+  &.blue {
+    background-color:#18b1e7;
+    border-top:solid 1px #b6dbe8;
+    border-bottom:solid 1px #027fab;
+  }
+
+  &.green{
+    background-color: #BED730;
+    border-top:solid 1px #E4EFAB;
+    border-bottom: solid 1px #82941D;
+  }
+
+  &.orange{
+    background-color: #FF9900;
+    border-top: solid 1px #FFCC00;
+    border-bottom: solid 1px #FF9900;
+  }
+
+  &.red{
+    background-color: #EF4223;
+    border-top: solid 1px #FABEB4;
+    border-bottom: solid 1px #AE250D
+  }
+
+  p { font-size: 18px; }
+
+  @media only screen and (max-width:767px){
+    h2 { font-size: 16px; line-height:22px; padding:0; margin:0;}
+    p { font-size: 14px; line-height: 18px; padding:0; margin:0;}
+  }
+
+  /* so text doesnt overlap img */
+  @media only screen and (min-width:768px) and (max-width:959px){
+    h2, p { width: 700px; }
+  }
+
+  @media only screen and (max-width:767px){
+    h2, p { width: 220px; }
+  }
+
+  @media only screen and (min-width:480px) and (max-width:767px){
+    h2, p { width: 300px; }
+  }
+}
+
+
+/* the main grey area */
+
+.main {
+  background:#f0f0f0;
+  clear:both;
+  overflow:auto;
+  padding:10px;
+
+  &.no-pad {
+    padding-left:0;
+    padding-right:0;
+  }
+}
+
+/* Lists of reports */
+.reportview {
+  @include tabview;
+
+  p {
+    padding:10px;
+  }
+
+  h2, h3 { padding:10px; }
+
+  ul{
+    padding:0;
+    margin:0;
+    list-style:none;
+
+    li{
+      padding:10px;
+      border-top:solid 1px #CCC;
+      border-bottom:solid 1px #FFF;
+      margin:0;
+      list-style:none;
+      background-color: #FFF;
+    }
+  }
+
+  .left, .right {
+    width:460px;
+  }
+
+  .left {
+    float:left;
+  }
+
+  .right{
+    float:right;
+  }
+
+}
+
+/* user settings */
+.userview {
+  @include tabview-padded;
+}
+
+/* user zones */
+.zonesview {
+  @include tabview-padded;
+}
+
+/* map view on home page */
+.mapview {
+  @include tabview;
+  #feed-map { height:400px; }
+
+  @media only screen and (max-width:767px){
+    #feed-map { height:300px; }
+  }
+}
+
+/* footer stuff */
+#footer{
+  height:50px;
+  background:#0e344b;
+  background-image:url(/assets/back-header.jpg);
+  background-repeat:repeat-x;
+  background-position:left bottom;
+  color:#FFF;
+
+  .footlinks {
+    float:left;
+
+    span {
+      font-size:12px;
+      padding:5px;
+      margin: 0 0 0 5px;
+      color:#fff;
+    }
+
+    a {
+      color:#fff;
+    }
+
+    p {
+      padding-top:14px;
+    }
+  }
+
+  .reportbtn {
+    float:right;
+    display:block;
+    padding:10px;
+    margin-top:5px;
+
+    a.report {
+      background:#ffcb05;
+      padding:6px 12px;
+      font-size:17px;
+      border:1px solid #FFF;
+      color:#000;
+      text-decoration:none;
+      background:-moz-linear-gradient(top,#feef01 0%,#ffcc00 100%);
+      background:-webkit-gradient(linear,left top,left bottom,color-stop(0%,#feef01),color-stop(100%,#ffcc00));
+      background:-webkit-linear-gradient(top,#feef01 0%,#ffcc00 100%);
+      background:-o-linear-gradient(top,#feef01 0%,#ffcc00 100%);
+      background:-ms-linear-gradient(top,#feef01 0%,#ffcc00 100%);
+      background:linear-gradient(top,#feef01 0%,#ffcc00 100%);
+      filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#feef01',endColorstr='#ffcc00',GradientType=0);
+      text-shadow:#FFF 0 1px 0;
+
+      &:hover{
+        color:#FFF;
+        text-shadow:none;
+        text-decoration:none;
+        background:#ef4223;
+        filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffcb04',endColorstr='#ffd947',GradientType=0);
+      }
+    }
+  }
+}
+
+#filters {
+  padding-top:10px;
+  clear:both;
+  .planned-filter, .zones-filter, .tags-filter {
+    margin-bottom:10px;
+    @media only screen and (max-width:767px){
+      margin-bottom: 3px;
+    }
+  }
+}
+
+/* credits below footer */
+#credits {
+  padding:0 3px 0 3px;
+  margin-top:3px;
+  font-size:10px;
+  line-height:14px;
+}
+
+/* TABS */
+
+.tabbed ul{
+  padding:0;
+  margin:0;
+  list-style:none;
+  display:inline;
+
+  li {
+    padding:0;
+    margin:0;
+    list-style:none;
+    display:inline;
+    background: transparent;
+
+    a {
+      height:20px;
+      background:#FFF;
+      color:#333;
+      padding:5px 10px;
+      text-decoration:none;
+      border-top: solid 1px #CCC;
+      border-left: solid 1px #CCC;
+      border-right: solid 1px #CCC;
+      display:inline-block;
+      *vertical-align: auto;
+      zoom: 1;
+      *display: inline;
+
+      &.active {
+        background:#18b1e7;
+        color:#FFF;
+        border-top: solid 1px #027fab;
+        border-left: solid 1px #027fab;
+        border-right: solid 1px #027fab;
+      }
+    }
+  }
+}
+
+/* ie hack */
+.ie8 .tabs a {
+  width: 120px;
+}
+
+/* forms */
+button, input[type="button"], input[type="reset"], input[type="submit"], a.report {
+  cursor: pointer;
+  background: #18B1E7;
+  font-size: 14px;
+  line-height: 20px;
+  padding: 4px 6px;
+  color: #FFFFFF;
+  border: 1px solid #027FAB;
+  border-radius:4px/4px;
+}
+
+form#new_report, form#update_report {
+
+}

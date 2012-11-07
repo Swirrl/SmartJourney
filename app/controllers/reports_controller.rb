@@ -29,9 +29,11 @@ class ReportsController < ApplicationController
 
   def new
     @intro_colour = "red"
+    @reporting = true
   end
 
   def create
+    @reporting = true
     @intro_colour = "red"
     if params[:report]
       @report.latitude = params[:report][:latitude]
