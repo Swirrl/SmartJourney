@@ -25,6 +25,12 @@ body.homepage h1.logo {
   }
 }
 
+body.homepage {
+  table {
+    margin-bottom:20px;
+  }
+}
+
 /* breadcrumb */
 
 .breadcrumb li a              {color: #fff; background:#fc0;}
