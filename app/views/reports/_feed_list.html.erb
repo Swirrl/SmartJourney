@@ -1,7 +1,7 @@
 <section id="reports">
   <div class="reportview">
     <div class="sixteen">
-      <h3>Reports</h3>
+      <h3><%= local_assigns[:title] || "#{@future ? 'Planned' : 'Open'} Reports" %></h3>
       <% if reports.any? %>
         <ul class="report-list">
           <% reports.each do |report| %>
