@@ -34,8 +34,9 @@
                 <% end %>
               </div>
 
-              <%= link_to "view full details", report_path(report.guid), :class => "report-details-btn" %>
-
+              <div class='view-dtls'>
+                <%= link_to "view full details", report_path(report.guid), :class => "report-details-btn" %>
+              </div>
             </li>
 
 

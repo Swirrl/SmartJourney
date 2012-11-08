@@ -209,9 +209,11 @@ body{
         }
       }
 
-      a.report-details-btn {
+      .view-dtls {
         margin-top:4px;
-        float:right;
+      }
+
+      a.report-details-btn {
         cursor: pointer;
         background: #18B1E7;
         font-size: 12px;
@@ -330,6 +332,7 @@ body{
 
 #filters {
   padding-top:10px;
+  padding-left:10px;
   clear:both;
   .planned-filter, .zones-filter, .tags-filter {
     margin-bottom:10px;
