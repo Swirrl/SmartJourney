@@ -16,7 +16,7 @@ class ReportsController < ApplicationController
     @selected_zones_only = current_user && params[:selected_zones_only] && params[:selected_zones_only].to_bool
     @tags_string = params[:tags] if params[:tags].present? # not blank.
 
-    @tags = @tags_string.split(",").map {|t| t.strip } if @tags_string
+    @tags = @tags_string.split(",").map {|t| t.strip.downcase }.uniq if @tags_string
 
     if @future
       @reports = Report.future_reports(20)

@@ -170,7 +170,7 @@ class Report
   end
 
   def tags_string=(tags_string)
-    tags_array = tags_string.split(',').map{ |t| t.strip }
+    tags_array = tags_string.split(',').map{ |t| t.strip.downcase }.uniq
     self.tags = tags_array
   end
 
