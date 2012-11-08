@@ -451,6 +451,10 @@ form.new_report, form.edit_report {
     textarea {
       height:80px;
       width:95%;
+
+      &[readonly] {
+        color:#444;
+      }
     }
 
     @media only screen and (max-width: 767px) {

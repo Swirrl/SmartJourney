@@ -36,12 +36,12 @@
   <div class="row">
     <div class="description two-thirds column alpha">
       <%= form.label 'description' %>
-      <%= form.text_area :description, rows: 4, :disabled => !can_update_report? %><br/>
+      <%= form.text_area :description, rows: 4, :readonly => !can_update_report? %><br/>
     </div>
 
     <div class="tags one-third column omega">
       <%= form.label "tags #{'comma separated' if can_update_report?}" %>
-      <%= form.text_area :tags_string, rows: 4, :disabled => !can_update_report? %>
+      <%= form.text_area :tags_string, rows: 4, :readonly => !can_update_report? %>
 
       <% if @report.tags.any? %>
         <%= image_tag "icon-tag.png" %> <%= link_to "see open reports with these tags", reports_path(:tags => @report.tags_string) %>
