@@ -1,0 +1,74 @@
+- content_for :intro do
+  %h2 Help
+  %p.lead How to use SmartJourney
+
+%div(style="background:white;border:1px solid #ccc; padding:10px")
+  :markdown
+
+    SmartJourney is all about 'Reports' of road, traffic or weather conditions.  The main things you can do are:
+
+    * look at reports
+    * make reports
+    * edit your own reports
+
+    ## Looking at reports
+
+    Each report has a time, a place, a description and optionally some 'tags' to label or categorise it.  You can view reports on a map or in a list.
+
+    On the map, each report is represented with a 'pin'. Click on the pin to get more information.  If pins are too close together they are combined into a cluster.  As you zoom in, the clusters will separate into individual pins.
+
+    In the list view, reports are shown newest first.
+
+    ## Filtering reports
+
+    You can filter which reports you see by making selections in the 'Filters' section, then clicking on the 'Apply Filters' button.
+
+    * current or planned: some reports are for current conditions or things which are happening now: other reports are for things which will happen in the future, like planned roadworks or road closures
+    * by zone: the area covered is divided into a series of 'zones', centred around towns or villages, with Aberdeen divided up into 7 sub-zones.  Each report is in one of these zones and if you are logged in, you can choose which zones you want to see: for example only your own home town, or perhaps a series of zones that you pass through on your way to work.
+    * by tag: when creating a report, you can associated it with a tag or keyword.  You can enter one or more tags to limit the view to reports with those tags (eg 'snow' or 'roadworks')
+
+    ## Making reports
+
+    To make a report, click the 'Report It!' button at the bottom of the page and fill in the form. Click on the map to show where the incident is that you are talking about. Be as precise as you can with marking the location - zoom in until you can see enough detail. (Note that the system only accepts reports in Aberdeen or Aberdeenshire.)
+
+    When entering a tag, you can choose any word or words you like (separate multiple tags with commas), but it makes sense to see what other people use as tags and use the same ones where possible.
+
+    You don't need to be logged in to the application to make a report, but if you are, then you can edit it or update it later - see below.
+
+    ## Editing reports
+
+    If you are logged in, you can update any report that you made yourself.  Pick a report from the map or list, then click through to see the details.  You can either update the description with any new information, or if the report no longer applies (for an example an accident that has now been cleared), then you 'Mark report as closed'.
+
+    Reports are automatically regarded as closed after a fixed amount of time (usually 24 hours), so that old reports don't clog up the system.
+
+    ## Signing up and logging in
+
+    Click the 'Sign in' link at the top of the page. If you already have a username and password you can enter it here: otherwise click on the 'Sign up' link where you enter your email address, a 'screen name' and your chosen password.
+
+    Your screen name will appear against any report you make while signed in.  Note that this will be available for anyone to see, and it could reveal some personal information: where you were at a particular time for example, or if you make lots of reports over time, it could show places you frequently go to.  Old reports can still be viewed through the 'open data' section of the site. Some people choose to use a nickname for their screen name, so that their real name is not publicised.
+
+    ## Change user settings
+
+    When you are signed in, click on your user name at the top of the page to get to the 'My Account' page. You can change your password, view any current (not closed) reports that you made, in case you want to edit or close them.  You can also select from a list of Zones, to indicate which ones you are interested in.  This gives you the option to filter reports to just those in your chosen zones.
+
+    You can also sign out via a link on this page, or cancel your account altogether.
+
+
+    ## Accessing open data
+
+    All the reports and other supporting information on the site is available as open data, available at [http://data.smartjourney.co.uk](http://data.smartjourney.co.uk).  If you are a programmer who wants to use the open data for your own purposes, there is documentation on how to access it on the [docs](http://data.smartjourney.co.uk/docs) page.
+
+
+    # Help for administrators
+
+    Selected staff from Aberdeen City and Aberdeenshire councils have been assigned as 'administrators' of the application. As an administrator, you can do everything a normal user can, but you also have some additional facilities available.
+
+    ## Editing reports of other users
+
+    Most users can only edit their own reports. An administrator can edit or close any report in the system.
+
+    ## Creating reports with specified start and end times
+
+    For normal users, reports always start 'now' and stay alive until they are manually marked as closed, or after the automatic expiry period (currently 24 hours).
+
+    An administrator can pick a specific start and end time for a report.  Therefore if you know that a road closure will last 3 hours or 3 weeks, you can add that information.  You can also make reports for things that will happen in the future, for example planned roadworks or road closures that have not yet started.

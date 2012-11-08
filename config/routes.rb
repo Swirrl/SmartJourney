@@ -15,6 +15,9 @@ PmdWinter::Application.routes.draw do
 
     root :to => 'reports#index'
 
+    match '/about' => "home#about"
+    match '/help' => "home#help"
+
     resources :reports do
       member do
         put "close"
@@ -22,6 +25,8 @@ PmdWinter::Application.routes.draw do
     end
 
     resources :zones
+
+
   end
 
   # The priority is based upon order of creation:
