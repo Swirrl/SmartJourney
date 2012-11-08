@@ -15,22 +15,22 @@
           This site provides realtime access to weather and travel reports across Aberdeen City and Aberdeenshire, submitted to the <a href="http://smartjourney.co.uk">SmartJourney website</a>.
         </p>
         <p>
-          All of the data is available as fully browsable and queryable Linked Data, and is free to re-use under the Open Government Licence.
+          All of the data is available as fully browsable and queryable Linked Data, and is free to re-use under the <a href="http://www.nationalarchives.gov.uk/doc/open-government-licence/">Open Government Licence</a>.
         </p>
         <hr/>
       </div>
     </div>
 
     <div class="row container">
-      <div class="ten columns">
-        <%= render 'publish_my_data/datasets/index_table', table_title: index_table_title(@datasets.total_count, @tag) %>
-      </div>
-
-      <div class="five columns docs">
+      <div class="ten columns docs">
         <h3>Getting Started</h3>
         <p>
           Start by browsing the <%= link_to pluralize(Dataset.all.length, 'dataset'), datasets_path %> in this site. Each dataset has a page with details of its contents and how to access it.
         </p>
+        <%= render 'publish_my_data/datasets/index_table', table_title: index_table_title(@datasets.total_count, @tag) %>
+      </div>
+
+      <div class="five columns offset-by-one docs">
         <h3>Accessing the data</h3>
         <p>
           The data is provided as <strong>Linked Data</strong>, via this browsable website as well as in multiple machine-readable formats including JSON, RDF, Turtle and N-triples.
