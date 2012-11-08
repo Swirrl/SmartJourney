@@ -16,7 +16,9 @@
     </div>
 
     <div class="tags-filter">
-      <%= label_tag 'show reports with any of these tags (comma separated)' %>
+      <%= label_tag do %>
+       <%= image_tag "icon-tag.png" %> show reports with tags (comma separated)
+      <% end %>
       <%= text_field_tag 'tags', @tags_string %>
     </div>
 

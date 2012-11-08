@@ -7,14 +7,14 @@
 <% end %>
 
 <div class="clearfix">
-  <div class="description">
+  <div class="description two-thirds column alpha">
     <%= form.label :description %>
-    <%= form.text_area :description, rows: 4, style:"width:100%" %>
+    <%= form.text_area :description, rows: 4  %>
   </div>
 
-  <div class="tags">
-    <%= form.label :tags, 'tags (comma separated)' %>
-    <%= form.text_area :tags_string, rows: 4, style:"width:100%" %>
+  <div class="tags one-third column omega">
+    <%= form.label :tags, 'Tags (comma separated)' %>
+    <%= form.text_area :tags_string, rows: 4   %>
   </div>
 </div>
 
@@ -28,7 +28,7 @@
 
     <h4>Click to drop a pin at the location of the incident</h4>
 
-    <div id="report-map" style="height:300px;margin-bottom:20px"></div>
+    <div id="report-map"></div>
 
     <div id="latlong">
       <%= form.label :latitude %>

@@ -3,14 +3,12 @@
   <p class="lead">Please provide as much detail as possible</p>
 <% end %>
 
-<% content_for :main_classes do "no-pad" end %>
+<%# content_for :main_classes do "no-pad" end %>
 
-<div style="margin:10px">
-  <%= form_for(@report) do |f| %>
 
-    <% #uses dynamic_form gem (for now) %>
-    <%= error_messages_for(@report)  %>
-    <%= render :partial => 'form_fields', :locals => {:report => @report, :form => f} %>
+<%= form_for(@report) do |f| %>
 
-  <% end %>
-</div>
+  <%= error_messages_for(@report)  %>
+  <%= render :partial => 'form_fields', :locals => {:report => @report, :form => f} %>
+
+<% end %>

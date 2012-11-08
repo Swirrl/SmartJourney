@@ -156,7 +156,10 @@ body{
 /* the main grey area */
 
 .main {
-  background:#f0f0f0;
+  background-color: $main-grey;
+  background-image:url(/assets/backgrnd-dots.jpg);
+  background-repeat: no-repeat;
+  background-position: right bottom;
   clear:both;
   overflow:auto;
   padding:10px;
@@ -363,6 +366,64 @@ button, input[type="button"], input[type="reset"], input[type="submit"], a.repor
   border-radius:4px/4px;
 }
 
-form#new_report, form#update_report {
+.errorExplanation {
+    background-color: #EF4223;
+    border-top: solid 1px #FABEB4;
+    border-bottom: solid 1px #AE250D;
+    padding:10px;
+    color:#FFF;
+    margin-bottom:10px;
+    font-weight:bold;
+}
 
+p.flash-alert, p.flash-notice {
+  color:#FFF;
+  padding:10px;
+  margin-bottom:0;
+  font-weight:bold;
+}
+
+p.flash-notice {
+    background-color: #BED730;
+    border-top:solid 1px #E4EFAB;
+    border-bottom: solid 1px #82941D;
+}
+p.flash-alert {
+    background-color: #EF4223;
+    border-top: solid 1px #FABEB4;
+    border-bottom: solid 1px #AE250D;
+}
+
+form.new_report, form.edit_report {
+
+  .row {
+    margin-left: 0 !important;
+  }
+
+  .description, .tags {
+
+    textarea {
+      height:80px;
+      width:95%;
+    }
+
+    @media only screen and (max-width: 767px) {
+      width: 280px !important;
+      textarea {
+        height:40px;
+      }
+    }
+    @media only screen and (min-width: 480px) and (max-width: 767px) {
+       width: 400px !important;
+    }
+  }
+
+  .location {
+    #report-map {
+      height:300px;
+      margin-bottom:20px;
+      border:1px solid #bbb;
+    }
+    width:100%
+  }
 }

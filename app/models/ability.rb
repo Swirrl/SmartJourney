@@ -18,7 +18,9 @@ class Ability
       else
         Rails.logger.debug "not super user"
         can :update, Report do |r|
-          r.creator.uri.to_s == user.uri.to_s #can only update reports reported by themselves
+          uri_matches = (r.creator && (r.creator.uri.to_s == user.uri.to_s))
+          Rails.logger.debug("URI match #{uri_matches}")
+          uri_matches #can only update reports reported by themselves
         end
       end
     else

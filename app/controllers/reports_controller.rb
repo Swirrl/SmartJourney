@@ -1,15 +1,17 @@
 class ReportsController < ApplicationController
 
+  before_filter :set_intro_colour
   before_filter :get_existing_report, :only => [:show, :update, :close]
   before_filter :instantiate_new_report, :only => [:new, :create]
 
   load_and_authorize_resource # this will only load a resource if there isn't one in @report already.
+  skip_load_and_authorize_resource :only => :close # do this manually.
 
   after_filter :send_new_report_alerts, :only => [:create]
   after_filter :send_report_update_alerts, :only => [:update, :close]
 
   def index
-    @intro_colour = "blue"
+    @intro_colour = "blue" # override the orange
     @future = params[:future] && params[:future].to_bool
     @selected_zones_only = current_user && params[:selected_zones_only] && params[:selected_zones_only].to_bool
     @tags_string = params[:tags] if params[:tags].present? # not blank.
@@ -28,13 +30,11 @@ class ReportsController < ApplicationController
   end
 
   def new
-    @intro_colour = "red"
     @reporting = true
   end
 
   def create
     @reporting = true
-    @intro_colour = "red"
     if params[:report]
       @report.latitude = params[:report][:latitude]
       @report.longitude = params[:report][:longitude]
@@ -60,11 +60,9 @@ class ReportsController < ApplicationController
   end
 
   def show;
-    @intro_colour = "orange"
   end
 
   def update
-    @intro_colour = "orange"
     if params[:report]
       @report.latitude = params[:report][:latitude]
       @report.longitude = params[:report][:longitude]
@@ -89,7 +87,7 @@ class ReportsController < ApplicationController
 
   # PUT /reports/:id/close
   def close
-    @intro_colour = "orange"
+
     authorize! :update, @report # this is a non-restful action, so manually auth.
 
     @report.close! # this shouldn't ever fail. If it does it's an exception.
@@ -125,6 +123,10 @@ class ReportsController < ApplicationController
 
   def instantiate_new_report
     @report = Report.new()
+  end
+
+  def set_intro_colour
+   @intro_colour = "orange"
   end
 
 end

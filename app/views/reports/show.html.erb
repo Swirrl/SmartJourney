@@ -16,80 +16,76 @@
   <% #uses dynamic_form gem (for now) %>
   <%= error_messages_for(@report) %>
 
-  <h4>Status</h4>
-  <%= @report.status %>
+  <div class="row">
+    <strong>Status</strong>: <%= @report.status %> <%= report_status_icon(@report.status) %>
+  </div>
 
-  <h4>reported by</h4>
-  <% if @report.creator %>
-    <%= @report.creator.screen_name %>
-    <% if current_user && @report.creator && @report.creator.screen_name == current_user.screen_name %>
-      (this is you!)
-    <% elsif !current_user %>
-      (Is this you? Log in to edit this report)
+  <div class="row">
+    Reported
+    <% if @report.creator %>
+      <% if current_user && @report.creator && @report.creator.screen_name == current_user.screen_name %>
+        by <strong>You</strong>
+      <% elsif !current_user %>
+        by <strong><%= @report.creator.screen_name %></strong>
+        (Is this you? Log in to edit this report)
+      <% end %>
     <% end %>
-  <% else %>
-    (Anonymously reported)
-  <% end %>
+    - <strong><%= Time.parse(@report.created_at).to_s(:long) %></strong>
+  </div>
 
-  <br/>
+  <div class="row">
+    <div class="description two-thirds column alpha">
+      <%= form.label 'description' %>
+      <%= form.text_area :description, rows: 4, :disabled => !can_update_report? %><br/>
+    </div>
 
-  <% if can_update_report? %>
-    <br/>
-    <%= form.label 'description' %>
-    <%= form.text_area :description, rows: 4 %><br/>
-  <% else %>
-    <h4>description</h4>
-    <%= @report.description %><br/>
-  <% end %>
+    <div class="tags one-third column omega">
+      <%= form.label "tags #{'comma separated' if can_update_report?}" %>
+      <%= form.text_area :tags_string, rows: 4, :disabled => !can_update_report? %>
 
-  <% if can_update_report? %>
-    <%= form.label 'tags (comma separated)' %>
-    <%= form.text_field :tags_string  %><br/>
-  <% else %>
-    <h4>tags</h4>
-    <%= @report.tags_string %><br/>
-  <% end %>
-
-  <% if @report.tags.any? %>
-    <%= link_to "see open reports with these tags", reports_path(:tags => @report.tags_string) %>
-    <br/>
-  <% end %>
-  <br/>
-
-  <h4>Reported</h4>
-  <%= Time.parse(@report.created_at).to_s(:long) %>
+      <% if @report.tags.any? %>
+        <%= image_tag "icon-tag.png" %> <%= link_to "see open reports with these tags", reports_path(:tags => @report.tags_string) %>
+      <% end %>
+    </div>
+  </div>
 
   <% if can?(:update, :planned_incident) && @report.still_open? %>
-     <br/><br/>
      <%= render 'begin_end_picker', form: form %>
   <% else %>
-    <h4>Begins</h4>
-    <%= Time.parse(@report.incident_begins_at).to_s(:long) %></br>
+    <div class="row">
+      <h3>Start Time</h3>
+      <%= Time.parse(@report.incident_begins_at).to_s(:long) %>
 
-    <% if @report.incident_ends_at %>
-      <h4>Ends</h4>
-      <%= Time.parse(@report.incident_ends_at).to_s(:long) %></br>
-    <% end %>
-  <% end %>
-
-
-  <% if can_update_report? %>
-    <h4>location (click to move pin)</h4>
-  <% else %>
-    <h4>location</h4>
-  <% end %>
-
-  <% if can_update_report? %>
-    <div id="latlong" >
-      <%= form.label 'latitude' %>
-      <%= form.text_field :latitude %>
-
-      <%= form.label 'longitude' %>
-      <%= form.text_field :longitude %>
+      <% if @report.incident_ends_at %>
+        <br/><br/>
+        <h3>End Time</h3>
+        <%= Time.parse(@report.incident_ends_at).to_s(:long) %>
+      <% end %>
     </div>
   <% end %>
 
-  <div id="report-map" style="height:300px; width:300px; margin-bottom:20px">
+
+  <div class="row">
+    <div class="location">
+
+      <% if can_update_report? %>
+        <h3>location (click to move pin)</h3>
+      <% else %>
+        <h3>location</h3>
+      <% end %>
+
+      <% if can_update_report? %>
+        <div id="latlong" >
+          <%= form.label 'latitude' %>
+          <%= form.text_field :latitude %>
+
+          <%= form.label 'longitude' %>
+          <%= form.text_field :longitude %>
+        </div>
+      <% end %>
+
+      <div id="report-map"></div>
+    </div>
   </div>
 
   <% if can_update_report? %>
@@ -103,8 +99,6 @@
     <%= submit_tag "Mark report as closed", :confirm => "Are you sure? Warning: Once a report has been closed it can no longer be edited." %>
   <% end %>
 <% end %>
-
-<%= link_to "Back to reports list", reports_path %>
 
 <script type="text/javascript">
   // runs on doc rdy.

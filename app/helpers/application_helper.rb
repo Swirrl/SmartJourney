@@ -19,4 +19,8 @@ module ApplicationHelper
     link_to tag, reports_path(opts)
   end
 
+  def report_status_icon(status)
+    image_tag "icon-#{status.downcase}.png"
+  end
+
 end
