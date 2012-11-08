@@ -6,8 +6,11 @@
   <% end %>
   <div class="footlinks">
     <p>
-      <span><a href="#">Help</a></span> |
-      <span><a href="#">About</a></span>
+      <span><a href="#">Help</a></span>
+      |<span><a href="#">About</a></span>
+      <% if current_user %>
+       |<span><%= link_to "Sign Out", destroy_user_session_path, :method => :delete %></span>
+      <% end %>
     </p>
   </div>
 </div><!-- end footer -->

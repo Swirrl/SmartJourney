@@ -44,7 +44,7 @@ class ReportsController < ApplicationController
 
       if can? :create, :planned_incident
         @report.incident_begins_at = params[:report][:incident_begins_at] if params[:report][:incident_begins_at].present?
-        @report.incident_begins_at = params[:report][:incident_ends_at] if params[:report][:incident_ends_at].present?
+        @report.incident_ends_at = params[:report][:incident_ends_at] if params[:report][:incident_ends_at].present?
       end
     end
 
@@ -71,7 +71,7 @@ class ReportsController < ApplicationController
 
       if can? :update, :planned_incident
         @report.incident_begins_at = params[:report][:incident_begins_at].present? ? params[:report][:incident_begins_at] : Time.now
-        @report.incident_begins_at = params[:report][:incident_ends_at] if params[:report][:incident_ends_at].present?
+        @report.incident_ends_at = params[:report][:incident_ends_at] if params[:report][:incident_ends_at].present?
       end
     end
 

@@ -17,11 +17,12 @@
   <%= error_messages_for(@report) %>
 
   <div class="row">
-    <strong>Status</strong>: <%= @report.status %> <%= report_status_icon(@report.status) %>
+    <strong>Status</strong>: <%= report_status_icon(@report.status) %> <%= @report.status %>
   </div>
 
   <div class="row">
     Reported
+    <strong><%= Time.parse(@report.created_at).to_s(:long) %></strong>
     <% if @report.creator %>
       <% if current_user && @report.creator && @report.creator.screen_name == current_user.screen_name %>
         by <strong>You</strong>
@@ -30,7 +31,6 @@
         (Is this you? Log in to edit this report)
       <% end %>
     <% end %>
-    - <strong><%= Time.parse(@report.created_at).to_s(:long) %></strong>
   </div>
 
   <div class="row">

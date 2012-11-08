@@ -3,33 +3,42 @@
     <div class="sixteen">
       <h3>Reports</h3>
       <% if reports.any? %>
-        <ul>
+        <ul class="report-list">
           <% reports.each do |report| %>
-            <li>
-              <%= report.description %><br/>
 
+            <li class="report-item clearfix">
+              <div class="report-desc"><%= report.description %></div>
               <% if report.tags.any? %>
-                Tags: <% report.tags.each do |t| %>
-                  <%= tag_link(t) %>
-                <% end %>
-                <br/>
+                <div class="report-tags">
+                  <%= image_tag "icon-tag.png" %> <% report.tags.each do |t| %>
+                    <%= tag_link(t) %>
+                  <% end %>
+                </div>
               <% end %>
 
-              Status: <%= report.status %><br/>
+              <div class="report-status">
+                 <%= report_status_icon(report.status) %> <%= report.status %>
+                 <%= "start " + Time.parse(report.incident_begins_at).to_s(:long) if report.incident_begins_in_future? %><br/>
+              </div>
 
-              <% if report.incident_begins_in_future? %>
-                Begins: <%= Time.parse(report.incident_begins_at).to_s(:long) %><br/>
-              <% end %>
               <% if report.incident_ends_in_future? %>
-                Ends: <%= Time.parse(report.incident_ends_at).to_s(:long) %><br/>
+                <div class="report-status">
+                  <%= report_status_icon(report.status) %> <%= report.status %> end <%= Time.parse(report.incident_ends_at).to_s(:long) %><br/>
+                </div>
               <% end %>
 
-              <% if report.creator %>
-                Reporter: <%= report.creator.screen_name %><%= ' (admin)' if report.creator.role? 'super_user' %> <br/>
-              <% end %>
-              Reported: <%= Time.parse(report.created_at).to_s(:long) %><br/>
-              <%= link_to "details", report_path(report.guid) %>
+              <div class='reporter'>
+                Reported: <%= Time.parse(report.created_at).to_s(:long) %>
+                <% if report.creator %>
+                  by <%= report.creator.screen_name %><%= ' (admin)' if report.creator.role? 'super_user' %> <br/>
+                <% end %>
+              </div>
+
+              <%= link_to "view full details", report_path(report.guid), :class => "report-details-btn" %>
+
             </li>
+
+
           <% end %>
         </ul>
       <% else %>
