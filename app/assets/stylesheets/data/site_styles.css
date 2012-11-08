@@ -1,0 +1,9 @@
+h1.logo {
+  text-indent: -9999px;
+  background: url('/assets/smart-journey-white.png') no-repeat 0px 20px;
+}
+
+body.homepage h1.logo {
+  text-indent: -9999px;
+  background:none;
+}
