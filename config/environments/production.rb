@@ -6,14 +6,13 @@ PmdWinter::Application.configure do
 
   # Full error reports are disabled and caching is turned on
   config.consider_all_requests_local       = false
-  config.action_controller.perform_caching = false # DON'T CACHE ANYTHING FOR NOW
+  config.action_controller.perform_caching = false # DON'T CACHE ANYTHING FOR NOW!!
 
   # Disable Rails's static asset server (Apache or nginx will already do this)
   config.serve_static_assets = false
 
   # Compress JavaScripts and CSS
-  #config.assets.compress = true
-  config.assets.compress = false
+  config.assets.compress = true
   config.assets.css_compressor = :yui # this requires java on the server. sudo apt-get install openjdk-6-jre
   config.assets.js_compressor = :yui
 
