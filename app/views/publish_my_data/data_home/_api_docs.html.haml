@@ -1,0 +1,427 @@
+// NOTE: at the moment, this is a straight copy from ODC.
+%section
+  %h2 Contents
+
+  %h3
+    1.0
+    %strong Linked Data Browsing
+
+  %ul
+    %li
+      %a(href="#uri-dereferencing")
+        1.1
+        %strong URI Dereferencing
+    %li
+      %a(href="#resource-format")
+        1.2
+        %strong Resource Document Formats
+    %li
+      %a(href="#ruby-example")
+        1.3
+        %strong Ruby Example
+    %li
+      %a(href="#alternative-urls")
+        1.4
+        %strong Alternative URLs for convenient browsing
+    %li
+      %a(href="#external-resources")
+        1.5
+        %strong Resources in external domains
+
+  %h3
+    2.0
+    %strong SPARQL
+
+  %ul
+    %li
+      %a(href="#sparql")
+        2.1
+        %strong Introduction to accessing the data with SPARQL
+    %li
+      %a(href="#parameter-interpolation")
+        2.2
+        %strong Parameter Interpolation
+    %li
+      %a(href="#named-queries")
+        2.3
+        %strong Named Queries
+    %li
+      %a(href="#sparql-format")
+        2.4
+        %strong SPARQL Results Formats
+    %li
+      %a(href="#sparql-errors")
+        2.5
+        %strong Errors
+    %li
+      %a(href="#json-p")
+        2.6
+        %strong JSON-P
+    %li
+      %a(href="#sparql-paging")
+        2.7
+        %strong Paging
+    %li
+      %a(href="#named-graphs")
+        2.8
+        %strong Use of Named Graphs
+%section
+  %h2 Linked Data Browsing
+
+  .subsection#uri-dereferencing
+    %h3
+      1.1
+      %strong URI Dereferencing
+    %p Following the standard practices for Linked Data, we distinguish between a resource and documents about a resource. Identifiers for the resource follow the pattern:
+    %code http://{domain}/<strong>id</strong>/{...}
+    %p When you look them up you get redirected to the corresponding document about that thing. The document URL follows the pattern:
+    %code http://{domain}/<strong>doc</strong>/{...}
+    %p For example, in our Zones Dataset, the identifier for MACDUFF is
+    %code http://data.smartjourney.co.uk/<strong>id</strong>/zone/aberdeenshire/macduff
+    %p If you put this into your browser you get redirected to an HTML page about Cheshire East
+    %code http://data.smartjourney.co.uk/<strong>doc</strong>/zone/aberdeenshire/macduff
+
+  .subsection#resource-format
+    %h3
+      1.2
+      %strong Resource Document Formats
+    %p You can specify what format you want that document to be in.  By default you get HTML in a human-readable form, but you can also ask for the document in one of several RDF formats: <strong>RDF/XML</strong>, <strong>N-triples</strong>, <strong>Turtle</strong> or <strong>RDF/JSON</strong>.
+    %p There are two ways to specify which format you want: you can append a <strong>format extension</strong> to the URI or you can use the <Strong>HTTP 'Accept' header</strong>.  For both of these approaches, you can apply it either to the <strong>resource identifier</strong>, the <code>.../id/...</code> URI, or the <strong>document address</strong>, the <code>.../doc/...</code> URI.
+    %table
+      %thead
+        %tr
+          %th Format
+          %th Extension
+          %th Accept Header
+      %tbody
+        %tr
+          %td.details RDF/XML
+          %td .rdf
+          %td.hardwrap application/rdf+xml
+        %tr
+          %td.details n-triples
+          %td .nt
+          %td.hardwrap
+            application/n-triples
+            %br
+            text/plain
+        %tr
+          %td.details Turtle
+          %td .ttl
+          %td.hardwrap text/turtle
+        %tr
+          %td.details JSON
+          %td .json
+          %td.hardwrap application/json
+
+  .subsection#ruby-example
+    %h3
+      1.3
+      %strong Ruby Example
+    %p Here's an example of dereferencing a URI using the Ruby 'RestClient' library. Similar approaches can be taken in other languages.
+    %p This assumes you already have Ruby set up on your system. Also, if you don't already have it, you'll need to install the <code>rest-client</code> gem:
+    %code gem install <strong>rest-client</strong>
+    %p Full Rest Client documentation is <a href="http://rubydoc.info/gems/rest-client/frames">here</a>.
+    %code.prettyprint.lang-ruby
+      :preserve
+        require 'rest-client'
+
+        <strong>## 1 Specifying the format in an accept header - in this case RDF/XML</strong>
+        # If you're using the accept header, you can directly request the URI.
+        # This involves two requests, because doing an HTTP GET on the resource identifier gives you a
+        # 303 redirect to the appropriate document page. RestClient looks after that for you.
+
+        puts RestClient.get 'http://data.smartjourney.co.uk/id/zone/aberdeenshire/macduff', :accept=>'application/rdf+xml'
+
+        # Note: You can also request the document page directly
+        puts RestClient.get 'http://data.smartjourney.co.uk/doc/zone/aberdeenshire/macduff', :accept=>'application/rdf+xml'
+
+        <strong>## 2 Specifing the format as an extension - in this case JSON</strong>
+
+        # If using an extension, you must request the document page directly
+        # (as '.json' is not part of the URI)
+        puts RestClient.get 'http://data.smartjourney.co.uk/doc/zone/aberdeenshire/macduff.json'
+
+  .subsection#alternative-urls
+    %h3
+      1.4
+      %strong Alternative URLs for convenient browsing
+    %p Alongside the definitive URI for a resource, we offer <strong>alternative additional URLs</strong> for the information about resources that reflects the way we organise the data into datasets and by type. These offer some convenient ways to navigate and access the data.
+
+    %h4
+      1.4.1
+      %strong Datasets
+    %p Our 'Travel Zones' dataset has a URI of
+    %code http://data.smartjourney.co.uk/id/dataset/zones
+    %p but it can also be accessed at:
+    %code http://data.smartjourney.co.uk/<strong>datasets</strong>/zones
+
+    %h4
+      1.4.2
+      %strong List resources of a type
+    %p The following URL:
+    %code http://data.smartjourney.co.uk/datasets/reports/<strong>incident</strong>
+    %p provides a list of all resources in the 'Reports' dataset which have a type of:
+    %code http://data.smartjourney.co.uk/def/Incident
+
+    %h4
+      1.4.3
+      %strong Individual resources of a type
+    %p An individual incident can be found at (for example)
+    %code http://data.smartjourney.co.uk/datasets/reports/incident/60bc26e9-48a8-cacc-292f-7dcbad3e98be
+    %p This view is the same as you get via dereferencing its URI:
+    %code http://data.smartjourney.co.uk/id/incident/60bc26e9-48a8-cacc-292f-7dcbad3e98be
+    %p These URLs follow the pattern:
+    %code http://{domain}/datasets/{<strong>dataset short name</strong>}/{<strong>type short name</strong>}/{<strong>resource short name</strong>}[.{<strong>format</strong>}]
+
+    %h4
+      1.4.4
+      %strong Formats
+    %p As with the basic Linked Data Browsing, the information about a resource can be retrieved in multiple formats. Add the format extension to the URL or use the HTTP Accept header as explained above.
+    %p The list of all resources of a given type in a given dataset, together with the available triples about those resources, can also be retrieved in multiple formats, using the approaches described above. For example (N-triples)
+    %code http://data.smartjourney.co.uk/datasets/reports/incident<strong>.nt</strong>
+    %p These results are paged.Use the parameters <code>_page</code> and <code>_per_page</code> to control the paging process, with a maximum page size of 100. See the SPARQL <a href="#paging">'Paging'</a> section below for more details.
+    %p To get dataset metadata in machine readable formats, you can use the pattern
+    %code http://{domain}/datasets/{<strong>dataset short name</strong>}.[{<strong>format</strong>}]
+
+  .subsection#external-resources
+    %h3
+      1.5
+      %strong Resources in external domains
+    %p When minting URIs to identify resources we want to talk about, the usual Linked Data practice is to create those URIs in a domain you control, so that it is possible to respond to them in the ways described above.
+    %p However, there are times when it is useful to hold information about external URIs in a triple store - that is URIs in a domain that we don't control. Information about those URIs can be retrieved using SPARQL, but it's also useful to have a standard URL pattern to access them.
+    %p This is possible using the pattern:
+    %code http://{domain}/resources/{<strong>external identifier, with 'http://' removed</strong>}
+%section
+  %h2 SPARQL
+
+  .subsection#sparql
+    %h3
+      2.1
+      %strong Introduction to SPARQL
+    %p The most flexible way to access the data is by using SPARQL. To submit a SPARQL query from your code, issue an HTTP GET to
+    %code http://{domain}/sparql.{format}?query={URL-encoded query}
+    %p For example, to run this simple query
+    %code.prettyprint.lang-sparql
+      = preserve do
+        :escaped
+          SELECT * WHERE {<http://data.smartjourney.co.uk/id/report/dabb28df-fa2f-4c99-9c3a-c9ff3ad4749a> ?p ?o}
+    %p and get the results as JSON, you need to GET the following URL (note the <code>.json</code> extension)
+    %code http://data.smartjourney.co.uk/sparql<strong>.json</strong>?query=SELECT+%2A+WHERE+%7B%3Chttp%3A%2F%2Fdata.smartjourney.co.uk%2Fid%2Freport%2Fdabb28df-fa2f-4c99-9c3a-c9ff3ad4749a%3E+%3Fp+%3Fo%7D
+    %p See the <a href="#sparql_format">SPARQL Results Formats</a> section below for more details of the different formats available.
+    %p Most languages have simple libraries for URL-encoding strings. This simple example will work in Ruby.
+    %code.prettyprint.lang-ruby
+      = preserve do
+        :escaped
+          require 'rubygems'
+          require 'cgi'
+
+          query = 'SELECT * WHERE {<http://data.smartjourney.co.uk/id/report/dabb28df-fa2f-4c99-9c3a-c9ff3ad4749a> ?p ?o}'
+          encodedquery = CGI::escape(query)
+          puts encodedquery
+
+  .subsection#parameter-interpolation
+    %h3
+      2.2
+      %strong Parameter Interpolation
+    %p You can parameterize your SPARQL by including %{tokens} in your queries, and providing values for the tokens on the url query string.
+    %code http://data.smartjourney.co.uk/sparql.format?query=URL-encoded-SPARQL-query?token1=value-for-token1&token2=value-for-token2
+
+  .subsection#named-queries
+    %h3
+      2.3
+      %strong Named Queries
+    %p Named queries can be called via 'shortcut' urls. Available named queries appear on the API tab of the dataset pages.
+    %code http://data.smartjourney.co.uk/sparql/query-name.format
+
+
+  .subsection#sparql-format
+    %h3
+      2.4
+      %strong SPARQL Results formats
+    %p The available formats depend on the type of SPARQL query. A SPARQL query can be one of four main forms: <strong>SELECT</strong>, <strong>ASK</strong>, <strong>CONSTRUCT</strong> or <strong>DESCRIBE</strong>
+    %table
+      %thead
+        %tr
+          %th Query Type
+          %th Format
+          %th Extension
+          %th Accept Header
+      %tbody
+        %tr
+          %td.details(rowspan=4) SELECT
+          %td xml
+          %td .xml
+          %td.hardwrap
+            application/xml
+            %br
+            application/sparql-results+xml
+        %tr
+          %td json
+          %td .json
+          %td.hardwrap
+            application/json
+            %br
+            application/sparql-results+json
+        %tr
+          %td text
+          %td .text
+          %td.hardwrap text/plain
+        %tr
+          %td csv
+          %td .csv
+          %td.hardwrap text/csv
+        %tr
+          %td.details(rowspan=3) ASK
+          %td json
+          %td .json
+          %td.hardwrap
+            application/json
+            %br
+            application/sparql-results+json
+        %tr
+          %td xml
+          %td .xml
+          %td.hardwrap
+            application/xml
+            %br
+            application/sparql-results+json
+        %tr
+          %td text
+          %td .text
+          %td.hardwrap text/plain
+        %tr
+          %td.details(rowspan=3) CONSTRUCT
+          %td RDF/XML
+          %td .rdf
+          %td.hardwrap application/rdf+xml
+        %tr
+          %td N-triples
+          %td .nt
+          %td.hardwrap
+            text/plain
+            %br
+            application/n-triples
+        %tr
+          %td Turtle
+          %td .ttl
+          %td.hardwrap text/turtle
+        %tr
+          %td.details(rowspan=3) DESCRIBE
+          %td RDF/XML
+          %td .rdf
+          %td.hardwrap application/rdf+xml
+        %tr
+          %td N-triples
+          %td .nt
+          %td.hardwrap
+            text/plain
+            %br
+            application/n-triples
+        %tr
+          %td Turtle
+          %td .ttl
+          %td.hardwrap text/turtle
+  .subsection#sparql-errors
+    %h3
+      2.5
+      %strong Errors
+    %p If you make a SPARQL request with a malformed query to any of the formats above (i.e. not via the HTML form at /sparql, or the in-page SPARQL console), then a blank response will be returned, with <strong>HTTP status 400</strong>.
+    %p Additionally, if you make a request for a CONSTRUCT or DESCRIBE query which returns over <strong>2MB</strong> of data, the server will also respond with a <strong>400 status</strong>.
+  .subsection#json-p
+    %h3
+      2.6
+      %strong JSON-P
+    %p If you're requesting JSON, you can additionally pass a <code>callback</code> parameter and the results will be wrapped in that function. This is useful for getting round cross-domain issues if you're writing JavaScript. For example:
+    %code http://data.smartjourney.co.uk/sparql.json?<strong>callback=myCallbackFunction</strong>&query=SELECT+%2A+WHERE+%7B%3Chttp%3A%2F%2Fdata.smartjourney.co.uk%2Fid%2Freport%2Fdabb28df-fa2f-4c99-9c3a-c9ff3ad4749a%3E+%3Fp+%3Fo%7D
+    %p or to make a JSONP request with jQuery, you can omit the callback parameter from the url and just set the dataType to <code>jsonp</code>.
+    %code.prettyprint.lang-js
+      = preserve do
+        :escaped
+          queryUrl = 'http://data.smartjourney.co.uk/sparql.json?query=SELECT+%2A+WHERE+%7B%3Chttp%3A%2F%2Fdata.smartjourney.co.uk%2Fid%2Freport%2Fdabb28df-fa2f-4c99-9c3a-c9ff3ad4749a%3E+%3Fp+%3Fo%7D'
+
+          $.ajax({
+            dataType: 'jsonp',
+            url: queryUrl,
+            success: function(data) {
+              // callback code here
+              alert('success!');
+            }
+          });
+  .subsection#sparql-paging
+    %h3
+      2.7
+      %strong Paging
+    %p The results of SELECT queries through PublishMyData SPARQL endpoints are paged. We take this approach to make sure that queries respond quickly and to avoid queries with very large result sets putting undue load on the server. The maximum number of results per page is 1000. The default for machine-readable formats is <strong>1000 results per page</strong>, and for HTML format results is 20 per page. (We are still experimenting with this feature and would welcome your feedback on it.)
+    %p There are two parameters that can be added to the URLs described above to control paging. These are:
+    %ul
+      %li
+        <code>_per_page</code>: defaults to 10 in the in-page console, <strong>20</strong> on the SPARQL page (at '/sparql'), or <strong>1000</strong> for data-formats. (Maximum of 1000).
+      %li
+        <code>_page</code>: defaults to <strong>1</strong>.
+    %p For example, this query returns all resources of the Interval Type
+    %code
+      = preserve do
+        :escaped
+          SELECT * WHERE {?s a <http://purl.org/NET/c4dm/timeline.owl#Interval>}
+    %p To get results 51 to 100 in <code>text</code> format, use this URL:
+    %code http://data.smartjourney.co.uk/sparql.text?<strong>_page=2</strong>&<strong>_per_page=50</strong>&query=SELECT+%2A+WHERE+%7B%3Fs+a+%3Chttp%3A%2F%2Fpurl.org%2FNET%2Fc4dm%2Ftimeline.owl%23Interval%3E
+    %p The results of CONSTRUCT queries are currently limited to 2MB of data triples and we don't do automatic paging. If you have a CONSTRUCT query with a bigger result than that, you'll need to do your own paging using the SPARQL <strong>OFFSET</strong> and <strong>LIMIT</strong> keywords.
+    %p This sample Ruby code will loop through all pages of the results of a query and combine them into a single array
+    %code.prettyprint.lang-ruby
+      = preserve do
+        :escaped
+          require 'rubygems'
+          require 'cgi'
+          require 'rest-client'
+          require 'json'
+
+          # find all resources of type Interval
+          query = 'SELECT * WHERE {?s a <http://purl.org/NET/c4dm/timeline.owl#Interval>}'
+          encodedquery = CGI::escape(query)
+
+          # results per page
+          per_page = 50
+          base_url = 'http://data.smartjourney.co.uk/sparql.json?query=' + encodedquery
+
+          # the final result is an array of hashes
+          # each element of the array looks like:
+          # {'s'=>{'value'=>'http://data.smartjourney.co.uk/id/interval/abc', 'type'=>'uri'}}
+          result = []   # we add the results into this array, page by page
+          done = false
+          page = 1
+          while (!done)
+            query_url = base_url + "&_page=\#{page}&_per_page=\#{per_page}"
+            part_result = JSON.parse(RestClient.get(query_url))
+            part_result_array = part_result['results']['bindings'] # this reflects the hash structure of the JSON returned
+            if (part_result_array.length > 0)
+              result = result + part_result_array
+              page += 1
+            else
+              done = true
+            end
+          end
+
+          puts 'total number of results = ' + result.length.to_s
+  .subsection#named-graphs
+    %h3
+      2.8
+      %strong Use of named graphs
+    %p Each dataset in PublishMyData-driven sites is contained within a separate named graph. The dataset itself has a URI, for example
+    %code http://data.smartjourney.co.uk/id/dataset/reports
+    %p The web page for the dataset lists the named graph that contains the dataset, in this case
+    %code http://data.smartjourney.co.uk/graph/reports
+    %p The graph name for the dataset is contained in the dataset metadata, using a predicate called <code>http://publishmydata.com/def/dataset#graph</code> and can be obtained by a query like this:
+    %code.prettyprint.lang-sparql
+      = preserve do
+        :escaped
+          SELECT ?graph
+            WHERE {
+              <http://data.smartjourney.co.uk/id/dataset/reports> <http://publishmydata.com/def/dataset#graph> ?graph
+            }
+
+/served out of public as sprokets doesn't like something about this.
+%script(src="/javascripts/prettify/prettify.js" type="text/javascript")
+
+:javascript
+  prettyPrint();
