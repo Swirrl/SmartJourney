@@ -1,0 +1,61 @@
+h1.logo {
+  text-indent: -9999px;
+  background: url('/assets/smart-journey-white.png') no-repeat 0px 20px;
+}
+
+body.homepage h1.logo {
+  text-indent: -9999px;
+  background:none;
+}
+
+/* breadcrumb */
+
+.breadcrumb li a              {color: #fff; background:#fc0;}
+.breadcrumb li a:before           {border-left-color: #fff;} /* Gaps between crumbs are page background colour */
+
+.breadcrumb li a:hover            {background: #000 !important;} /* Default hover */
+.breadcrumb li a:hover:after        {border-left-color: #000 !important;} /* same as li a background */
+
+
+/* data */
+.breadcrumb li a        {background: $dark-grey;}
+.breadcrumb li a:after      {border-left-color: $dark-grey;}
+.breadcrumb li a:hover      {color: $dark-grey;}
+
+/* dataset list */
+.breadcrumb li.datasets a       {background: $red;}
+.breadcrumb li.datasets a:after   {border-left-color: $red}
+.breadcrumb li.datasets a:hover   {color: $red}
+
+/* dataset */
+.breadcrumb li.dataset a    {background: $orange}
+.breadcrumb li.dataset a:after  {border-left-color: $orange}
+.breadcrumb li.dataset a:hover  {color: $orange}
+
+/* type */
+.breadcrumb li.type a       {background: $green}
+.breadcrumb li.type a:after   {border-left-color: $green}
+.breadcrumb li.type a:hover   {color: $green}
+
+/* resource */
+.breadcrumb li.resource a       {background: $blue}
+.breadcrumb li.resource a:after   {border-left-color: $blue}
+.breadcrumb li.resource a:hover   {color: $blue}
+
+
+
+/* ontology */
+.breadcrumb li.ontology a       {background: #ff7700; color:#fff;}
+.breadcrumb li.ontology a:after   {border-left-color: #ff7700;}
+.breadcrumb li.ontology a:hover   {color: #ff7700;}
+
+/* sparql */
+.breadcrumb li.sparqlpage a     {background: #000; color:#fff;}
+.breadcrumb li.sparqlpage a:after   {border-left-color: #000;}
+
+/* docs - same as ontologies */
+.breadcrumb li.docs a       {background: #ff7700; color:#fff;}
+.breadcrumb li.docs a:after   {border-left-color: #ff7700;}
+.breadcrumb li.docs a:hover   {color: #ff7700;}
+
+.dataset .colour {color: #E2E6C3;}

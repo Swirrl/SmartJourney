@@ -108,25 +108,25 @@ body{
   background-position: right bottom;
 
   &.blue {
-    background-color:#18b1e7;
+    background-color: $blue;
     border-top:solid 1px #b6dbe8;
     border-bottom:solid 1px #027fab;
   }
 
   &.green{
-    background-color: #BED730;
+    background-color: $green;
     border-top:solid 1px #E4EFAB;
     border-bottom: solid 1px #82941D;
   }
 
   &.orange{
-    background-color: #FF9900;
+    background-color: $orange;
     border-top: solid 1px #FFCC00;
     border-bottom: solid 1px #FF9900;
   }
 
   &.red{
-    background-color: #EF4223;
+    background-color: $red;
     border-top: solid 1px #FABEB4;
     border-bottom: solid 1px #AE250D
   }
@@ -422,12 +422,12 @@ p.flash-alert, p.flash-notice {
 }
 
 p.flash-notice {
-    background-color: #BED730;
+    background-color: $green;
     border-top:solid 1px #E4EFAB;
     border-bottom: solid 1px #82941D;
 }
 p.flash-alert {
-    background-color: #EF4223;
+    background-color: $red;
     border-top: solid 1px #FABEB4;
     border-bottom: solid 1px #AE250D;
 }
