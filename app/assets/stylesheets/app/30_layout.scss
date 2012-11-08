@@ -394,6 +394,14 @@ p.flash-alert {
     border-bottom: solid 1px #AE250D;
 }
 
+// check box inline labels.
+form {
+  div.email-prefs, div.remember-me {
+    label {display:inline;}
+    input {margin-top:-2px;}
+  }
+}
+
 form.new_report, form.edit_report {
 
   .row {

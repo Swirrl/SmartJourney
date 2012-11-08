@@ -28,7 +28,8 @@ class UsersController < Devise::RegistrationsController
 
   def update_zones
 
-    zone_uris = params[:zones].collect { |z_slug, val| Zone.uri_from_slug(z_slug) if val=="1" }
+    zone_uris = []
+    zone_uris = params[:zones].collect { |z_slug, val| Zone.uri_from_slug(z_slug) if val=="1" } if params[:zones]
     current_user.zone_uris = zone_uris
 
     if current_user.save

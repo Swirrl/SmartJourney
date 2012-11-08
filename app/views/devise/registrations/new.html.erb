@@ -1,23 +1,23 @@
 <% @intro_colour = "green" %>
 <% content_for :intro do %>
   <h2>Sign Up</h2>
-  <p class="lead">Sign up for access to extra features.</p>
+  <p class="lead">Sign up for access to extra features. It's free!</p>
 <% end %>
 
 
 <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>
 
-  <div><%= f.label 'email (kept private)' %><br />
+  <div><%= f.label 'email (kept private)' %>
   <%= f.email_field :email %></div>
 
-  <div><%= f.label 'screen_name (public)'%><br />
+  <div><%= f.label 'screen_name (public)'%>
   <%= f.text_field :screen_name %></div>
 
-  <div><%= f.label :password %><br />
+  <div><%= f.label :password %>
   <%= f.password_field :password %></div>
 
-  <div><%= f.label :password_confirmation %><br />
+  <div><%= f.label :password_confirmation %>
   <%= f.password_field :password_confirmation %></div>
 
   <div><%= f.submit "Sign up" %></div>
