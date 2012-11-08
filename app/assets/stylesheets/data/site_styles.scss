@@ -8,6 +8,23 @@ body.homepage h1.logo {
   background:none;
 }
 
+@media only screen and (max-width: 767px) {
+  body.homepage {
+
+    header nav {
+      margin-bottom:0;
+    }
+    /* small screens: remove img-logo from home */
+    img.img-logo {
+      display:none;
+    }
+  }
+
+  h1.logo {
+    background: url('/assets/smart-journey-white.png') no-repeat 0px 40px !important;
+  }
+}
+
 /* breadcrumb */
 
 .breadcrumb li a              {color: #fff; background:#fc0;}
