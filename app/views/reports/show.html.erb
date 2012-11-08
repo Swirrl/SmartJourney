@@ -8,7 +8,7 @@
 
 <% content_for :intro do %>
   <h2>Report details</h2>
-  <p class="lead">Details submitted for this report</p>
+  <p class="lead">Status: <%= @report.status %> <%= report_status_icon(@report.status) %></p>
 <% end %>
 
 <%= form_for(@report) do |form| %>
@@ -16,9 +16,10 @@
   <% #uses dynamic_form gem (for now) %>
   <%= error_messages_for(@report) %>
 
+  <!--
   <div class="row">
     <strong>Status</strong>: <%= report_status_icon(@report.status) %> <%= @report.status %>
-  </div>
+  </div> -->
 
   <div class="row">
     Reported
@@ -89,14 +90,14 @@
   </div>
 
   <% if can_update_report? %>
-    <%= form.submit "Update report details" %>
+    <%= form.submit "Update report details", :style=>"float:left" %>
   <% end %>
 
 <% end %>
 
 <% if can_update_report? %>
   <%= form_tag(close_report_path, :method => :put ) do%>
-    <%= submit_tag "Mark report as closed", :confirm => "Are you sure? Warning: Once a report has been closed it can no longer be edited." %>
+    <%= submit_tag "Mark report as closed", :confirm => "Are you sure? Warning: Once a report has been closed it can no longer be edited.", :id=> 'close-report' %>
   <% end %>
 <% end %>
 

@@ -60,9 +60,11 @@ class ReportsController < ApplicationController
   end
 
   def show;
+    @reporting = true
   end
 
   def update
+    @reporting = true
     if params[:report]
       @report.latitude = params[:report][:latitude]
       @report.longitude = params[:report][:longitude]

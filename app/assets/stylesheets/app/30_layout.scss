@@ -440,6 +440,15 @@ form {
   }
 }
 
+#close-report {
+  background: #BED730;
+  float:right;
+  @media only screen and (max-width: 479px) {
+    margin-top:10px;
+    float:left;
+  }
+}
+
 form.new_report, form.edit_report {
 
   .row {
