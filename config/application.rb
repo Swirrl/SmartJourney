@@ -18,7 +18,7 @@ end
 module PmdWinter
   class Application < Rails::Application
 
-    # Caching config
+    # Caching config - NOTE this is overridden in production with another port no.
     config.cache_store = :dalli_store, 'localhost:11211', {:compress => true, :compress_threshold => 64*1024, :namespace => 'pmd_winter' }
     config.action_controller.page_cache_directory = File.join Rails.public_path, 'page_cache'
 

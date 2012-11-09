@@ -8,4 +8,5 @@ class HomeController < ApplicationController
   def set_intro_colour
     @intro_colour = "blue"
   end
+
 end

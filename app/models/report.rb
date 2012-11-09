@@ -393,6 +393,7 @@ class Report
 
     if success
      t.commit
+     clear_cache
     else
       t.abort
     end
@@ -403,6 +404,10 @@ class Report
   end
 
   private
+
+  def clear_cache
+    Rails.cache.reset
+  end
 
   def set_created_at
     self.created_at = Time.now if self.new_record?

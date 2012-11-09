@@ -10,6 +10,8 @@ class ReportsController < ApplicationController
   after_filter :send_new_report_alerts, :only => [:create]
   after_filter :send_report_update_alerts, :only => [:update, :close]
 
+  caches_action :index, :show
+
   def index
     @intro_colour = "blue" # override the orange
     @future = params[:future] && params[:future].to_bool

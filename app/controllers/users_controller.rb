@@ -1,5 +1,7 @@
 class UsersController < Devise::RegistrationsController
 
+  caches_action :edit
+
   def show
     @intro_colour = "green"
   end
@@ -22,9 +24,7 @@ class UsersController < Devise::RegistrationsController
     else
       render "edit"
     end
-
   end
-
 
   def update_zones
 
