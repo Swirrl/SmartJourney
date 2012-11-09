@@ -1,7 +1,7 @@
 class Comment
 
   include Tripod::Resource
-  include BeforeSave
+  include ActiveModel::Validations::Callbacks
 
   def self.created_at_predicate
     RDF::URI('http://purl.org/dc/terms/created')
@@ -26,14 +26,12 @@ class Comment
 
   validates :label, :rdf_type, :creator, :content, :presence => true
 
+  before_validation :before_validate
+
   # override initialise
   def initialize(uri=nil, graph_uri=nil)
-    super(uri || RDF::URI("http://data.smartjourney.co.uk/id/place/#{Guid.new.to_s}"), graph_uri || Place.graph_uri)
-    self.rdf_type ||= Place.rdf_type
-
-    #these will get stomped on by before_save, but they make it valid for now...
-    self.label ||= "comment"
-    self.created_at ||= Time.now
+    super(uri || RDF::URI("http://data.smartjourney.co.uk/id/comment/#{Guid.new.to_s}"), graph_uri || Comment.graph_uri)
+    self.rdf_type ||= Comment.rdf_type
   end
 
   # returns a user object.
@@ -63,11 +61,9 @@ class Comment
 
   private
 
-  def before_save
-    self.label = comment.content.truncate(20) + " by #{self.creator.screen_name}"
+  def before_validate
+    self.label = content.truncate(20) + " by #{self.creator.screen_name}"
+    self.created_at = Time.now
   end
-
-
-
 
 end

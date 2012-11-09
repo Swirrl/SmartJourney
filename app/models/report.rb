@@ -31,10 +31,15 @@ class Report
     RDF::URI("http://xmlns.com/foaf/0.1/primaryTopic")
   end
 
+  def self.comment_predicate
+    RDF::URI('http://rdfs.org/sioc/ns#hasReply')
+  end
+
   field :created_at, self.created_at_predicate.to_s, :datatype => RDF::XSD.dateTime
   field :rdf_type, RDF.type
   field :label, RDF::RDFS.label
   field :tags, Report.tag_predicate, :multivalued => true
+#  field :comments, Report.comment_predicate, :multivalued => true
 
   validates :created_at, :label, :rdf_type, :description, :presence => true
   validates :incident, :presence => true #associated incident
@@ -137,6 +142,25 @@ class Report
   end
 
   # END PROXIED METHODS
+
+  def comments
+    query = "
+      SELECT ?uri (<#{Report.graph_uri}> AS ?graph)
+      WHERE {
+        GRAPH <#{Report.graph_uri}> {
+          ?uri a <#{Comment.rdf_type}> .
+          <#{self.uri.to_s}> <#{Report.comment_predicate.to_s}> ?uri .
+          ?uri <#{Comment.created_at_predicate.to_s}> ?created .
+        }
+      }
+      ORDER BY DESC(?created)"
+    Comment.where(query)
+  end
+
+  # pass in a comment object
+  def add_comment(c)
+    self[Report.comment_predicate] = self[Report.comment_predicate] + [c.uri]
+  end
 
   # returns a user object.
   def creator

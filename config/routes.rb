@@ -22,6 +22,10 @@ PmdWinter::Application.routes.draw do
       member do
         put "close"
       end
+
+      member do
+        post "comment"
+      end
     end
 
     resources :zones

@@ -3,9 +3,6 @@
   <p class="lead">Please provide as much detail as possible</p>
 <% end %>
 
-<%# content_for :main_classes do "no-pad" end %>
-
-
 <%= form_for(@report, :html => { :honeypot => true } ) do |f| %>
 
   <%= error_messages_for(@report)  %>

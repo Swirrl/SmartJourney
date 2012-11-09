@@ -101,6 +101,32 @@
   <% end %>
 <% end %>
 
+
+<div class="row" style="clear:both; margin-left:0; padding-top:20px;">
+  <div class="comments">
+    <h3>Comments</h3>
+      <% if can? :create, Comment %>
+      <%= form_tag comment_report_path do %>
+        <%= text_area_tag :content, "" %>
+        <%= (submit_tag "Comment And Close", :class => "comment-and-close") if can?(:update, @report) %>
+        <%= submit_tag "Comment", :class => "comment" %>
+      <% end %>
+    <% else %>
+      <%= link_to 'Sign in', new_user_session_path %> to comment on reports.
+    <% end %>
+    <ul>
+      <% @comments.each do |c| %>
+        <li>
+          <p><%= c.content %></p>
+          <span><strong><%= c.creator.screen_name %></strong>, <%= Time.parse(c.created_at.to_s).to_s(:long) %></span>
+        </li>
+      <% end %>
+    </ul>
+
+  </div>
+</div>
+
+
 <script type="text/javascript">
   // runs on doc rdy.
   $(function() {
