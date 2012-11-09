@@ -10,8 +10,8 @@ class ReportsController < ApplicationController
   after_filter :send_new_report_alerts, :only => [:create]
   after_filter :send_report_update_alerts, :only => [:update, :close]
 
-  caches_action :index, :cache_path => Proc.new {|c| c.params} # to make sure we keep the filters.
-  caches_action :show
+  #caches_action :index, :cache_path => Proc.new {|c| c.params} # to make sure we keep the filters.
+  #caches_action :show
 
   def index
     @intro_colour = "blue" # override the orange
