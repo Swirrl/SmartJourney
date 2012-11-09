@@ -1,6 +1,6 @@
 class UsersController < Devise::RegistrationsController
 
-  caches_action :edit
+  # caches_action :edit
 
   #Notes: don't need to authorize as can only edit self here!
 
