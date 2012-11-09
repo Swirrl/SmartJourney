@@ -430,7 +430,7 @@ class Report
   private
 
   def clear_cache
-    Rails.cache.reset
+    Rails.cache.clear
   end
 
   def set_created_at

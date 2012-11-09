@@ -175,6 +175,6 @@ class User
     rdf_user = RdfUser.new(uri)
     rdf_user.label = self.screen_name
     rdf_user.save!
-    Rails.cache.reset
+    Rails.cache.clear
   end
 end
