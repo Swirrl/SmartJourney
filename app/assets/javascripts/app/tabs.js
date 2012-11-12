@@ -1,37 +1,44 @@
-// Wait until the DOM has loaded before querying the document
-$(document).ready(function(){
-	$('ul.tabs').each(function(){
-		// For each set of tabs, we want to keep track of
-		// which tab is active and it's associated content
-		var $active, $content, $links = $(this).find('a');
+/*!
+ *  Progressive-enhancey simple tabs (Replaces the ones in Skeleton)
+ *  Copyright 2012, Swirrl IT Limited
+ *  All rights reserved
+ */
 
-		// If the location.hash matches one of the links, use that as the active tab.
-		// If no match is found, use the first link as the initial active tab.
-		$active = $($links.filter('[href="'+location.hash+'"]')[0] || $links[0]);
-		$active.addClass('active');
-		$content = $($active.attr('href'));
+(function ($) {
 
-		// Hide the remaining content
-		$links.not($active).each(function () {
-			$($(this).attr('href')).hide();
-		});
+  function initTabs(){
+    $('ul.tabs').show(); // show the tabs.
+    $('ul.tabs a').bind('click', function(event) {
+        event.preventDefault();
+        showTab($(this));
+    })
+    showDefaultTab();
+  }
 
-		// Bind the click event handler
-		$(this).on('click', 'a', function(e){
-			// Make the old tab inactive.
-			$active.removeClass('active');
-			$content.hide();
+  function showDefaultTab(){
+    // if there's no hash in the URL, show the default tab
+    var tabelem = $("#default_tab");
 
-			// Update the variables with the new link and content
-			$active = $(this);
-			$content = $($(this).attr('href'));
+    // if there's a hash in the URL, navigate to the appropriate tab instead
+    if (window.location.hash) {
+      var hashTabElem = $("ul.tabs li a[href='" + window.location.hash + "']");
+      if(hashTabElem.length > 0) {
+        showTab($(hashTabElem[0]));
+      } else {
+        showTab(tabelem);
+      }
+    } else {
+      showTab(tabelem);
+    }
+  }
 
-			// Make the tab active.
-			$active.addClass('active');
-			$content.show();
+  function showTab(tabelem){
+     tabelem.addClass('active').parent().siblings().find('a').removeClass('active');
+     var section = $(tabelem.attr("href"));
+     section.siblings("section.tab-content").hide();
+     section.show();
+   }
 
-			// Prevent the anchor's default click action
-			e.preventDefault();
-		});
-	});
-});
+  $(initTabs);
+
+})(jQuery);

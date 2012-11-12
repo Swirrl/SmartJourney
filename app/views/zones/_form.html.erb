@@ -1,16 +1,36 @@
 <%= form_tag(users_zones_path, :method => 'put') do %>
 
   <p>Choose the zones you're interested in.</p>
+  <p>Once you have chosen some zones, you can set up email alerts (in the settings tab) or use them to filter the map and list on the home page.</p>
 
-  <%= submit_tag 'Save Zones'%>
-  <br/><br/>
+  <div id="zones-map" style="width:300px; height:300px;"></div>
 
-  <ul>
+  <br/>
+  <ul id="zones-list">
     <% get_zones().each do |z| %>
       <li> <%= check_box_tag z.slug, 1, zone_chosen?(z), :name => "zones[#{z.slug}]" %> <%= z.label %> </li>
     <% end %>
   </ul>
 
   <%= submit_tag 'Save Zones'%>
+
 <% end %>
+
+<script type="text/javascript">
+  // runs on doc rdy.
+  $(function() {
+
+    $("#zones-list").hide();
+
+    var map = L.map('zones-map').setView([57.15, -2.1], 10);
+
+    var tileUrl = 'http://{s}.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png',
+    subDomains = ['otile1','otile2','otile3','otile4'],
+    attrib = 'Map tiles: <a href="http://open.mapquest.co.uk" target="_blank">MapQuest</a>, <a href="http://www.openstreetmap.org/" target="_blank">OpenStreetMap</a> and contributors.';
+
+    var tileLayer = new L.TileLayer(tileUrl, {maxZoom: 18, attribution: attrib, subdomains: subDomains});
+    tileLayer.addTo(map);
+
+  });
+</script>
 

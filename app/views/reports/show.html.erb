@@ -101,9 +101,7 @@
     <h3>Comments</h3>
       <% if can? :create, Comment %>
       <%= form_tag report_comments_path(@report) do %>
-
         <%= error_messages_for(@comment) %>
-
         <%= text_area_tag :content, "" %>
         <%= (submit_tag "Comment And Close", :class => "comment-and-close") if can?(:update, @report) %>
         <%= submit_tag "Comment", :class => "comment" %>

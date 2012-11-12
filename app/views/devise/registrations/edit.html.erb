@@ -4,17 +4,23 @@
   <p class="lead">Manage your account settings and preferences</p>
 <% end %>
 
-<%= link_to "Back", :back %>
+<% content_for :javascripts do %>
+  <%= render 'shared/leaflet_js' %>
+<% end %>
+
+<% content_for :stylesheets do %>
+  <%= render 'shared/leaflet_css' %>
+<% end %>
 
 <nav class="tabbed">
-  <ul class="tabs">
-    <li class="tab"><a id="default_tab" href="#settings">Settings</a></li>
-    <li class="tab"><a href="#zones">Zones</a></li>
+  <ul class="tabs" style="display:none">
+    <li class="tab"><a href="#zones"  id="default_tab">My Zones</a></li>
+    <li class="tab"><a href="#settings">Settings</a></li>
     <li class="tab"><a href="#reports">My Reports</a></li>
   </ul>
 </nav>
 
-<section id="settings">
+<section id="settings" class="tab-content">
   <div class="userview">
     <div class="sixteen">
       <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
@@ -64,7 +70,7 @@
   </div>
 </section>
 
-<section id="zones">
+<section id="zones" class="tab-content">
   <div class="zonesview">
     <div class="sixteen">
       <%= render 'zones/form' %>
