@@ -64,6 +64,7 @@ class ReportsController < ApplicationController
 
   def show
     @reporting = true
+    @comment = Comment.new
     @comments = @report.comments
   end
 
@@ -98,39 +99,6 @@ class ReportsController < ApplicationController
     @report.close! # this shouldn't ever fail. If it does it's an exception.
 
     flash[:notice] = 'successfully closed report'
-    redirect_to report_url(@report)
-  end
-
-  # add a comment.
-  # POST /reports/:id/comment
-  def comment
-    authorize! :create, Comment # this is a non-restful action, so manually auth.
-
-    t = Tripod::Persistence::Transaction.new
-
-    c = Comment.new
-    c.content = params[:content]
-    c.creator = current_user
-    comment_success = c.save(:transaction => t)
-
-    if comment_success
-      @report.add_comment(c)
-      if params[:commit] == "Comment And Close" && can?(:update, @report)
-        @report.close!
-        @closed = true
-      end
-      report_success = @report.save(:transaction => t)
-    end
-
-    if comment_success && report_success
-      t.commit
-      flash[:notice] = 'comment added'
-      flash[:notice] += ' and report closed' if @closed
-    else
-      t.abort
-      flash[:alert] = 'Something went wrong adding your comment.'
-    end
-
     redirect_to report_url(@report)
   end
 

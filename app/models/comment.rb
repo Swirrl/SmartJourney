@@ -59,6 +59,18 @@ class Comment
     self.where(query)
   end
 
+  def guid
+    self.uri.to_s.split("/").last
+  end
+
+  def to_param
+    guid
+  end
+
+  def id
+    guid
+  end
+
   private
 
   def before_validate

@@ -13,13 +13,7 @@
 
 <%= form_for(@report) do |form| %>
 
-  <% #uses dynamic_form gem (for now) %>
   <%= error_messages_for(@report) %>
-
-  <!--
-  <div class="row">
-    <strong>Status</strong>: <%= report_status_icon(@report.status) %> <%= @report.status %>
-  </div> -->
 
   <div class="row">
     Reported
@@ -51,7 +45,7 @@
   </div>
 
   <% if can?(:update, :planned_incident) && @report.still_open? %>
-     <%= render 'begin_end_picker', form: form %>
+     <%= render 'reports/begin_end_picker', form: form %>
   <% else %>
     <div class="row">
       <h3>Start Time</h3>
@@ -96,7 +90,7 @@
 <% end %>
 
 <% if can_update_report? %>
-  <%= form_tag(close_report_path, :method => :put ) do%>
+  <%= form_tag(close_report_path(@report), :method => :put ) do%>
     <%= submit_tag "Mark report as closed", :confirm => "Are you sure? Warning: Once a report has been closed it can no longer be edited.", :id=> 'close-report' %>
   <% end %>
 <% end %>
@@ -106,7 +100,10 @@
   <div class="comments">
     <h3>Comments</h3>
       <% if can? :create, Comment %>
-      <%= form_tag comment_report_path do %>
+      <%= form_tag report_comments_path(@report) do %>
+
+        <%= error_messages_for(@comment) %>
+
         <%= text_area_tag :content, "" %>
         <%= (submit_tag "Comment And Close", :class => "comment-and-close") if can?(:update, @report) %>
         <%= submit_tag "Comment", :class => "comment" %>
@@ -114,11 +111,12 @@
     <% else %>
       <%= link_to 'Sign in', new_user_session_path %> to comment on reports.
     <% end %>
-    <ul>
+    <ul class="comments-list">
       <% @comments.each do |c| %>
         <li>
           <p><%= c.content %></p>
-          <span><strong><%= c.creator.screen_name %></strong>, <%= Time.parse(c.created_at.to_s).to_s(:long) %></span>
+          <span><strong><%= c.creator.screen_name %> <%= ' (admin)' if c.creator.role? 'super_user' %></strong>, <%= Time.parse(c.created_at.to_s).to_s(:long) %>
+            <br/><%= (link_to "delete comment", report_comment_path(@report, c), :method => 'delete', :confirm => 'are you sure you want to delete this comment?' ) if can? :delete, c %></span>
         </li>
       <% end %>
     </ul>
