@@ -214,6 +214,12 @@ class Report
   end
 
   def self.open_reports(limit=nil)
+
+    # round the times so we can cache the queries.
+    now = Time.now
+    start_time = now.ceil(60.minutes)
+    end_time = now.floor(60.minutes)
+
     query = "
       PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
       SELECT ?report (<#{Report.graph_uri}> AS ?graph)
@@ -229,12 +235,12 @@ class Report
 
           FILTER (
             # begin in the past
-            (?begins <= \"#{Time.now.iso8601()}\"^^xsd:dateTime)
+            (?begins <= \"#{start_time.iso8601()}\"^^xsd:dateTime)
             &&
             # don't end or end in future.
             (
               (!bound( ?ends )) ||
-              (?ends >= \"#{Time.now.iso8601()}\"^^xsd:dateTime)
+              (?ends >= \"#{end_time.iso8601()}\"^^xsd:dateTime)
             )
           ) .
         }
@@ -246,6 +252,13 @@ class Report
   end
 
   def self.future_reports(limit=nil)
+
+    # round the times so we can cache the queries.
+    now = Time.now
+    start_time = now.ceil(60.minutes)
+    end_time = now.floor(60.minutes)
+
+
     query = "
       PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
       SELECT ?report (<#{Report.graph_uri}> AS ?graph)
@@ -261,12 +274,12 @@ class Report
 
           FILTER (
             # begin in the future
-            (?begins > \"#{Time.now.iso8601()}\"^^xsd:dateTime)
+            (?begins > \"#{start_time.iso8601()}\"^^xsd:dateTime)
             &&
             # don't end or end in future.
             (
               (!bound( ?ends )) ||
-              (?ends >= \"#{Time.now.iso8601()}\"^^xsd:dateTime)
+              (?ends >= \"#{end_time.iso8601()}\"^^xsd:dateTime)
             )
           ) .
         }
