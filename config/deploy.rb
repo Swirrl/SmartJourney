@@ -27,7 +27,7 @@ set :runner, "rails"
 set :admin_runner, "rails"
 set :use_sudo, false
 
-set :branch, "ric-restyle"
+set :branch, "master"
 
 set :deploy_via, :remote_cache
 
