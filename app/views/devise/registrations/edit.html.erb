@@ -32,23 +32,21 @@
         <h3>Email Preferences</h3>
         <div class="email-prefs">
           <div>
-            <%= f.label :receive_zone_emails, "Receive email alerts for reports in your chosen zones" %>
+            <%= f.label :receive_zone_emails, "Receive email alerts for reports in my chosen zones" %>
             <%= f.check_box :receive_zone_emails %>
           </div>
           <br/>
 
           <div>
-            <%= f.label :receive_report_emails, "Receive email alerts for reports you've created" %>
+            <%= f.label :receive_report_emails, "Receive email alerts for reports I've created" %>
             <%= f.check_box :receive_report_emails %>
           </div>
           <br/>
 
-          <!--
           <div>
-            <%= f.label :email_comments, "Receive email alerts for comments on reports you've created" %>
-            <%= f.check_box :email_comments %>
+            <%= f.label :receive_email_comments, "Receive email alerts for comments on reports I've created" %>
+            <%= f.check_box :receive_email_comments %>
           </div>
-          -->
         </div>
         <br/>
         <div><%= f.submit "Update Settings" %></div>

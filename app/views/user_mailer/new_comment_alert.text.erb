@@ -1,0 +1,23 @@
+SmartJourney comment alert
+==========================
+
+Someone has commented on one of your smartjourney.co.uk reports:
+
+Comment:
+--------
+<%= @comment.content %>
+By: <%= @comment.creator.screen_name %>
+At: <%= Time.parse(@comment.created_at).to_s(:long) %>
+
+Summary of Report:
+------------------
+<%= @report.description %>
+Zone: <%= @report.zone.label %>
+Tags: <%= @report.tags_string %>
+Reported: <%= Time.parse(@report.created_at).to_s(:long) %>
+
+To view full details of the report, just follow this link: <%= report_url(@report) %>
+
+Thanks for using SmartJourney.
+
+Note: You received this email as this incident report matched the criteria in your email preferences.  To edit your preferences, log in at http://smartjourney.co.uk, and go to the My Account section.

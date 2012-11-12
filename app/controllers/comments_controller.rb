@@ -4,6 +4,8 @@ class CommentsController < ApplicationController
 
   before_filter :get_comment, :only => [:destroy]
 
+  after_filter :send_new_comment_alerts, :only => [:create]
+
   load_and_authorize_resource
 
   # add a comment.
@@ -26,7 +28,9 @@ class CommentsController < ApplicationController
       report_success = @report.save(:transaction => t)
     end
 
-    if comment_success && report_success
+    @success = comment_success && report_success
+
+    if @success
       t.commit
       flash[:notice] = 'comment added'
       flash[:notice] += ' and report closed' if @closed
@@ -47,6 +51,15 @@ class CommentsController < ApplicationController
   end
 
   private
+
+  def send_new_comment_alerts
+    # if subscribed, send an email to the report creator (unless the current user is the creator)
+    if @success
+      if @report.creator.receive_email_comments? && @current_user.uri != @report.creator.uri
+        UserMailer.new_comment_alert(@report, @comment, current_user, @report.creator.email).deliver
+      end
+    end
+  end
 
   def get_comment
     uri = "http://data.smartjourney.co.uk/id/comment/#{params[:id]}"

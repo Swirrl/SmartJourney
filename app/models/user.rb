@@ -75,7 +75,8 @@ class User
   # receive emails for reports I've created
   field :receive_report_emails, type: Boolean, :default => false
 
-  field :email_comments, type: Boolean, :default => false
+  # receive emails for comments on  my reports.
+  field :receive_email_comments, type: Boolean, :default => false
 
   field :zone_uris, type: Array, :default => []
 

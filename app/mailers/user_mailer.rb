@@ -13,4 +13,10 @@ class UserMailer < ActionMailer::Base
     mail(:to => recipient_email, :subject => 'New report on smartjourney.co.uk')
   end
 
+  def new_comment_alert(report, comment, current_user, recipient_email)
+    @report = report
+    @comment = comment
+    mail(:to => recipient_email, :subject => 'Someone commented on one of your SmartJourney reports')
+  end
+
 end
