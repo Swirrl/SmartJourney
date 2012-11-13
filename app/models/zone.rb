@@ -58,6 +58,13 @@ class Zone
     "http://data.smartjourney.co.uk/id/zone/" + the_slug.split('_').first + '/' + the_slug.split('_').last
   end
 
+  def as_json(options =nil)
+    {
+      :slug => slug
+    }
+  end
+
+
   def self.zone_for_lat_long(lat, long)
     Rails.logger.debug( "in zone for lat long #{lat}, #{long}" )
     # loop over files

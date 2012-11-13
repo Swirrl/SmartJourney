@@ -153,6 +153,14 @@ class User
     Report.where(query, {uri_variable: 'report'})
   end
 
+  def zone_chosen?(z)
+    self.zone_uris.include?(z.uri.to_s)
+  end
+
+  def chosen_zones
+    Zone.all.sort{ |z1, z2| z1.label.downcase <=> z2.label.downcase }.select { |z|  self.zone_chosen?(z) }
+  end
+
   protected
 
   def validate_zones

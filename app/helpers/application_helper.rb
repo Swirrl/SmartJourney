@@ -9,7 +9,7 @@ module ApplicationHelper
   end
 
   def zone_chosen?(z)
-    current_user.zone_uris.include?(z.uri.to_s)
+    current_user.zone_chosen?(z)
   end
 
   def tag_link(tag)

@@ -3,9 +3,21 @@
   <p>Choose the zones you're interested in.</p>
   <p>Once you have chosen some zones, you can set up email alerts (in the settings tab) or use them to filter the map and list on the home page.</p>
 
-  <div id="zones-map" style="width:300px; height:300px;"></div>
+  <%= submit_tag 'Save Zones'%>
 
-  <br/>
+  <div id="zones-map"></div>
+
+  <p id="select-deselect" style="display:none">
+    <a href="#" id="select-all">Select All</a>,
+    <a href="#" id="de-select-all">De-select All</a>
+  </p>
+
+  <div id="chosen-zones" style="display:none">
+    <h3>Chosen Zones:</h3>
+    <ul id='chosen-zones-list' style="margin-bottom:20px; padding-top:0; display:block;">
+    </ul>
+  </div>
+
   <ul id="zones-list">
     <% get_zones().each do |z| %>
       <li> <%= check_box_tag z.slug, 1, zone_chosen?(z), :name => "zones[#{z.slug}]" %> <%= z.label %> </li>
@@ -21,8 +33,20 @@
   $(function() {
 
     $("#zones-list").hide();
+    $("#chosen-zones").show();
 
-    var map = L.map('zones-map').setView([57.15, -2.1], 10);
+    $("#zones-map").css("height","400px");
+    $("#zones-map").css("margin-top","20px");
+    $("#zones-map").css("margin-bottom","20px");
+
+    $("#select-deselect").show();
+
+    var map = L.map('zones-map', {
+      center: [57.15, -2.1],
+      zoom: 8,
+      minZoom: 7
+    });
+    map.doubleClickZoom.disable();
 
     var tileUrl = 'http://{s}.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png',
     subDomains = ['otile1','otile2','otile3','otile4'],
@@ -30,6 +54,114 @@
 
     var tileLayer = new L.TileLayer(tileUrl, {maxZoom: 18, attribution: attrib, subdomains: subDomains});
     tileLayer.addTo(map);
+
+    var unSelectedStyle = {
+      weight: 2,
+      color: "#777",
+      opacity: 0.6,
+      fillColor: "#18B1E7",
+      fillOpacity: 0.5
+    }
+
+    var selectedZones = {};
+    var names = {};
+    var layers = {};
+
+    var selectZone = function(slug) {
+      selectedZones[slug] = true;
+      layers[slug].setStyle({ fillColor: "red", fillOpacity: 0.7} );
+      $("#zones-list input#" + slug).attr("checked", "checked");
+      updateChosenZonesList();
+    };
+
+    var deSelectZone = function(slug) {
+      selectedZones[slug] = false;
+      layers[slug].setStyle(unSelectedStyle);
+      $("#zones-list input#" + slug).attr("checked", null);
+      updateChosenZonesList();
+    };
+
+    var selectAll = function() {
+      $.each( selectedZones, function(zone, selected) {
+        if (!selected) {
+          selectZone(zone);
+        }
+      });
+    }
+
+    var deSelectAll = function() {
+      $.each( selectedZones, function(zone, selected) {
+        if (selected) {
+          deSelectZone(zone);
+        }
+      });
+    }
+
+    var setStartState = function() {
+      var chosenZonesJSON = <%= raw(current_user.chosen_zones.to_json) %>;
+
+      $.each( chosenZonesJSON, function(i, zone) {
+        selectZone(zone.slug);
+      });
+    }
+
+    var updateChosenZonesList = function() {
+      $("ul#chosen-zones-list li").remove();
+      $.each( selectedZones, function(zoneSlug, selected) {
+        if (selected) {
+          var li = $("<li></li>");
+          li.html(names[zoneSlug]);
+          li.appendTo($("ul#chosen-zones-list"));
+        }
+      });
+    }
+
+    var processGeoJson = function(data) {
+      L.geoJson( data, {
+        style: function(feature) {
+          return unSelectedStyle;
+        },
+
+        onEachFeature: function (feature, layer) {
+
+          var slug = feature.properties.slug;
+          selectedZones[slug] = false; // start off as unselected.
+          names[slug] = feature.properties.name;
+          layers[slug] = layer; // keep track of all the layers.
+
+          layer.on('click', function(e) {
+
+            if (!selectedZones[slug]) {
+              selectZone(slug);
+            } else {
+              deSelectZone(slug);
+            }
+          }); // end onclick
+        }
+      }).addTo(map);
+    }
+
+    $.ajax({
+      url: "http://smartjourney.co.uk/zone_boundaries/all_boundaries.json",
+      type: "GET",
+      dataType: "json"
+    }).done(
+      function(data) {
+        processGeoJson(data);
+        setStartState();
+      }
+    );
+
+    $("#select-all").click(function(e) {
+      e.preventDefault();
+      selectAll();
+    });
+
+    $("#de-select-all").click(function(e) {
+      e.preventDefault();
+      deSelectAll();
+    });
+
 
   });
 </script>
