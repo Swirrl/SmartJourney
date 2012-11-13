@@ -1383,3 +1383,14 @@
 <http://data.smartjourney.co.uk/id/zone/aberdeen-city/aberdeen-south/geometry>
       <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON>
                     <http://data.smartjourney.co.uk/zone_boundaries/aberdeen-south.json> .
+
+
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/ellon> a <http://data.smartjourney.co.uk/def/Zone>;
+   <http://www.w3.org/2000/01/rdf-schema#label> "ELLON";
+   <http://data.ordnancesurvey.co.uk/ontology/geometry/extent> <http://data.smartjourney.co.uk/id/zone/aberdeenshire/ellon/geometry>;
+   <http://purl.org/dc/terms/description> "Ellon";
+   <http://www.w3.org/2004/02/skos/core#notation> "ellon" .
+
+
+<http://data.smartjourney.co.uk/id/zone/aberdeenshire/ellon/geometry> <http://data.ordnancesurvey.co.uk/ontology/geometry/asGeoJSON> <http://data.smartjourney.co.uk/zone_boundaries/ellon.json> .
