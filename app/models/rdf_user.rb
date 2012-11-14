@@ -28,4 +28,5 @@ class RdfUser
     )
   end
 
+
 end

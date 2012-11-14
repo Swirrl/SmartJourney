@@ -419,6 +419,7 @@ class Report
 
     if success
      t.commit
+     update_dataset_modified
      clear_cache
     else
       t.abort
@@ -459,6 +460,15 @@ class Report
     # proxy errors from incident, but make them more user friendly for report form
     if incident && incident.place
       errors.add(:location, 'must be supplied (and in Aberdeen/Aberdeenshire)') if incident.place.errors.any?
+    end
+  end
+
+  def update_dataset_modified
+    # in local dev mode, the dataset might not be there.
+    d = TripodDataset.find("http://data.smartjourney.co.uk/id/dataset/reports") rescue nil
+    if d
+      d.modified = Time.now
+      d.save
     end
   end
 

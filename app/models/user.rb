@@ -4,7 +4,7 @@ class User
   attr_protected :roles, :roles_mask, :uri
 
   before_create :generate_uri
-  after_create :create_rdf_user
+  after_create :create_rdf_user, :update_dataset_modified
 
   # ***************
   # Devise configuration:
@@ -186,4 +186,15 @@ class User
     rdf_user.save!
     Rails.cache.clear
   end
+
+  def update_dataset_modified
+    # in local dev mode, the dataset might not be there.
+    d = TripodDataset.find("http://data.smartjourney.co.uk/id/dataset/users") rescue nil
+    if d
+      d.modified = Time.now
+      d.save
+      Rails.cache.clear
+    end
+  end
+
 end
