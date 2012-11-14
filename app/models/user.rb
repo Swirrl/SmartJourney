@@ -142,7 +142,7 @@ class User
             # don't end or end in future.
             (
               (!bound( ?ends )) ||
-              (?ends >= \"#{Time.now.iso8601()}\"^^xsd:dateTime)
+              (?ends >= NOW() )
             )
           ) .
         }
