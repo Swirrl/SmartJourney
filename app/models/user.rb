@@ -82,6 +82,8 @@ class User
 
   field :roles_mask, type: Integer # this will contain a bitwise mask of the users roles.
 
+  field :api_key, type: String
+
   # *********************
   # Roles stuff
 

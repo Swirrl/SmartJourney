@@ -274,6 +274,87 @@ describe ReportsController do
 
   end
 
+  describe "API post to #create" do
+
+    before do
+      request.env['HTTP_ACCEPT'] = 'application/json'
+      request.env['CONTENT_TYPE'] = 'application/json'
+      @user = FactoryGirl.create(:user)
+      @admin_user = FactoryGirl.create(:admin_user)
+    end
+
+    context 'good_content' do
+      before do
+        r = FactoryGirl.build(:report)
+        @json = { :report => {
+          :description => r.description,
+          :latitude => r.latitude,
+          :longitude => r.longitude,
+          :tags_string => 'tag1, tag2',
+          :incident_begins_at => '2010-01-01 12:00',
+          :incident_ends_at => '2050-01-01 12:01'
+          }
+        }
+      end
+
+      context 'no api key provided' do
+        it 'returns bad request' do
+          post :create, @json
+          response.code.should == "401"
+        end
+      end
+
+      context 'bad api key provided' do
+        it 'returns bad request' do
+          request.env['api-key'] = 'bleh'
+          post :create, @json
+          response.code.should == "401"
+        end
+      end
+
+      context 'normal user api key provided' do
+
+        it 'successfully creates, but ignores planned incidents' do
+          request.env['api-key'] = @user.api_key
+          post :create, @json
+          response.code.should == "201" #created
+          Report.all.last.incident_begins_at.should_not be_nil
+          Time.parse(Report.all.last.incident_begins_at).should_not == Time.parse(@json[:report][:incident_begins_at])
+          Report.all.last.incident_ends_at.should be_nil
+        end
+      end
+
+      context 'admin api key provided' do
+        it 'successfully creates, including the planned incident ' do
+          request.env['api-key'] = @admin_user.api_key
+          post :create, @json
+          response.code.should == "201" #created
+          Time.parse(Report.all.last.incident_begins_at).should == Time.parse(@json[:report][:incident_begins_at])
+          Time.parse(Report.all.last.incident_ends_at).should == Time.parse(@json[:report][:incident_ends_at])
+        end
+      end
+
+    end
+
+    context 'dodgy content' do
+      before do
+        request.env['api-key'] = @admin_user.api_key
+        r = FactoryGirl.build(:report)
+        @json = { :report => {
+          :description => '',
+          :tags_string => ''
+          }
+        }
+      end
+
+      it "should 400" do
+        post :create, @json
+        response.code.should == "400"
+      end
+    end
+
+  end
+
   describe 'Put to #update' do
 
     context 'not signed in' do

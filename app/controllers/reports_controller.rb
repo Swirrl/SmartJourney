@@ -14,6 +14,7 @@ class ReportsController < ApplicationController
   #caches_action :show
 
   def index
+
     @intro_colour = "blue" # override the orange
     @future = params[:future] && params[:future].to_bool
     @selected_zones_only = current_user && params[:selected_zones_only] && params[:selected_zones_only].to_bool
@@ -30,34 +31,43 @@ class ReportsController < ApplicationController
     #TODO: can we do these in the sparql?
     @reports.select! { |r| current_user.in_zones?(r.zone) } if @selected_zones_only
     @reports.select! { |r| (r.tags & @tags).any? } if @tags # return where there's at least one match
+
   end
 
   def new
     @reporting = true
   end
 
+
   def create
-    @reporting = true
-    if params[:report]
-      @report.latitude = params[:report][:latitude]
-      @report.longitude = params[:report][:longitude]
-      @report.description = params[:report][:description]
-      @report.tags_string = params[:report][:tags_string]
-      @report.creator = current_user if current_user
 
-      if can? :create, :planned_incident
-        @report.incident_begins_at = params[:report][:incident_begins_at] if params[:report][:incident_begins_at].present?
-        @report.incident_ends_at = params[:report][:incident_ends_at] if params[:report][:incident_ends_at].present?
+    respond_to do |format|
+
+      # POST /reports/
+      format.html do
+        @reporting = true # hide report it btn
+        populate_report_from_params(params[:report], true, :create) if params[:report]
+        @success = @report.save
+
+        if @success
+          flash[:notice] = 'successfully created report'
+          redirect_to reports_url
+        else
+          render 'new'
+        end
       end
-    end
 
-    @success = @report.save
-
-    if @success
-      flash[:notice] = 'successfully created report'
-      redirect_to reports_url
-    else
-      render 'new'
+      # POST /reports.json
+      # POST /reports (with accept header)
+      format.json do
+        populate_report_from_params(params[:report], true, :create) if params[:report]
+        @success = @report.save
+        if @success
+          head :created
+        else
+          head :bad_request
+        end
+      end
     end
 
   end
@@ -70,18 +80,7 @@ class ReportsController < ApplicationController
 
   def update
     @reporting = true
-    if params[:report]
-      @report.latitude = params[:report][:latitude]
-      @report.longitude = params[:report][:longitude]
-      @report.description = params[:report][:description]
-      @report.tags_string = params[:report][:tags_string]
-
-      if can? :update, :planned_incident
-        @report.incident_begins_at = params[:report][:incident_begins_at].present? ? params[:report][:incident_begins_at] : Time.now
-        @report.incident_ends_at = params[:report][:incident_ends_at] if params[:report][:incident_ends_at].present?
-      end
-    end
-
+    populate_report_from_params(params[:report], false, :update) if params[:report]
     @success = @report.save
 
     if @success
@@ -103,6 +102,19 @@ class ReportsController < ApplicationController
   end
 
   private
+
+  def populate_report_from_params(report_params, set_creator = false, action = :create)
+    @report.latitude = params[:report][:latitude]
+    @report.longitude = params[:report][:longitude]
+    @report.description = params[:report][:description]
+    @report.tags_string = params[:report][:tags_string]
+    @report.creator = current_user if current_user && set_creator
+
+    if can? action, :planned_incident
+      @report.incident_begins_at = params[:report][:incident_begins_at].present? ? params[:report][:incident_begins_at] : Time.now
+      @report.incident_ends_at = params[:report][:incident_ends_at] if params[:report][:incident_ends_at].present?
+    end
+  end
 
   #TODO: change to delayed job?
   # note: Would need to pass in a hash of strings, as @report can't be serialized as yaml by delayed_job!

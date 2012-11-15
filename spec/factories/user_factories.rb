@@ -3,6 +3,7 @@ FactoryGirl.define do
     email 'ric@swirrl.com'
     password 'password'
     screen_name 'ricroberts'
+    api_key 'ric'
   end
 
   factory :user2, class: User do
@@ -22,5 +23,6 @@ FactoryGirl.define do
     password 'password'
     screen_name 'super'
     roles User::ROLES
+    api_key 'admin'
   end
 end

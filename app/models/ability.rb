@@ -1,7 +1,11 @@
 class Ability
   include CanCan::Ability
 
-  def initialize(user)
+  def initialize(user, format, api_key)
+
+    if api_key.present? && !user
+      user = User.where(:api_key => api_key).first
+    end
 
     # if logged in.
     if user
@@ -22,11 +26,12 @@ class Ability
 
       end
       can :create, Comment # need to be logged in to comment.
-
+      can :create, Report # here to support non-html report creation
+    else
+      # anyone can create and read reports thru HTML (even if not logged in)
+      can([:create, :read], Report) if format.to_s =~ /html/
     end
 
-    # all users can create and read reports.
-    can [:create, :read], Report
 
     # See the wiki for details: https://github.com/ryanb/cancan/wiki/Defining-Abilities
   end
