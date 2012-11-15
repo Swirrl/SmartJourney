@@ -28,10 +28,11 @@ class Ability
       can :create, Comment # need to be logged in to comment.
       can :create, Report # here to support non-html report creation
     else
-      # anyone can create and read reports thru HTML (even if not logged in)
-      can([:create, :read], Report) if format.to_s =~ /html/
+      # If not logged in, can create reports thru HTML ONLY.
+      can(:create, Report) if format.to_s =~ /html/
     end
 
+    can :read, Report # anyone can read reports.
 
     # See the wiki for details: https://github.com/ryanb/cancan/wiki/Defining-Abilities
   end
