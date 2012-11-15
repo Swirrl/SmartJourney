@@ -46,7 +46,7 @@ module Polygon
     if zone["type"] == "Polygon"
       in_zone = point_in_poly(x,y,coords)
 
-    elsif poly["type"] == "MultiPolygon"
+    elsif zone["type"] == "MultiPolygon"
       # loop over polygons - see if the point is inside any of them
       in_zone = false
       coords.each do |polygon|
