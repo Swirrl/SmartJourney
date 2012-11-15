@@ -71,14 +71,16 @@ class Zone
     filelist = Dir.glob("#{Rails.root}/public/zone_boundaries/*.json")
     zoneslug = nil
     filelist.each do |f|
-      file = File.new(f)
-      zone = JSON.parse(file.read)
-      if Polygon.point_in_zone(long.to_f,lat.to_f,zone)
-        zoneslug = f.split('/').last.gsub(/\.json/,'')
+      unless (f =~ /all_boundaries/)
+        file = File.new(f)
+        zone = JSON.parse(file.read)
+        if Polygon.point_in_zone(long.to_f,lat.to_f,zone)
+          zoneslug = f.split('/').last.gsub(/\.json/,'')
+          file.close
+          break  # assume only one polygon contains the point
+        end
         file.close
-        break  # assume only one polygon contains the point
       end
-      file.close
     end
 
     region = nil
