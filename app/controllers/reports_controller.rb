@@ -62,7 +62,7 @@ class ReportsController < ApplicationController
         if @success
           render :json => @report, :status => :created
         else
-          head :bad_request
+          render :json => @report.errors, :status => :bad_request
         end
       end
     end
@@ -96,7 +96,7 @@ class ReportsController < ApplicationController
         if @success
           head :ok
         else
-          head :bad_request
+          render :json => @report.errors, :status => :bad_request
         end
       end
     end
