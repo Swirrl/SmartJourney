@@ -76,15 +76,29 @@ class ReportsController < ApplicationController
   end
 
   def update
-    @reporting = true
-    populate_report_from_params(params[:report], false, :update) if params[:report]
-    @success = @report.save
+    respond_to do |format|
+      format.html do
+        @reporting = true
+        populate_report_from_params(params[:report], false, :update) if params[:report]
+        @success = @report.save
 
-    if @success
-      flash[:notice] = 'successfully updated report'
-      redirect_to report_url(@report)
-    else
-      render 'show'
+        if @success
+          flash[:notice] = 'successfully updated report'
+          redirect_to report_url(@report)
+        else
+          render 'show'
+        end
+      end
+
+      format.json do
+        populate_report_from_params(params[:report], false, :update) if params[:report]
+        @success = @report.save
+        if @success
+          head :ok
+        else
+          head :bad_request
+        end
+      end
     end
   end
 
