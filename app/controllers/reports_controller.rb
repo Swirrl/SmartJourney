@@ -92,6 +92,7 @@ class ReportsController < ApplicationController
   def close
 
     authorize! :update, @report # this is a non-restful action, so manually auth.
+
     @report.close! # this shouldn't ever fail. If it does it's an exception.
 
     respond_to do |format|

@@ -366,9 +366,15 @@ class Report
   end
 
   def close!
+    Rails.logger.debug('closing')
+    now = Time.now
     interval = self.incident.interval
-    interval.ends_at = Time.now
+    if self.planned?
+      interval.begins_at = now
+    end
+    interval.ends_at = now
     interval.save!
+    clear_cache
   end
 
   # deletes all report, incidents, places, intervals, comments
@@ -419,9 +425,9 @@ class Report
     )
 
     if success
-     t.commit
-     update_dataset_modified
-     clear_cache
+      t.commit
+      update_dataset_modified
+      clear_cache
     else
       t.abort
     end
