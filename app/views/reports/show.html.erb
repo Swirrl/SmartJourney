@@ -21,8 +21,10 @@
     <% if @report.creator %>
       <% if current_user && @report.creator && @report.creator.screen_name == current_user.screen_name %>
         by <strong>You</strong>
-      <% elsif !current_user %>
+      <% else %>
         by <strong><%= @report.creator.screen_name %></strong>
+      <% end %>
+      <% unless current_user %>
         (Is this you? Log in to edit this report)
       <% end %>
     <% end %>

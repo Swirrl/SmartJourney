@@ -1,11 +1,7 @@
 class Ability
   include CanCan::Ability
 
-  def initialize(user, format, api_key)
-
-    if api_key.present? && !user
-      user = User.where(:api_key => api_key).first
-    end
+  def initialize(user, format)
 
     # if logged in.
     if user
@@ -16,6 +12,8 @@ class Ability
       else
         can :update, Report do |r|
           uri_matches = (r.creator && (r.creator.uri.to_s == user.uri.to_s))
+          Rails.logger.debug r.creator.screen_name if r.creator
+          Rails.logger.debug "Matches? #{uri_matches.to_s}"
           uri_matches #can only update reports reported by themselves
         end
 

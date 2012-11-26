@@ -10,9 +10,6 @@ class ReportsController < ApplicationController
   after_filter :send_new_report_alerts, :only => [:create]
   after_filter :send_report_update_alerts, :only => [:update, :close]
 
-  #caches_action :index, :cache_path => Proc.new {|c| c.params} # to make sure we keep the filters.
-  #caches_action :show
-
   def index
 
     @intro_colour = "blue" # override the orange
@@ -63,7 +60,7 @@ class ReportsController < ApplicationController
         populate_report_from_params(params[:report], true, :create) if params[:report]
         @success = @report.save
         if @success
-          head :created
+          render :json => @report, :status => :created
         else
           head :bad_request
         end
@@ -93,12 +90,21 @@ class ReportsController < ApplicationController
 
   # PUT /reports/:id/close
   def close
-    authorize! :update, @report # this is a non-restful action, so manually auth.
 
+    authorize! :update, @report # this is a non-restful action, so manually auth.
     @report.close! # this shouldn't ever fail. If it does it's an exception.
 
-    flash[:notice] = 'successfully closed report'
-    redirect_to report_url(@report)
+    respond_to do |format|
+
+      format.html do
+        flash[:notice] = 'successfully closed report'
+        redirect_to report_url(@report)
+      end
+
+      format.json do
+        head :ok
+      end
+    end
   end
 
   private

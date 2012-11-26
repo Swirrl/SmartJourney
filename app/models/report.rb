@@ -294,6 +294,7 @@ class Report
 
   def as_json(options = nil)
     hash = {
+      uri: self.uri.to_s,
       description: self.description,
       created_at: Time.parse(self.created_at).to_s(:long),
       incident_begins_at: Time.parse(self.incident_begins_at).to_s(:long),
