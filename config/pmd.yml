@@ -1,6 +1,6 @@
 production:
-  sparql_endpoint: http://sparql3.publishmydata.com/smartjourney/sparql
-  local_domain: example.com
+  sparql_endpoint: http://127.0.0.1:3030/winter/sparql
+  local_domain: data.smartjourney.co.uk
   sparql_timeout_seconds: 10
   cache_sparql_results: true
   maintenance_mode: false

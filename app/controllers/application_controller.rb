@@ -13,14 +13,33 @@ class ::ApplicationController < ActionController::Base
     end
   end
 
-  rescue_from Tripod::Errors::ResourceNotFound do |exc|
+  rescue_from Exception, :with => :render_error
+  rescue_from Tripod::Errors::ResourceNotFound, :with => :render_not_found
+
+  private
+
+  def render_not_found(e)
+    @intro_colour = "red"
+    Rails.logger.info(e)
     respond_to do |format|
-      format.html {render :file => Rails.root.join('public','404.html'), :layout => nil }
+      format.html {render :template => 'errors/not_found' }
       format.json {head :not_found}
     end
   end
 
-  private
+  def render_error(e)
+    @intro_colour = "red"
+    Rails.logger.info(e)
+    unless false #Rails.env.development?
+      respond_to do |format|
+        format.html {render :template => 'errors/error' }
+        format.json {head 500}
+      end
+    else
+      # in dev mode - reraise so we see it.
+      raise e
+    end
+  end
 
   def sign_in_api_user
     if request.headers['api-key']
