@@ -18,7 +18,7 @@ PmdWinter::Application.routes.draw do
     match '/about' => "home#about"
     match '/help' => "home#help"
 
-    match '/reports/tags' => "reports#tags"
+    match '/reports/tags' => "reports#tags", :as => 'report_tags'
 
     resources :reports do
       member do
