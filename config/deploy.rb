@@ -62,7 +62,7 @@ namespace :deploy do
   DESC
   task :restart do
     run "touch #{current_path}/tmp/restart.txt"
-    sudo "echo 'flush_all' | nc localhost 11211" # flush memcached
+    sudo "echo 'flush_all' | nc localhost 11212" # flush memcached
   end
 
   desc "Copy local config files from app's config folder to shared_path."
