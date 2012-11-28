@@ -5,6 +5,8 @@
 
  Note: this is a patched version with this change included:
  https://github.com/CloudMade/Leaflet/commit/f85347ebfa040a1c7d24f2008997f3d4757a465c
+
+ Also: made a change to L.Icon.Default.imagePath(), to work with rails pipeline.
 */
 
 (function (window, undefined) {
@@ -2800,8 +2802,9 @@ L.Icon.Default.imagePath = (function () {
     src = scripts[i].src;
     matches = src.match(leafletRe);
 
+    // hacked by RR to work with rails asset pipeline.
     if (matches) {
-      return src.split(leafletRe)[0] + '/images';
+      return src.split(leafletRe)[0]; // + '/images';
     }
   }
 }());
