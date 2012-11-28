@@ -16,8 +16,7 @@ body{
   background: #f00 !important; color: #000 !important; padding:10px; display:none;
 }
 
-.ie6 #out-of-spec,
-.ie7 #out-of-spec {
+.ie6 #out-of-spec {
   display:block;
 }
 
@@ -309,8 +308,26 @@ body{
   }
 }
 
-#home-cta .reportbtn a.report{
-  border-color: #333;
+#home-cta .reportbtn {
+  padding-right:0;
+  padding-top:5px;
+  a.report{
+    border-color: #333;
+  }
+  @media only screen and (max-width: 479px) {
+    float:none;
+    text-align:center;
+    padding-left:0;
+    margin-bottom:5px;
+  }
+}
+
+#home-cta p {
+
+  @media only screen and (max-width: 479px) {
+    font-size: 12px;
+  }
+
 }
 
 /* footer stuff */

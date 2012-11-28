@@ -1,2 +1,11 @@
-<script src="http://cdn.leafletjs.com/leaflet-0.4.4/leaflet.js"></script>
+<!--[if (lte IE 7)]>
+  <%= javascript_include_tag "leaflet-0.4.4-patched" %>
+<![endif]-->
+<!--[if (gte IE 8)]>
+  <script src="http://cdn.leafletjs.com/leaflet-0.4.5/leaflet.js"></script>
+<![endif]-->
+<!--[if !IE]> -->
+  <script src="http://cdn.leafletjs.com/leaflet-0.4.5/leaflet.js"></script>
+<!-- <![endif]-->
+
 <%= javascript_include_tag "leaflet-markercluster" %>
