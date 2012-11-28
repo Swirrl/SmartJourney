@@ -2802,9 +2802,8 @@ L.Icon.Default.imagePath = (function () {
     src = scripts[i].src;
     matches = src.match(leafletRe);
 
-    // hacked by RR to work with rails asset pipeline.
     if (matches) {
-      return src.split(leafletRe)[0]; // + '/images';
+      return src.split(leafletRe)[0] + '/images';
     }
   }
 }());
