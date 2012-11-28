@@ -17,9 +17,11 @@
 
     <div class="tags-filter">
       <%= label_tag do %>
-       <%= image_tag "icon-tag.png" %> show reports with tags (comma separated)
+       <%= image_tag "icon-tag.png" %> only show reports with these tags:
       <% end %>
       <%= text_field_tag 'tags', @tags_string %>
+      <%= render 'popular_tags' %>
+      <%= render 'tagsjs', :tag_field_id => "tags" %>
     </div>
 
     <%= submit_tag 'Apply filters' %>

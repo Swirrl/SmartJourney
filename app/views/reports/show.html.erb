@@ -32,17 +32,25 @@
 
   <div class="row">
     <div class="description two-thirds column alpha">
-      <%= form.label 'description' %>
-      <%= form.text_area :description, rows: 4, :readonly => !can_update_report? %><br/>
+      <% if can_update_report? %>
+        <%= form.label 'description' %>
+        <%= form.text_area :description, rows: 4, :readonly => !can_update_report? %><br/>
+      <% else %>
+        <h3>Description</h3>
+        <p>
+          <%= @report.description %>
+        </p>
+      <% end %>
     </div>
 
-    <div class="tags one-third column omega">
-      <%= form.label "tags #{'comma separated' if can_update_report?}" %>
-      <%= form.text_area :tags_string, rows: 4, :readonly => !can_update_report? %>
-
+    <div class="tags one-third column omega <%='readonly' unless can_update_report? %>">
+      <%= image_tag "icon-tag.png" %> <%= form.label :tags, 'Tags', :style => 'display:inline' %>
       <% if @report.tags.any? %>
-        <%= image_tag "icon-tag.png" %> <%= link_to "see open reports with these tags", reports_path(:tags => @report.tags_string) %>
+        <%= link_to "view open reports with these tags", reports_path(:tags => @report.tags_string), :style=>"font-size:12px" %>
       <% end %>
+      <%= form.text_field :tags_string %>
+      <%= render 'popular_tags' if can_update_report? %>
+      <%= render 'tagsjs', :tag_field_id => "report_tags_string", :read_only => !can_update_report? %>
     </div>
   </div>
 

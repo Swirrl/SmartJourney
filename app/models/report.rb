@@ -35,6 +35,10 @@ class Report
     RDF::URI('http://rdfs.org/sioc/ns#hasReply')
   end
 
+  def self.curated_tags
+    ["accident", "roadworks", "road closed", "snow", "flood", "traffic jam"]
+  end
+
   field :created_at, self.created_at_predicate.to_s, :datatype => RDF::XSD.dateTime
   field :rdf_type, RDF.type
   field :label, RDF::RDFS.label

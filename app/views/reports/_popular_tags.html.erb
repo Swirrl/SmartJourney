@@ -1,0 +1,4 @@
+<p class="popular-tags" style="font-size:12px">
+  Popular tags (click to add):<br/>
+  <%= get_popular_tags.map { |t| "<a href='#'>#{t}</a>" }.join(", ").html_safe  %>
+</p>

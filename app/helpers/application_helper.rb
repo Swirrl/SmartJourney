@@ -23,4 +23,21 @@ module ApplicationHelper
     image_tag "icon-#{status.downcase}.png"
   end
 
+  def get_popular_tags(limit=10)
+
+    query = "SELECT (COUNT(*) as ?count) ?tag
+    WHERE {
+      ?report a <http://data.smartjourney.co.uk/def/Report> .
+      ?report <http://data.smartjourney.co.uk/def/tag> ?tag .
+    }
+    GROUP BY ?tag
+    ORDER BY DESC(?count)
+    LIMIT #{limit}
+    "
+    results = Tripod::SparqlClient::Query.select(query).collect{ |r| r["tag"]["value"] }
+    results.insert(0, *Report.curated_tags).uniq.first(limit)
+  end
+
+
+
 end

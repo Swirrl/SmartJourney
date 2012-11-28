@@ -1,0 +1,27 @@
+<%
+read_only_str = false
+if local_assigns.has_key?(:read_only)
+  read_only_str = read_only.to_s
+end
+%>
+
+<script type="text/javascript">
+  $(function() {
+
+    var tagField = $('#<%= tag_field_id %>');
+
+    tagField.tagit({
+      tagSource: "http://winter.local/reports/tags",
+      autocomplete: {delay: 100, minLength: 2},
+      readOnly: <%= read_only_str %>
+    });
+
+    $("p.popular-tags a").click(function(e) {
+      e.preventDefault();
+      var tagText = $(this).text();
+      tagField.tagit("createTag", tagText);
+      var ul = $(this).closest('div').find('ul.tagit');
+      ul.animate({scrollTop: (ul.height()-2)});
+    });
+  });
+</script>

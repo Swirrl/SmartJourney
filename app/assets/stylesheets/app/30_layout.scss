@@ -12,6 +12,10 @@ body{
   background-color:#FFF;
 }
 
+.ui-autocomplete .ui-menu-item {
+  font-size: 12px; /* autocomplete */
+}
+
 #out-of-spec {
   background: #f00 !important; color: #000 !important; padding:10px; display:none;
 }
@@ -363,10 +367,21 @@ body{
   padding-top:10px;
   padding-left:10px;
   clear:both;
+  label {
+    font-weight:bold;
+  }
   .planned-filter, .zones-filter, .tags-filter {
     margin-bottom:10px;
+    width: 50%;
     @media only screen and (max-width:767px){
       margin-bottom: 3px;
+      width:95%;
+    }
+  }
+  @media only screen and (max-width:479px){
+    font-size:12px;
+    label {
+      font-size:12px;
     }
   }
 }
@@ -489,13 +504,37 @@ form.new_report, form.edit_report {
 
   .description, .tags {
 
-    textarea {
-      height:80px;
-      width:95%;
+    ul.tagit {
+      margin-top:4px;
+      width: 95%;
+      min-height: 50px;
+      max-height: 114px;
+      margin-bottom:4px;
+    }
 
-      &[readonly] {
-        color:#444;
+    p {
+      margin-bottom:20px;
+    }
+
+    &.readonly {
+      label {
+        font-weight:bold;
       }
+      ul.tagit {
+        background-image: none;
+        background-color: $main-grey;
+        border:none;
+        min-height: 23px;
+        padding-left:0;
+        input {
+          display:none;
+        }
+      }
+    }
+
+    textarea {
+      height:105px;
+      width:95%;
     }
 
     @media only screen and (max-width: 767px) {

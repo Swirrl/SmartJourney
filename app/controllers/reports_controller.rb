@@ -5,7 +5,7 @@ class ReportsController < ApplicationController
   before_filter :instantiate_new_report, :only => [:new, :create]
 
   load_and_authorize_resource # this will only load a resource if there isn't one in @report already.
-  skip_load_and_authorize_resource :only => [:close, :comment] # do this manually.
+  skip_load_and_authorize_resource :only => [:close, :comment, :tags] # do this manually.
 
   after_filter :send_new_report_alerts, :only => [:create]
   after_filter :send_report_update_alerts, :only => [:update, :close]
@@ -35,6 +35,24 @@ class ReportsController < ApplicationController
     @reporting = true
   end
 
+  def tags
+    # expect param term to filter
+    term = params[:term] || ""
+
+    query = "SELECT DISTINCT ?tag
+    WHERE {
+      ?report a <http://data.smartjourney.co.uk/def/Report> .
+      ?report <http://data.smartjourney.co.uk/def/tag> ?tag .
+      FILTER regex(?tag, \"^" + term + "\", \"i\")
+    }
+    ORDER BY ASC(?tag)
+    "
+    results = Tripod::SparqlClient::Query.select(query).collect{ |r| r["tag"]["value"] }
+    # add in the curated ones.
+    results += Report.curated_tags.select { |t| t.start_with?(term) }
+    results = results.uniq.sort
+    render :json => results
+  end
 
   def create
 

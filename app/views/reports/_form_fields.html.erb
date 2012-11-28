@@ -13,10 +13,13 @@
   </div>
 
   <div class="tags one-third column omega">
-    <%= form.label :tags, 'Tags (comma separated)' %>
-    <%= form.text_area :tags_string, rows: 4   %>
+    <%= image_tag "icon-tag.png" %> <%= form.label :tags, 'Tags', :style => 'display:inline' %>
+    <%= form.text_field :tags_string %>
+    <%= render 'popular_tags' %>
   </div>
 </div>
+
+<%= render 'tagsjs', :tag_field_id => "report_tags_string" %>
 
 <% if can? :create, :planned_incident %>
   <%= render 'begin_end_picker', form: form %>

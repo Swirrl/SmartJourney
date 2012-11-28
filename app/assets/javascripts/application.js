@@ -11,5 +11,7 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require jquery_ujs
-//= require jquery-ui-date-picker
+//  datepicker, and autocomplete:
+//= require jquery-ui-custom
+//= require tag-it
 //= require_tree "./app"

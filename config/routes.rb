@@ -18,6 +18,8 @@ PmdWinter::Application.routes.draw do
     match '/about' => "home#about"
     match '/help' => "home#help"
 
+    match '/reports/tags' => "reports#tags"
+
     resources :reports do
       member do
         put "close"
@@ -25,6 +27,8 @@ PmdWinter::Application.routes.draw do
 
       resources :comments, :only => [:create, :destroy]
     end
+
+
 
     resources :zones
 

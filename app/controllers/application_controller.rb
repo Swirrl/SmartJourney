@@ -6,15 +6,15 @@ class ::ApplicationController < ActionController::Base
 
   protect_from_forgery
 
+  rescue_from Exception, :with => :render_error
+  rescue_from Tripod::Errors::ResourceNotFound, :with => :render_not_found
+
   rescue_from CanCan::AccessDenied do |exception|
     respond_to do |format|
       format.html {redirect_to root_url, :alert => exception.message}
       format.json {head :unauthorized}
     end
   end
-
-  rescue_from Exception, :with => :render_error
-  rescue_from Tripod::Errors::ResourceNotFound, :with => :render_not_found
 
   private
 
@@ -30,7 +30,7 @@ class ::ApplicationController < ActionController::Base
   def render_error(e)
     @intro_colour = "red"
     Rails.logger.info(e)
-    unless false #Rails.env.development?
+    unless Rails.env.development?
       respond_to do |format|
         format.html {render :template => 'errors/error' }
         format.json {head 500}
