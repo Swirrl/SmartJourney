@@ -277,7 +277,7 @@ class Report
           ) .
         }
       }
-      ORDER BY DESC(?created)
+      ORDER BY ASC(?begins)
     "
     query += " LIMIT #{limit}" if limit
 

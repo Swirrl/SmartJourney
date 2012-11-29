@@ -285,7 +285,7 @@ body{
     background:#ffcb05;
     padding:6px 12px;
     font-size:17px;
-    border:1px solid #FFF;
+    border:1px solid #999;
     color:#000;
     text-decoration:none;
     background:-moz-linear-gradient(top,#feef01 0%,#ffcc00 100%);
@@ -315,9 +315,7 @@ body{
 #home-cta .reportbtn {
   padding-right:0;
   padding-top:5px;
-  a.report{
-    border-color: #999;
-  }
+
   @media only screen and (max-width: 479px) {
     float:none;
     text-align:center;

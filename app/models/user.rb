@@ -119,8 +119,9 @@ class User
     zone_uris.include?(zone.uri.to_s)
   end
 
-  # all of this user's reports.
-  def open_reports(limit=nil)
+  # all of this user's reports
+  # which are planned for the future or currently open
+  def reports(limit=nil)
     query = "
       PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
       SELECT ?report (<#{Report.graph_uri}> AS ?graph)

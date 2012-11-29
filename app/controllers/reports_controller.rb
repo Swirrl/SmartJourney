@@ -29,6 +29,12 @@ class ReportsController < ApplicationController
     @reports.select! { |r| current_user.in_zones?(r.zone) } if @selected_zones_only
     @reports.select! { |r| (r.tags & @tags).any? } if @tags # return where there's at least one match
 
+    respond_to do |format|
+      format.html
+      format.js # feed list refresh.
+      format.json { render :json => @reports } # map refersh
+    end
+
   end
 
   def new

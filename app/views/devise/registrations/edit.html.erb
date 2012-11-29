@@ -78,7 +78,6 @@
   </div>
 </section>
 
-
 <% # this is all reports that this user has opened, which end in the future (or have no end date)  %>
-<%= render 'reports/feed_list', :reports => current_user.open_reports, :title => "My Open Reports" %>
+<%= render 'reports/feed_list', :reports => current_user.reports, :title => "My Reports" %>
 

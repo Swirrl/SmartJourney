@@ -1,6 +1,9 @@
 <div class="sixteen" id="filters">
   <%= form_tag reports_path, :method => 'get' do %>
-    <h3>Filters</h3>
+    <h3 style="float:left">Filters</h3>
+    <%= image_tag 'loading-spinner.gif', :class => 'loading-spinner', :style => 'display:none; float:left; margin: 10px 10px 0 10px' %>
+    <br style="clear:both" />
+
     <div class="planned-filter">
       <%= radio_button_tag 'future', 'false', !@future, :style => 'margin-top:-2px' %> Current
       &nbsp;
@@ -17,7 +20,7 @@
 
     <div class="tags-filter">
       <%= label_tag do %>
-       <%= image_tag "icon-tag.png" %> only show reports with these tags:
+       <%= image_tag "icon-tag.png" %> show reports with any of these tags:
       <% end %>
       <%= text_field_tag 'tags', @tags_string %>
       <%= render 'popular_tags' %>
@@ -28,3 +31,63 @@
   <% end %>
 
 </div>
+
+<script type="text/javascript">
+  $(function() {
+
+    function ajaxError() {
+      alert('There was an error applying your filters. Please try again.');
+    }
+
+    function showSpinner() {
+      $('#filters img.loading-spinner').show()
+    }
+
+    function hideSpinner() {
+      $('#filters img.loading-spinner').hide()
+    }
+
+    $('#filters').ajaxStart(showSpinner);
+    $('#filters').ajaxStop(hideSpinner);
+    $('#filters').ajaxError(ajaxError)
+
+    function filtersChanged() {
+
+      // need to get new list of reports and update the map
+      var url = '<%= reports_url %>' + '?' + $('#filters form').serialize();
+
+      // update the map.
+      $.ajax( {
+        url: url,
+        dataType: 'json',
+        success: function(data, textStatus, jqXHR) {
+          SmartJourney.feedMap.updateReports(data);
+        }
+      });
+
+      // update the reports feed too.
+      $.ajax( {
+        url: url,
+        dataType: 'script' // will be interpreted as js (calls index.js.erb)
+      });
+
+    }
+
+    // hide the submit btn
+    $('#filters input[type="submit"]').hide();
+    $('#filters input[type="checkbox"], #filters input[type="radio"]').change(function() {
+      filtersChanged();
+    });
+
+    var tagField = $('#tags');
+    tagField.tagit({
+      afterTagAdded: function(event, ui) {
+        filtersChanged();
+      },
+      afterTagRemoved: function(event, ui) {
+        filtersChanged();
+      }
+    });
+
+  });
+</script>

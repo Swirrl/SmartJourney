@@ -16,10 +16,9 @@
     <%= image_tag "icon-tag.png" %> <%= form.label :tags, 'Tags', :style => 'display:inline' %>
     <%= form.text_field :tags_string %>
     <%= render 'popular_tags' %>
+    <%= render 'tagsjs', :tag_field_id => "report_tags_string" %>
   </div>
 </div>
-
-<%= render 'tagsjs', :tag_field_id => "report_tags_string" %>
 
 <% if can? :create, :planned_incident %>
   <%= render 'begin_end_picker', form: form %>
