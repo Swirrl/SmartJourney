@@ -51,7 +51,7 @@ if (!window.SmartJourney) {
     subDomains = ['otile1','otile2','otile3','otile4'],
     attrib = 'Map tiles: <a href="http://open.mapquest.co.uk" target="_blank">MapQuest</a>, <a href="http://www.openstreetmap.org/" target="_blank">OpenStreetMap</a> and contributors.';
 
-    var tileLayer = new L.TileLayer(tileUrl, {maxZoom: 18, attribution: attrib, subdomains: subDomains});
+    var tileLayer = new L.TileLayer(tileUrl, {maxZoom: 18, minZoom: 8, attribution: attrib, subdomains: subDomains});
     tileLayer.addTo(this.map);
 
     var markers = new L.MarkerClusterGroup();
