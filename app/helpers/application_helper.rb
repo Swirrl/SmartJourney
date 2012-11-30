@@ -34,7 +34,7 @@ module ApplicationHelper
     ORDER BY DESC(?count)
     LIMIT #{limit}
     "
-    results = Tripod::SparqlClient::Query.select(query).collect{ |r| r["tag"]["value"] }
+    results = Tripod::SparqlClient::Query.select(query).collect{ |r| r["tag"]["value"] if r["tag"] }.select { |r| r.present? }
     results.insert(0, *Report.curated_tags).uniq.first(limit)
   end
 
