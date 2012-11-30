@@ -176,6 +176,9 @@ body{
     padding-left:0;
     padding-right:0;
   }
+  @media only screen and (max-width:767px){
+    background-image: none;
+  }
 }
 
 /* Lists of reports */
