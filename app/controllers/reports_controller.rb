@@ -19,10 +19,13 @@ class ReportsController < ApplicationController
 
     @tags = @tags_string.split(",").map {|t| t.strip.downcase }.uniq if @tags_string
 
+    # NOTE: we get all reports (for current filters), and do any Limiting in the UI.
+    # There wont be that many, and we need to show all of them on the map.
+
     if @future
-      @reports = Report.future_reports(20)
+      @reports = Report.future_reports
     else
-      @reports = Report.open_reports(20)
+      @reports = Report.open_reports
     end
 
     #TODO: can we do these in the sparql?

@@ -22,7 +22,7 @@
 </nav>
 
 <%= render 'feed_map' %>
-<%= render 'feed_list', :reports => @reports.last(20) %>
+<%= render 'feed_list', :reports => @reports.first(20) %>
 <%= render 'filters' %>
 
 <script type="text/javascript">
