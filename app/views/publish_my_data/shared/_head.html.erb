@@ -1,0 +1,26 @@
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <%= render 'publish_my_data/shared/meta_title' %>
+
+  <link href='http://fonts.googleapis.com/css?family=Inconsolata' rel='stylesheet' type='text/css'>
+  <%= render 'publish_my_data/shared/rails_assets' %>
+
+  <%= yield :meta_description %>
+  <%= yield :meta_keywords %>
+
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <%# ADDED OVER WHAT's IN CORE!! %>
+  <!-- favicons -->
+  <link rel="shortcut icon" href="/assets/favicon.ico">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/assets/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/assets/apple-touch-icon-114x114.png">
+
+  <%# add typekit in: %>
+  <script type="text/javascript" src="http://use.typekit.com/myl7dtk.js"></script>
+  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+</head>
