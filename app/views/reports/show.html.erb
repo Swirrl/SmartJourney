@@ -36,7 +36,7 @@
         <%= form.label 'description' %>
         <%= form.text_area :description, rows: 4, :readonly => !can_update_report? %><br/>
       <% else %>
-        <h3>Description</h3>
+        <h3 style="margin-top:0">Description</h3>
         <p>
           <%= auto_link @report.description %>
         </p>
