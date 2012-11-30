@@ -45,17 +45,17 @@ if (!window.SmartJourney) {
 
     // setup
 
-    var map = L.map('feed-map').setView([57.15, -2.1], 10);
+    this.map = L.map('feed-map').setView([57.15, -2.1], 10);
 
     var tileUrl = 'http://{s}.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png',
     subDomains = ['otile1','otile2','otile3','otile4'],
     attrib = 'Map tiles: <a href="http://open.mapquest.co.uk" target="_blank">MapQuest</a>, <a href="http://www.openstreetmap.org/" target="_blank">OpenStreetMap</a> and contributors.';
 
     var tileLayer = new L.TileLayer(tileUrl, {maxZoom: 18, attribution: attrib, subdomains: subDomains});
-    tileLayer.addTo(map);
+    tileLayer.addTo(this.map);
 
     var markers = new L.MarkerClusterGroup();
-    map.addLayer(markers);
+    this.map.addLayer(markers);
     renderReports();
 
     // privileged funcs

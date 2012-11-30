@@ -23,5 +23,16 @@
 
 <%= render 'feed_map' %>
 <%= render 'feed_list', :reports => @reports.last(20) %>
-
 <%= render 'filters' %>
+
+<script type="text/javascript">
+  $(function() {
+    $("#home-cta a.report, .reportbtn a.report").click(function(e) {
+      e.preventDefault();
+      var map = SmartJourney.feedMap.map;
+      var zoom = map.getZoom();
+      var center = map.getCenter();
+      window.location.href = '<%= new_report_url %>' + '?lat=' + center.lat.toString() + '&lng=' + center.lng.toString() + '&zoom=' + zoom.toString();
+    });
+  });
+</script>

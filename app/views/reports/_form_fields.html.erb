@@ -49,7 +49,26 @@
   $(function() {
     $('#latlong').hide();
 
-    var map = L.map('report-map').setView([57.15, -2.1], 10);
+    // default lat/long/zoom
+    var lat = 57.15;
+    var lng = -2.1;
+    var zoom = 10;
+
+    // if provided, use the lat/long/zoom from the query string
+    var queryStringLat = swirrl.queryString.getParameterByName('lat');
+    var queryStringLng = swirrl.queryString.getParameterByName('lng');
+    var queryStringZoom = swirrl.queryString.getParameterByName('zoom');
+
+    if (queryStringLat)
+      lat = parseFloat(queryStringLat);
+
+    if (queryStringLng)
+      lng = parseFloat(queryStringLng);
+
+    if (queryStringZoom)
+      zoom = parseInt(queryStringZoom);
+
+    var map = L.map('report-map').setView([lat, lng], zoom);
 
     var tileUrl = 'http://{s}.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png',
     subDomains = ['otile1','otile2','otile3','otile4'],
