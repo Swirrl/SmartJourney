@@ -55,7 +55,7 @@ class CommentsController < ApplicationController
   def send_new_comment_alerts
     # if subscribed, send an email to the report creator (unless the current user is the creator)
     if @success
-      if @report.creator.receive_email_comments && @current_user.uri != @report.creator.uri
+      if @report.creator && @report.creator.receive_email_comments && @current_user.uri != @report.creator.uri
         UserMailer.new_comment_alert(@report, @comment, current_user, @report.creator.email).deliver
       end
     end
