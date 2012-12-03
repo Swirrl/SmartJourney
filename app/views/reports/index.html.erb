@@ -23,8 +23,18 @@
     </div>
 
     <div class="reportbtn" style="float:right">
-      <%= link_to "Report a problem!", new_report_path, class:"report"%>
+      <%= link_to "Report a problem", new_report_path, class:"report"%>
     </div>
+
+    <%if current_user %>
+      <div class="alertbtn" style="float:right">
+        <%= link_to "Manage email alerts", edit_user_registration_path, class:"get-alerts" %>
+      </div>
+    <% else %>
+      <div class="alertbtn" style="float:right">
+        <%= link_to "Sign up for email alerts", new_user_registration_path, class:"get-alerts"%>
+      </div>
+    <% end %>
 
     <div style="height:0; clear:both"></div>
   </div>

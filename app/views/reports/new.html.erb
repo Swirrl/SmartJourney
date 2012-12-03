@@ -3,6 +3,13 @@
   <p class="lead">Please provide as much detail as possible</p>
 <% end %>
 
+<% unless current_user %>
+  <p style="font-size:16px">
+  We encourage you to <strong><%= link_to "sign in", new_user_session_path %></strong> before reporting an issue, so you can receive email alerts for updates &amp; comments. <br/> <strong>Need an account? <%= link_to "Sign up!", new_user_registration_path %></strong>
+  <br/>
+  </p>
+<% end %>
+
 <%= form_for(@report, :html => { :honeypot => true } ) do |f| %>
 
   <%= error_messages_for(@report)  %>

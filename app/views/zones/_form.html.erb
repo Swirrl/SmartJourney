@@ -1,8 +1,16 @@
 <%= form_tag(users_zones_path, :method => 'put') do %>
 
-  <p>Choose the zones you're interested in.</p>
-  <p>Once you have chosen some zones, you can set up email alerts (in the settings tab) or use them to filter the map and list on the home page.</p>
-
+  <h3>Choose the zones you're interested in.</h3>
+  <p>Once you have chosen some zones, you can receive <strong>email alerts</strong> for reports in those areas.</p>
+  <p>You can edit this and other email preferences in the <a href="#settings" id="settings-tab-link">Settings</a> tab.</p>
+  <script type='text/javascript'>
+    $( function() {
+      $("#settings-tab-link").click(function(e) {
+        e.preventDefault();
+        $('ul.tabs li a[href="#settings"]').click();
+      });
+    });
+  </script>
   <%= submit_tag 'Save Zones'%>
 
   <div id="zones-map"></div>

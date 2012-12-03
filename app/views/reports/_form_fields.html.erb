@@ -104,9 +104,4 @@
   });
 </script>
 
-<% unless current_user %>
-  <strong>Note:</strong> You might want to <%= link_to "Sign in / up", new_user_session_path %> before reporting, so you can manage your reports later.
-  <br/><br/>
-<% end %>
-
 <%= form.submit %>

@@ -4,6 +4,14 @@ class UsersController < Devise::RegistrationsController
 
   #Notes: don't need to authorize as can only edit self here!
 
+  def after_sign_in_path_for(resource)
+    reports_url
+  end
+
+  def after_sign_up_path_for(resource)
+    edit_user_registration_url
+  end
+
   def update
     # required for settings form to submit when password is left blank
     if params[:user][:password].blank?
