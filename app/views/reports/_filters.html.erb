@@ -35,7 +35,7 @@
 <script type="text/javascript">
   $(function() {
 
-    function ajaxError() {
+    function ajaxError(a, b, c) {
       alert('There was an error applying your filters. Please try again.');
     }
 
@@ -49,7 +49,8 @@
 
     $('#filters').ajaxStart(showSpinner);
     $('#filters').ajaxStop(hideSpinner);
-    $('#filters').ajaxError(ajaxError);
+    // note: we process errors manually for the change events,
+    // and ignore autocomplete errors.
 
     function updateSummaryText(data) {
       var text = data.length.toString();
@@ -78,13 +79,15 @@
         success: function(data, textStatus, jqXHR) {
           SmartJourney.feedMap.updateReports(data);
           updateSummaryText(data);
-        }
+        },
+        error: ajaxError
       });
 
       // update the reports feed too.
       $.ajax( {
         url: url,
-        dataType: 'script' // will be interpreted as js (calls index.js.erb)
+        dataType: 'script', // will be interpreted as js (calls index.js.erb)
+        error: ajaxError
       });
 
       // update the time
@@ -95,6 +98,7 @@
           $("#home-cta .time").html(data.time);
           $("#home-cta .date").html(data.date);
         }
+        // don't worry about errors for this.
       });
 
     }
