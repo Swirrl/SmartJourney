@@ -8,8 +8,13 @@ h4{font-size:12px;line-height:14px}
 h5{font-size:12px;line-height:14px}
 h6{font-size:12px;line-height:12px}
 
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
 body{
   background-color:#FFF;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 .ui-autocomplete .ui-menu-item {
@@ -18,6 +23,10 @@ body{
 
 #out-of-spec {
   background: #f00 !important; color: #000 !important; padding:10px; display:none;
+}
+
+#no-js {
+  background: #f00 !important; color: #000 !important; padding:10px; display:block;
 }
 
 .ie6 #out-of-spec {
@@ -29,22 +38,12 @@ body{
   background-image:url(/assets/back-header.jpg);
   background-repeat:repeat-x;
   background-position:left bottom;
-  height:70px;
-
-  @media only screen and (max-width:767px){
-    height:50px;
-  }
+  height:50px;
 
   #logo {
     float:left;
-    width:300px;
-    height:75px;
-
-    @media only screen and (max-width:767px){
-      width:200px;
-      height:50px;
-    }
-
+    width:200px;
+    height:50px;
   }
 
   #btnnav {
@@ -114,6 +113,8 @@ body{
   background-repeat: no-repeat;
   background-position: right bottom;
 
+  h2 { letter-spacing: -0.05em; font-size: 28px; line-height: 30px; margin-top:0px; }
+  p.lead { font-size: 20px; line-height: 20px; margin-bottom:5px; }
 
   &.blue {
     background-color: $blue;
@@ -139,25 +140,12 @@ body{
     border-bottom: solid 1px #AE250D
   }
 
-  p { font-size: 18px; }
-
   @media only screen and (max-width:767px){
-    h2 { font-size: 16px; line-height:22px; padding:0; margin:0;}
-    p { font-size: 14px; line-height: 18px; padding:0; margin:0;}
+    h2 { font-size: 20px; line-height:20px; padding:0; margin:0; margin-bottom:5px;}
+    p.lead { font-size: 14px; line-height: 14px; padding:0; margin:0;}
+    background-image: none;
   }
 
-  /* so text doesnt overlap img */
-  @media only screen and (min-width:768px) and (max-width:959px){
-    h2, p { width: 700px; }
-  }
-
-  @media only screen and (max-width:767px){
-    h2, p { width: 220px; }
-  }
-
-  @media only screen and (min-width:480px) and (max-width:767px){
-    h2, p { width: 300px; }
-  }
 }
 
 
@@ -299,41 +287,68 @@ body{
     background:linear-gradient(top,#feef01 0%,#ffcc00 100%);
     filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#feef01',endColorstr='#ffcc00',GradientType=0);
     text-shadow:#FFF 0 1px 0;
+  }
+}
 
-    &:hover{
-      text-shadow:#999 0 -1px 0;
-      color:#FFF;
-      text-decoration:none;
-      background:#ef4223;
-      background:-moz-linear-gradient(top,#ffcb04 0%,#ef4223 100%);
-      background:-webkit-gradient(linear,left top,left bottom,color-stop(0%,#ffcb04),color-stop(100%,#ef4223));
-      background:-webkit-linear-gradient(top,#ffcb04 0%,#ef4223 100%);
-      background:-o-linear-gradient(top,#ffcb04 0%,#ef4223 100%);
-      background:-ms-linear-gradient(top,#ffcb04 0%,#ef4223 100%);
-      filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffcb04',endColorstr='#ef4223',GradientType=0);
+#home-cta {
+  padding:5px 10px 5px 10px;
+  background: $dark-grey;
+  border-top: 1px solid #BBB;
+  border-bottom: 1px solid #555;
+  color: #fff;
+
+  .words {
+    float:left;
+  }
+
+  .reportbtn {
+    padding-right:0;
+    padding-top:5px;
+    margin-top:7px;
+    a { border-color: $really-dark-grey !important }
+  }
+
+  @media only screen and (max-width: 479px) {
+    .reportbtn {
+      float:none !important;
+      clear:both;
+      margin-top:10px;
+      text-align:center;
+      padding-left:0;
+      margin-bottom:5px;
+    }
+    .words {
+      float:none !important;
+    }
+  }
+
+  p {
+    margin:0;
+  }
+
+  .date-time {
+    float:left;
+    text-align:center;
+
+    .time {
+      font-weight:bold; font-size:19px;
+    }
+    .date {
+      font-weight:bold;
+    }
+  }
+
+  .summary {
+    margin-left:20px; float:left; margin-top: 2px;
+
+    a {
+      color:#fff;
+      text-decoration:underline;
+      font-size: 12px;
     }
   }
 }
 
-#home-cta .reportbtn {
-  padding-right:0;
-  padding-top:5px;
-
-  @media only screen and (max-width: 479px) {
-    float:none;
-    text-align:center;
-    padding-left:0;
-    margin-bottom:5px;
-  }
-}
-
-#home-cta p {
-
-  @media only screen and (max-width: 479px) {
-    font-size: 12px;
-  }
-
-}
 
 /* footer stuff */
 #footer{
@@ -427,9 +442,9 @@ body{
       &.active {
         background:#18b1e7;
         color:#FFF;
-        border-top: solid 1px #027fab;
-        border-left: solid 1px #027fab;
-        border-right: solid 1px #027fab;
+        border-top: solid 1px $really-dark-grey;
+        border-left: solid 1px $really-dark-grey;
+        border-right: solid 1px $really-dark-grey;
       }
     }
   }

@@ -5,7 +5,7 @@ class ReportsController < ApplicationController
   before_filter :instantiate_new_report, :only => [:new, :create]
 
   load_and_authorize_resource # this will only load a resource if there isn't one in @report already.
-  skip_load_and_authorize_resource :only => [:close, :comment, :tags] # do this manually.
+  skip_load_and_authorize_resource :only => [:close, :comment, :tags, :localtime] # do this manually.
 
   after_filter :send_new_report_alerts, :only => [:create]
   after_filter :send_report_update_alerts, :only => [:update, :close]
@@ -38,6 +38,17 @@ class ReportsController < ApplicationController
       format.json { render :json => @reports } # map refersh
     end
 
+  end
+
+  def localtime
+    respond_to do |format|
+      format.json do
+        render :json => {
+          :time => Time.now.localtime.strftime("%H:%M"),
+          :date => Time.now.localtime.strftime("%d %b")
+        }
+      end
+    end
   end
 
   def new

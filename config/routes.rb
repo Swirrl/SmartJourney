@@ -19,6 +19,7 @@ PmdWinter::Application.routes.draw do
     match '/help' => "home#help"
 
     match '/reports/tags' => "reports#tags", :as => 'reports_tags'
+    match '/server_localtime' => "reports#localtime", :as => 'server_localtime'
 
     resources :reports do
       member do

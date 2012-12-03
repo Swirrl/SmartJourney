@@ -1,5 +1,6 @@
 $main-grey: #f0f0f0;
-$dark-grey: #999;
+$dark-grey: #898989;
+$really-dark-grey: #555;
 $red: #EF4223;
 $green: #BED730;
 $orange: #FF9900;
@@ -9,7 +10,7 @@ $blue: #18b1e7;
   background:#fff;
   float:left;
   display:inline;
-  border:solid 1px #027fab;
+  border:solid 1px $dark-grey;
   width: 938px;
 
   @media only screen and (min-width:768px) and (max-width:959px){

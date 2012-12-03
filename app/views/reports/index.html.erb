@@ -1,18 +1,34 @@
 <% content_for :intro do %>
-  <h2>Share &amp; discover local weather &amp; travel reports</h2>
-  <p class="lead">We combine official and crowd-sourced info from across Aberdeen & Aberdeenshire.</p>
+  <h2><strong style="color:#333">Realtime</strong> travel &amp; weather</h2>
+  <p class="lead">for Aberdeen and Aberdeenshire</p>
 <% end %>
 
-<div id="home-cta">
-  <div class="reportbtn">
-    <%= link_to "Report A New Issue!", new_report_path, class:"report"%>
+<%= content_for :home_cta do %>
+  <div id="home-cta">
+
+    <div class="words">
+
+      <div class="date-time">
+        <span class="time"><%= Time.now.localtime.strftime("%H:%M") %></span><br/>
+        <span class="date"><%= Time.now.localtime.strftime("%d %b") %></span>
+      </div>
+
+      <div class="summary">
+        Showing <span class="no-and-type-of-reports"><%= pluralize @reports.length, "#{@future ? 'future' : 'open'} issue" %></span> <br/>
+        <a href="#filters">change filters</a>
+      </div>
+
+      <div style="height:0; clear:both"></div>
+
+    </div>
+
+    <div class="reportbtn" style="float:right">
+      <%= link_to "Report a problem!", new_report_path, class:"report"%>
+    </div>
+
+    <div style="height:0; clear:both"></div>
   </div>
-  <div>
-    <p>
-      Get more details about existing reports by selecting pins/clusters on the map or by browsing the recent reports.
-    </p>
-  </div>
-</div>
+<% end %>
 
 <nav class="tabbed">
   <ul class="tabs" style="display:none">
