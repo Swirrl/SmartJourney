@@ -22,7 +22,7 @@
 
             <% if report.incident_ends_in_future? %>
               <div class="report-status">
-                <%= report_status_icon(report.status) %> <%= report.status %> end <%= Time.parse(report.incident_ends_at).to_s(:long) %><br/>
+                <%= report_status_icon('Planned') %> <%= report.status %> end <%= Time.parse(report.incident_ends_at).to_s(:long) %><br/>
               </div>
             <% end %>
 
