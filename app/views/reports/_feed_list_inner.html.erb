@@ -6,7 +6,7 @@
         <% reports.each do |report| %>
 
           <li class="report-item clearfix">
-            <div class="report-desc"><%= report.description %></div>
+            <div class="report-desc"><%= auto_link report.description %></div>
             <% if report.tags.any? %>
               <div class="report-tags">
                 <%= image_tag "icon-tag.png" %> <% report.tags.each do |t| %>
