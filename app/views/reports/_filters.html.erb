@@ -111,8 +111,12 @@
     $('#filters input#future_false').attr("checked", true);
     tagField.val("");
     var tags = swirrl.queryString.getParameterByName('tags');
+    var future = swirrl.queryString.getParameterByName('future');
     if (tags) {
       tagField.val(tags);
+    }
+    if (future) {
+      $('#filters input#future_true').attr("checked", true);
     }
 
     // hide the submit btn
