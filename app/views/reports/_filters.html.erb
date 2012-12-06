@@ -103,13 +103,26 @@
 
     }
 
+    var tagField = $('#tags');
+
+    // force initial status on page load.
+    // This gets round back-button issues with form out of sync
+    $('#filters input[type="checkbox"]').attr("checked", false);
+    $('#filters input#future_false').attr("checked", true);
+    tagField.val("");
+    var tags = swirrl.queryString.getParameterByName('tags');
+    if (tags) {
+      tagField.val(tags);
+    }
+
     // hide the submit btn
     $('#filters input[type="submit"]').hide();
     $('#filters input[type="checkbox"], #filters input[type="radio"]').change(function() {
       filtersChanged();
     });
 
-    var tagField = $('#tags');
+    tagField.tagit();
+    // set up events for adding /removing tags.
     tagField.tagit({
       afterTagAdded: function(event, ui) {
         filtersChanged();
@@ -118,6 +131,7 @@
         filtersChanged();
       }
     });
+
 
   });
 </script>
