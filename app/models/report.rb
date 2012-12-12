@@ -3,6 +3,7 @@ class Report
   include Tripod::Resource
   include DateTimeValidator
   include ActiveModel::Validations::Callbacks
+  include ActionView::Helpers::TextHelper
 
   UI_DATE_FORMAT ="%Y-%m-%d %H:%M"
 
@@ -299,7 +300,7 @@ class Report
   def as_json(options = nil)
     hash = {
       uri: self.uri.to_s,
-      description: self.description,
+      description: truncate(self.description,:length => 100),
       created_at: Time.parse(self.created_at).to_s(:long),
       incident_begins_at: Time.parse(self.incident_begins_at).to_s(:long),
       incident_begins_in_future: self.incident_begins_in_future?,
