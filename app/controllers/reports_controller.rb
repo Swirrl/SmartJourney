@@ -111,6 +111,11 @@ class ReportsController < ApplicationController
     @reporting = true
     @comment = Comment.new
     @comments = @report.comments
+
+    respond_to do |format|
+      format.html
+      format.json { render :json => @report } # bonus API
+    end
   end
 
   def update
