@@ -13,7 +13,7 @@
         <h1>Realtime access to weather and travel data</h1>
         <p>
           This site provides realtime access to weather and travel reports across Aberdeen City and Aberdeenshire, submitted to the <a href="http://smartjourney.co.uk">SmartJourney website</a>.
-          All of the data is available as fully browsable and queryable Linked Data, and is free to re-use under the <a href="http://www.nationalarchives.gov.uk/doc/open-government-licence/">Open Government Licence</a>.
+          All of the data is available as fully browsable and queryable Linked Data (or via a RESTful JSON API), and is free to re-use under the <a href="http://www.nationalarchives.gov.uk/doc/open-government-licence/">Open Government Licence</a>.
         </p>
         <hr/>
       </div>
@@ -37,7 +37,7 @@
         </p><p>
           We provide a <a href="/sparql">SPARQL endpoint</a>, as well as an in-page SPARQL console, reachable via the tab at the top of each page, which allows you to experiment with queries as you browse.
         </p><p>
-          We also provide a simple REST JSON API for reading and writing incident reports.
+          We also provide a <strong>simple REST JSON API</strong> for reading and writing incident reports.
         </p><p>
           For full details of how to programatically access the data in this site, please read our
           <strong><%= link_to "Developer Documentation", publish_my_data.docs_path %></strong>.
