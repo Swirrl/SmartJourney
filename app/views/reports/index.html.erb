@@ -4,7 +4,7 @@
 <% end %>
 
 <% content_for :api_info do %>
-  Get these reports as <%= link_to "JSON", reports_url(params.merge(:format => :json)), :id => 'reports-json' %>. Read the <%= link_to "Full API Docs", "http://data.smartjourney.co.uk/docs" %>.
+  You can get these reports as <%= link_to "JSON", reports_url(params.merge(:format => :json)), :id => 'reports-json' %>. <%= link_to "More details", "http://data.smartjourney.co.uk/docs#rest-overview" %>.
 <% end %>
 
 <%= content_for :home_cta do %>
