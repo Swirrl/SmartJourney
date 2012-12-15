@@ -11,6 +11,10 @@
   <p class="lead">Status: <%= @report.status %> <%= report_status_icon(@report.status) %></p>
 <% end %>
 
+<% content_for :api_info do %>
+  Get this report as <%= link_to "JSON", report_url(@report, params.merge(:format => :json)), :id => 'reports-json' %>. Read the <%= link_to "Full API Docs", "http://data.smartjourney.co.uk/docs" %>.
+<% end %>
+
 <%= form_for(@report) do |form| %>
 
   <%= error_messages_for(@report) %>

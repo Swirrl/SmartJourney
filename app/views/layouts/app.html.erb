@@ -66,6 +66,13 @@
         <%= yield :extras %>
       <% end %>
 
+
+      <div class="api-bar">
+        <% if content_for? :api_info %>
+          <%= yield :api_info %>
+        <% end %>
+      </div>
+
       <%= render 'shared/footer' %>
 
     </div>

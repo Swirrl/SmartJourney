@@ -70,7 +70,8 @@
     function filtersChanged() {
 
       // need to get new list of reports and update the map
-      var url = '<%= reports_url %>' + '?' + $('#filters form').serialize();
+      var queryString = '?' + $('#filters form').serialize();
+      var url = '<%= reports_url(:format => "json") %>' + queryString;
 
       // update the map.
       $.ajax( {
@@ -100,6 +101,9 @@
         }
         // don't worry about errors for this.
       });
+
+      // update the reports json link
+      $("a#reports-json").attr("href",url);
 
     }
 

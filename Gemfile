@@ -16,7 +16,7 @@ gem 'pmd_analytics_models', '~>0.0.4', git: 'git@github.com:Swirrl/pmd_analytics
 #gem 'tripod', :path => '../tripod'
 gem 'tripod', '0.0.10'
 
-gem 'devise'
+gem 'devise', '~> 2.1'
 gem 'cancan'
 gem 'dynamic_form'
 gem 'mongoid', '~>3.0.0'

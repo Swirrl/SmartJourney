@@ -281,7 +281,7 @@ DEPENDENCIES
   capybara
   dalli (>= 1.0.0)
   database_cleaner
-  devise
+  devise (~> 2.1)
   dynamic_form
   factory_girl_rails (~> 4.0)
   guid

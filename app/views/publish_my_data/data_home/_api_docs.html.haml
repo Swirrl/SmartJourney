@@ -3,7 +3,7 @@
   %h2 Contents
 
   %h3
-    1.0
+    1
     %strong Linked Data Browsing
 
   %ul
@@ -29,7 +29,7 @@
         %strong Resources in external domains
 
   %h3
-    2.0
+    2
     %strong SPARQL
 
   %ul
@@ -65,6 +65,25 @@
       %a(href="#named-graphs")
         2.8
         %strong Use of Named Graphs
+
+  %h3
+    3
+    %strong REST JSON API
+
+  %ul
+    %li
+      %a(href="#rest-overview")
+        3.1
+        %strong Overview
+    %li
+      %a(href="#rest-read")
+        3.2
+        %strong JSON Read API
+    %li
+      %a(href="#rest-write")
+        3.2
+        %strong JSON Write API
+
 %section
   %h2 Linked Data Browsing
 
@@ -419,6 +438,126 @@
             WHERE {
               <http://data.smartjourney.co.uk/id/dataset/reports> <http://publishmydata.com/def/dataset#graph> ?graph
             }
+
+%section
+  %h2 REST JSON API
+
+  .subsection#rest-overview
+    %h3
+      3.1
+      %strong Overview
+    %p We provide a REST JSON API for reading and writing incident reports. The read-API is fully open, but writes require an API Key. Please <a href="mailto:info@smartjourney.co.uk">get in touch</a> to request one.
+
+  .subsection#rest-read
+    %h3
+      3.2
+      %strong JSON Read API
+    %p A few convenience REST / JSON API routes exist for querying data, which don’t require an API key. These routes are used by JavaScript in the web application.
+
+    %h4
+      3.2.1
+      %strong Lists of Reports
+    %p The <code>http://smartjourney.co.uk/reports</code> url can be used to get lists of reports. Filters can be applied to the results.
+    %h5
+      %strong Parameters:
+    %p <code>future</code> (boolean, default=false)
+    %p <code>tags</code> (string, no default)
+    %p <code>selected_zones_only</code> (boolean, default=false, only applies if a user's API key is provided)
+
+    %h5
+      %strong Open Reports
+    %p The simplest option, with no parameters provides you with a list of all currently open reports.
+    %p To get this as JSON, make a GET request to
+    %p <code>http://smartjourney.co.uk/reports.json</code>
+    %p or <code>http://smartjourney.co.uk/reports</code> (with an <code>application/json</code> accept header).
+    %p e.g. <code>curl -v -H "Accept: application/json" http://smartjourney.co.uk/reports</code>
+    %p This will return an array of JSON objects. For example:
+    %p <code>[{"uri":"http://data.smartjourney.co.uk/id/report/c47fd679-11c5-91f2-b790-4d9abc93833e","description":"A96 Kintore - Aberdeen (A90) - Closure.  All lanes closed in both directions for more than an hou...","created_at":"December 13, 2012 10:00","incident_begins_at":"December 13, 2012 10:00","incident_begins_in_future":false,"incident_ends_in_future":null,"latitude":"57.196545","longitude":"-2.264773","tags":["trafficscotland"],"tags_string":"trafficscotland","guid":"c47fd679-11c5-91f2-b790-4d9abc93833e","status":"Open","creator":"trafficscot1"}, {<report json>}, {<report json>}, ... ]</code>
+
+    %h5
+      %strong Applying Filters
+    %p Here's an example of applying the filters to get planned reports with tags snow or rain. Again, this returns an array of JSON objects.
+    %p <code>curl -v -H "Accept: application/json" "http://smartjourney.co.uk/reports?future=true&tags=snow,rain"</code>
+
+    %h4
+      3.2.2
+      %strong Details of a Single Report
+    %p You can the details of a single report as JSON by making a GET request to the url of a report (these urls match those used by the web app, as opposed to the URIs of the RDF resources).
+    %p i.e. <code>http://smartjourney.co.uk/reports/{GUID}.json</code>
+    %p or <code>http://smartjourney.co.uk/reports/{GUID}</code> (with an <code>application/json</code> accept header).
+    %p This will return a single JSON object. e.g.
+    %p <code>{"uri":"http://data.smartjourney.co.uk/id/report/c47fd679-11c5-91f2-b790-4d9abc93833e","description":"A96 Kintore - Aberdeen (A90) - Closure.  All lanes closed in both directions for more than an hou...","created_at":"December 13, 2012 10:00","incident_begins_at":"December 13, 2012 10:00","incident_begins_in_future":false,"incident_ends_in_future":null,"latitude":"57.196545","longitude":"-2.264773","tags":["trafficscotland"],"tags_string":"trafficscotland","guid":"c47fd679-11c5-91f2-b790-4d9abc93833e","status":"Open","creator":"trafficscot1"}</code>
+
+  .subsection#rest-write
+    %h3
+      3.3
+      %strong JSON Write API
+    %p
+      All requests to the write-API must include an API key as a request header.  This key must be assigned to an existing user. <a href="mailto:info@smartjourney.co.uk">Contact us</a> to request an API key.
+    %p
+      To create a planned/future report, the key must be assigned to a user who has administration rights.
+    %p
+      An admin user API key can close or update any report.  A normal user API key can only close or update reports created by that user.
+
+    %h4
+      3.3.1
+      %strong Report Data
+    %p The report is described as a JSON object, with this structure (and some example data).
+    %h5
+      Current report (i.e. open now)
+    %code.prettyprint.lang-js
+      :preserve
+        {
+          “report”: {
+            “latitude”:57.15,
+             “longitude”:-2.1,
+             “description”:”blah”,
+             “tags_string”:”tag1,tag2”
+          }
+        }
+    %h5
+      Planned report (starts in the future)
+    %code.prettyprint.lang-js
+      :preserve
+        {
+          “report”: {
+            “latitude”:57.15,
+            “longitude”:-2.1,
+            “description”:”blah”,
+            “tags_string”:”tag1,tag2”,
+            “incident_begins_at”:”2013-01-01 09:00",
+            “incident_ends_at”:”2013-02-01 15:00"
+          }
+        }
+    %h4
+      3.3.1
+      %strong Create a new report
+    %p Send a POST with the JSON report details as payload to <code>http://smartjourney.co.uk/reports</code>
+    %p If successful, returns a status code of 201 in the header, with a JSON response giving the GUID of the newly created report
+    %p e.g. <code>{“guid”:”d0fdb9d9-a53f-08a9-ebf4-54ccdbbcaa6b”}</code>
+    %p Example request:
+    %p <code>curl -v -H "Content-Type: application/json" -H "Accept: application/json" -H "api-key: blah" -X POST -d '{"report":{"latitude":57.15, "longitude":-2.1, "description": "lorry shed its load of jam", "tags_string": "lorry, traffic-jam", "incident_begins_at":"2012-01-01 12:00", "incident_ends_at":"2013-01-01 11:01" }}' http://smartjourney.co.uk/reports</code>
+
+    %h4
+      3.3.2
+      %strong Modifying an existing report
+    %p Send a PUT with the updated JSON report details as payload to <code>http://smartjourney.co.uk/reports/{GUID}</code>.
+    %p Returns status 200 header if successful. Example request:
+    %p <code>curl -v -H "Content-Type: application/json" -H "Accept: application/json" -H "api-key: blah" -X PUT -d '{"report":{"latitude":57.15, "longitude":-2.1, "description": "updated desc", "tags_string": "lorry, traffic-jam" }}' "http://smartjourney.co.uk/reports/56159c92-e9ac-48e7-6443-23a278dfbe40</code>
+
+    %h4
+      3.3.3
+      %strong Closing an existing report
+    %p Send a PUT with no (or empty) payload to <code>http://smartjourney.co.uk/reports/{GUID}/close</code>
+    %p Returns status 200 if successful. Example request:
+    %p <code>curl -v -H "Content-Type: application/json" -H "Accept: application/json" -H "api-key: blah" -X PUT http://smartjourney.co.uk/reports/5bc7ade1-db6a-2f3d-baad-f2dd4589c994x/close</code>
+
+    %h4
+      3.3.4
+      %strong Error Codes
+    %p 400 Bad request.
+    %p 401 Unauthorized: If the API key doesn’t identify a user in the system, or the identified user does not have rights to perform the action.
+    %p 404 Not Found.
 
 /served out of public as sprokets doesn't like something about this.
 %script(src="/javascripts/prettify/prettify.js" type="text/javascript")

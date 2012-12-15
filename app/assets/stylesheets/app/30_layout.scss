@@ -309,6 +309,16 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e6f0a3', end
   }
 }
 
+.api-bar {
+  border-top: 1px solid #DDD;
+  background:#898989; color:white; padding: 5px 10px 5px 10px; font-size:12px;
+  border-bottom: 1px solid #555;
+  a {
+    color: white;
+    text-decoration:underline;
+  }
+}
+
 #home-cta {
   padding:5px 10px 5px 10px;
   background: $dark-grey;

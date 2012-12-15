@@ -3,6 +3,10 @@
   <p class="lead">for Aberdeen and Aberdeenshire</p>
 <% end %>
 
+<% content_for :api_info do %>
+  Get these reports as <%= link_to "JSON", reports_url(params.merge(:format => :json)), :id => 'reports-json' %>. Read the <%= link_to "Full API Docs", "http://data.smartjourney.co.uk/docs" %>.
+<% end %>
+
 <%= content_for :home_cta do %>
   <div id="home-cta">
 
