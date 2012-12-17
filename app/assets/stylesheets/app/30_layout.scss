@@ -436,11 +436,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7fdd3', end
 
 /* credits below footer */
 #credits {
-  margin-top: 12px;
+  margin: 10px 20px 5px 0px;
   font-size: 12px;
   line-height: 18px;
-  margin-left:5px;
-  margin-right:15px;
   @media only screen and (max-width:959px){
     font-size: 10px;
     line-height: 14px;
