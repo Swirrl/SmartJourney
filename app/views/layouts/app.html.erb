@@ -66,22 +66,26 @@
         <%= yield :extras %>
       <% end %>
 
-
-      <div class="api-bar">
-        <% if content_for? :api_info %>
+      <% if content_for? :api_info %>
+        <div class="api-bar">
           <%= yield :api_info %>
-        <% end %>
-      </div>
+        </div>
+      <% end %>
 
       <%= render 'shared/footer' %>
 
     </div>
-    <!-- end container -->
+
+    <!-- end main container -->
+
     <div class="container" style="background:none">
-      <div class="sixteen" id="credits">
+      <div class="two-thirds column" id="credits">
         &copy; 2012 <a href="http://www.aberdeencity.gov.uk/">Aberdeen City Council</a>, <a href="http://www.aberdeenshire.gov.uk/">Aberdeenshire Council</a>.
         Built by <a href="http://swirrl.com">Swirrl</a>, branding by <a href="http://lighthouse.co">Lighthouse</a>.
-        Realtime data from this site is <a href="http://data.smartjourney.co.uk">available as Linked Open Data</a>, powered by <a href="http://publishmydata.com">PublishMyData</a>.
+      </div>
+      <div class="one-third column" id="logos">
+        <a href="http://publishmydata.com"><%= image_tag "pmd_powered.png", alt: 'Powered By PublishMyData' %></a>
+        <a href="http://nesta.org.uk"><%= image_tag "nesta-logo.png", alt: 'funded by NESTA' %></a>
       </div>
     </div>
     <%= render 'publish_my_data/shared/google_analytics' %>
