@@ -450,11 +450,15 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7fdd3', end
 #logos {
   img {
     float:right;
+    padding: 10px 0 10px 10px;
     @media only screen and (max-width:767px){
       float:none;
       padding-left:0;
     }
-    padding: 10px 0 10px 10px;
+    &#pmd {
+      padding-top:8px; // raise it a wee bit.
+    }
+
   }
 }
 
