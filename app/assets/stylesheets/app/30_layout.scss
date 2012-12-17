@@ -448,9 +448,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7fdd3', end
 #logos {
   img {
     float:right;
-    padding: 10px 0 10px 10px;
+    padding: 10px 5px 10px 5px;
     @media only screen and (max-width:767px){
-      float:none;
+      float: none;
       padding-left:0;
     }
     &#pmd {
