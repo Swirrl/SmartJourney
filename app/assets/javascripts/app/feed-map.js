@@ -37,7 +37,7 @@ if (!window.SmartJourney) {
           markerContent += "<b>Reporter:</b> " + report.creator + "<br/>";
         }
         markerContent += "<b>Reported:</b> " + report.created_at + "<br/>";
-        markerContent += "<a href='/reports/" + report.guid + "'>details</a>";
+        markerContent += "<strong><a href='/reports/" + report.guid + "'>See full details</a></strong>";
         marker.bindPopup(markerContent, {maxWidth:200});
         markers.addLayer(marker);
       }
