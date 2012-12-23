@@ -97,8 +97,14 @@ GEM
       ffi (~> 1.0, >= 1.0.6)
     connection_pool (0.9.2)
     crack (0.3.1)
+    daemons (1.1.9)
     dalli (1.1.5)
     database_cleaner (0.8.0)
+    delayed_job (3.0.4)
+      activesupport (~> 3.0)
+    delayed_job_mongoid (2.0.0)
+      delayed_job (~> 3.0)
+      mongoid (~> 3.0)
     devise (2.1.2)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
@@ -279,8 +285,10 @@ DEPENDENCIES
   cancan
   capistrano
   capybara
+  daemons
   dalli (>= 1.0.0)
   database_cleaner
+  delayed_job_mongoid
   devise (~> 2.1)
   dynamic_form
   factory_girl_rails (~> 4.0)

@@ -180,21 +180,15 @@ class ReportsController < ApplicationController
     end
   end
 
-  #TODO: change to delayed job?
-  # note: Would need to pass in a hash of strings, as @report can't be serialized as yaml by delayed_job!
   def send_new_report_alerts
     if @success
-      @report.new_report_alert_recipients(current_user).each do |e|
-        UserMailer.new_report_alert(@report, current_user, e).deliver
-      end
+      Delayed::Job.enqueue NewReportAlertsJob.new(@report.uri, @report.new_report_alert_recipients(current_user))
     end
   end
 
   def send_report_update_alerts
     if @success
-      @report.report_update_alert_recipients(current_user).each do |e|
-        UserMailer.report_update_alert(@report, current_user, e).deliver
-      end
+      Delayed::Job.enqueue ReportUpdateAlertsJob.new(@report.uri, @report.report_update_alert_recipients(current_user))
     end
   end
 

@@ -4,8 +4,6 @@ class CommentsController < ApplicationController
 
   before_filter :get_comment, :only => [:destroy]
 
-  after_filter :send_new_comment_alerts, :only => [:create]
-
   load_and_authorize_resource
 
   # add a comment.
@@ -34,6 +32,12 @@ class CommentsController < ApplicationController
       t.commit
       flash[:notice] = 'comment added'
       flash[:notice] += ' and report closed' if @closed
+
+      if @report.creator && @report.creator.receive_email_comments && @current_user.uri != @report.creator.uri
+        # this queues it with delayed job.
+        UserMailer.delay.new_comment_alert(@report.uri.to_s, @comment.uri.to_s, @report.creator.email)
+      end
+
       redirect_to report_url(@report)
     else
       t.abort
@@ -51,15 +55,6 @@ class CommentsController < ApplicationController
   end
 
   private
-
-  def send_new_comment_alerts
-    # if subscribed, send an email to the report creator (unless the current user is the creator)
-    if @success
-      if @report.creator && @report.creator.receive_email_comments && @current_user.uri != @report.creator.uri
-        UserMailer.new_comment_alert(@report, @comment, current_user, @report.creator.email).deliver
-      end
-    end
-  end
 
   def get_comment
     uri = "http://data.smartjourney.co.uk/id/comment/#{params[:id]}"

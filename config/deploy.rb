@@ -1,4 +1,5 @@
 require 'bundler/capistrano' # enable bundler stuff!
+require "delayed/recipes"
 load 'deploy/assets'
 
 # rvm stuff
@@ -33,6 +34,11 @@ set :deploy_via, :remote_cache
 
 after "deploy:setup", "deploy:upload_app_config"
 after "deploy:finalize_update", "deploy:symlink_app_config", "deploy:symlink_zone_boundaries"
+
+# delayed job hooks.
+after "deploy:stop",    "delayed_job:stop"
+after "deploy:start",   "delayed_job:start"
+after "deploy:restart", "delayed_job:restart"
 
 namespace :deploy do
 

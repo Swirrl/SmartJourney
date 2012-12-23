@@ -39,6 +39,7 @@ RSpec.configure do |config|
     ')
 
     # load the seeds.
+    puts 'seeding'
     `rake fuseki:seed RAILS_ENV=test`
   end
 

@@ -67,9 +67,9 @@ describe ReportsController do
 
       before do
         @recipients = ['email1@example.com', 'email2@example.com']
-        r = FactoryGirl.build(:report)
-        r.should_receive(:new_report_alert_recipients).and_return(@recipients)
-        Report.should_receive(:new).and_return(r)
+        @r = FactoryGirl.build(:report)
+        @r.should_receive(:new_report_alert_recipients).and_return(@recipients)
+        Report.should_receive(:new).and_return(@r)
       end
 
       it 'should redirect to index' do
@@ -78,13 +78,10 @@ describe ReportsController do
         response.should redirect_to reports_url
       end
 
-      it 'should send 2 emails' do
-        expect do
-          post :create
-        end.to change {ActionMailer::Base.deliveries.length}.by 2
-
-        ActionMailer::Base.deliveries[-2].to.should == [@recipients.first]
-        ActionMailer::Base.deliveries.last.to.should == [@recipients.last]
+      it 'should queue 2 emails' do
+        newReportAlertsJob = NewReportAlertsJob.new(@r.uri, @recipients)
+        Delayed::Job.should_receive(:enqueue).with(newReportAlertsJob)
+        post :create
       end
 
       it 'should set a flash message' do
@@ -164,12 +161,9 @@ describe ReportsController do
       end
 
       it 'should send 2 emails' do
-        expect do
-          put :update, :id => 'guid', :report => valid_update_params
-        end.to change {ActionMailer::Base.deliveries.length}.by 2
-
-        ActionMailer::Base.deliveries[-2].to.should == [@recipients.first]
-        ActionMailer::Base.deliveries.last.to.should == [@recipients.last]
+        reportUpdateAlertsJob = ReportUpdateAlertsJob.new(@r.uri, @recipients)
+        Delayed::Job.should_receive(:enqueue).with(reportUpdateAlertsJob)
+        put :update, :id => 'guid', :report => valid_update_params
       end
 
       it 'should set a flash message' do

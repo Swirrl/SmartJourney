@@ -30,8 +30,8 @@ gem 'sass-rails'
 gem 'honeypot-captcha'
 
 # for delayed job...
-#gem 'delayed_job_mongoid'
-#gem 'daemons'
+gem 'delayed_job_mongoid'
+gem 'daemons'
 
 group :assets do
   gem 'yui-compressor' #requires java
