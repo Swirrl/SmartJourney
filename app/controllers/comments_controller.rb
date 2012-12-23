@@ -4,6 +4,8 @@ class CommentsController < ApplicationController
 
   before_filter :get_comment, :only => [:destroy]
 
+  after_filter :send_emails, :only => [:create]
+
   load_and_authorize_resource
 
   # add a comment.
@@ -32,12 +34,6 @@ class CommentsController < ApplicationController
       t.commit
       flash[:notice] = 'comment added'
       flash[:notice] += ' and report closed' if @closed
-
-      if @report.creator && @report.creator.receive_email_comments && @current_user.uri != @report.creator.uri
-        # this queues it with delayed job.
-        UserMailer.delay.new_comment_alert(@report.uri.to_s, @comment.uri.to_s, @report.creator.email)
-      end
-
       redirect_to report_url(@report)
     else
       t.abort
@@ -72,6 +68,26 @@ class CommentsController < ApplicationController
 
   def set_reporting
     @reporting=true #prevents report it btn showing in footer
+  end
+
+  def send_emails
+    if @success
+
+      # email alerts for the comment.
+      if @report.creator && @report.creator.receive_email_comments && @current_user.uri != @report.creator.uri
+        UserMailer.delay.new_comment_alert(@report.uri.to_s, @comment.uri.to_s, @report.creator.email) # queued (note .delay).
+      end
+
+      # email send alerts regarding it being closed.
+      if @closed
+        Delayed::Job.enqueue ReportAlertsJob.new(
+          @report.uri.to_s,
+          @report.report_update_alert_recipients(current_user),
+          current_user.screen_name,
+          :close
+        )
+      end
+    end
   end
 
 end
