@@ -56,9 +56,8 @@ describe ReportsController do
       end
 
       it 'should not send emails' do
-        expect do
-          post :create
-        end.to change {ActionMailer::Base.deliveries.length}.by 0
+        post :create
+        Delayed::Job.should_not_receive(:enqueue)
       end
 
     end
@@ -79,8 +78,8 @@ describe ReportsController do
       end
 
       it 'should queue 2 emails' do
-        newReportAlertsJob = NewReportAlertsJob.new(@r.uri, @recipients)
-        Delayed::Job.should_receive(:enqueue).with(newReportAlertsJob)
+        job = ReportAlertsJob.new(@r.uri, @recipients, nil, :new)
+        Delayed::Job.should_receive(:enqueue).with(job)
         post :create
       end
 
@@ -110,6 +109,46 @@ describe ReportsController do
     end
   end
 
+  shared_examples_for "close_report_with_params" do
+
+    before do
+      @recipients = ['email1@example.com', 'email2@example.com']
+
+      @r = FactoryGirl.build(:report)
+      @r.creator = User.where(:email => @user.email).first
+      @r.save!
+
+      @r.should_receive(:report_update_alert_recipients).and_return(@recipients)
+      Report.should_receive(:find).with('http://data.smartjourney.co.uk/id/report/guid').and_return(@r)
+    end
+
+    it 'should send 2 emails' do
+      job = ReportAlertsJob.new(@r.uri, @recipients, @user.screen_name, :close)
+      Delayed::Job.should_receive(:enqueue).with(job)
+      put :close, :id => 'guid'
+    end
+
+  end
+
+  shared_examples_for "close_report_no_params" do
+
+    before do
+      # make a report we're going to update
+      @r = FactoryGirl.build(:report)
+      @r.creator = User.where(:email => @user.email).first
+      @r.save!
+
+      Report.should_receive(:find).at_most(:once).with('http://data.smartjourney.co.uk/id/report/guid').and_return(@r)
+    end
+
+    it 'should redirect, with an alert' do
+      put :close, :id => 'guid'
+      response.should be_redirect
+      flash[:alert].should_not be_nil
+    end
+
+  end
+
   shared_examples_for "update_with_perms" do
 
     context 'save fails' do
@@ -134,9 +173,8 @@ describe ReportsController do
       end
 
       it 'should not send emails' do
-        expect do
-          put :update, :id => 'guid', :report => invalid_update_params
-        end.to change {ActionMailer::Base.deliveries.length}.by 0
+        put :update, :id => 'guid', :report => invalid_update_params
+        Delayed::Job.should_not_receive(:enqueue)
       end
 
     end
@@ -161,8 +199,8 @@ describe ReportsController do
       end
 
       it 'should send 2 emails' do
-        reportUpdateAlertsJob = ReportUpdateAlertsJob.new(@r.uri, @recipients)
-        Delayed::Job.should_receive(:enqueue).with(reportUpdateAlertsJob)
+        job = ReportAlertsJob.new(@r.uri, @recipients, @user.screen_name, :update)
+        Delayed::Job.should_receive(:enqueue).with(job)
         put :update, :id => 'guid', :report => valid_update_params
       end
 
@@ -170,7 +208,8 @@ describe ReportsController do
         put :update, :id => 'guid', :report => valid_update_params
         flash[:notice].should_not be_nil
       end
-     end
+
+    end
 
   end
 
@@ -348,6 +387,52 @@ describe ReportsController do
     end
 
   end
+
+  # describe 'put to #close' do
+
+  #   context 'not signed in' do
+  #     before do
+  #       @user = FactoryGirl.create(:user)
+  #       # don't sign in tho.
+  #     end
+
+  #     it_behaves_like "close_report_no_params"
+  #   end
+
+  #   context 'signed in as user who created the report' do
+  #     before do
+  #       @user = FactoryGirl.create(:user)
+  #       sign_in @user
+  #     end
+
+  #     it_behaves_like "close_report_with_params"
+  #   end
+
+  #   context 'signed in as user who did not create the report' do
+  #     before do
+  #       @user = FactoryGirl.create(:user)
+
+  #       # sign in as a different user.
+  #       @user2 = FactoryGirl.build(:user)
+  #       @user2.screen_name = 'bobby'
+  #       @user2.email = 'bob@swirrl.com'
+  #       @user2.save!
+
+  #       sign_in @user2
+  #     end
+
+  #     it_behaves_like "close_report_no_params"
+  #   end
+
+  #   context 'signed in as admin user' do
+  #     before do
+  #       @user = FactoryGirl.create(:admin_user)
+  #       sign_in @user
+  #     end
+
+  #     it_behaves_like "close_report_with_params"
+  #   end
+  # end
 
   describe 'Put to #update' do
 

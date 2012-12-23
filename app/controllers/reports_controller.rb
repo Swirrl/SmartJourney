@@ -8,7 +8,8 @@ class ReportsController < ApplicationController
   skip_load_and_authorize_resource :only => [:close, :comment, :tags, :localtime] # do this manually.
 
   after_filter :send_new_report_alerts, :only => [:create]
-  after_filter :send_report_update_alerts, :only => [:update, :close]
+  after_filter :send_report_update_alerts, :only => [:update]
+  after_filter :send_report_close_alerts, :only => [:close]
 
   def index
 
@@ -148,9 +149,12 @@ class ReportsController < ApplicationController
   # PUT /reports/:id/close
   def close
 
+    Rails.logger.debug (" IN CLOSE ")
+
     authorize! :update, @report # this is a non-restful action, so manually auth.
 
     @report.close! # this shouldn't ever fail. If it does it's an exception.
+    @success = true
 
     respond_to do |format|
 
@@ -182,13 +186,22 @@ class ReportsController < ApplicationController
 
   def send_new_report_alerts
     if @success
-      Delayed::Job.enqueue NewReportAlertsJob.new(@report.uri, @report.new_report_alert_recipients(current_user))
+      #note that we don't pass the screen name in here, as they might not be logged in (and the mailer doesn't use it).
+      Delayed::Job.enqueue ReportAlertsJob.new(@report.uri, @report.new_report_alert_recipients(current_user), nil, :new)
     end
   end
 
   def send_report_update_alerts
     if @success
-      Delayed::Job.enqueue ReportUpdateAlertsJob.new(@report.uri, @report.report_update_alert_recipients(current_user))
+      Delayed::Job.enqueue ReportAlertsJob.new(@report.uri, @report.report_update_alert_recipients(current_user), current_user.screen_name, :update)
+    end
+  end
+
+  def send_report_close_alerts
+    Rails.logger.debug( 'close alerts after filter' )
+    if @success
+      Rails.logger.debug( 'success' )
+      Delayed::Job.enqueue ReportAlertsJob.new(@report.uri, @report.report_update_alert_recipients(current_user), current_user.screen_name, :close)
     end
   end
 
