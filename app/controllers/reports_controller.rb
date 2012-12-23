@@ -149,8 +149,6 @@ class ReportsController < ApplicationController
   # PUT /reports/:id/close
   def close
 
-    Rails.logger.debug (" IN CLOSE ")
-
     authorize! :update, @report # this is a non-restful action, so manually auth.
 
     @report.close! # this shouldn't ever fail. If it does it's an exception.
@@ -198,9 +196,7 @@ class ReportsController < ApplicationController
   end
 
   def send_report_close_alerts
-    Rails.logger.debug( 'close alerts after filter' )
     if @success
-      Rails.logger.debug( 'success' )
       Delayed::Job.enqueue ReportAlertsJob.new(@report.uri, @report.report_update_alert_recipients(current_user), current_user.screen_name, :close)
     end
   end

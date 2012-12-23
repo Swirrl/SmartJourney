@@ -12,7 +12,7 @@ class ReportAlertsJob < Struct.new(:report_uri, :emails, :user_screen_name, :act
 
       Rails.logger.info("*** Sending report update emails with delayed job")
       emails.each do |email|
-        UserMailer.new_report_alert(report_uri, email, user_screen_name).deliver
+        UserMailer.report_update_alert(report_uri, email, user_screen_name).deliver
       end
 
     elsif action == :close
