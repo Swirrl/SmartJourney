@@ -2,9 +2,9 @@ namespace :fuseki do
   desc 'seed the database'
   task :seed => 'environment' do
 
-    WebMock.allow_net_connect!
 
     if Rails.env.to_sym == :test
+      WebMock.allow_net_connect!
       fuseki_data_endpoint = 'http://localhost:3030/winter-test/data'
     elsif Rails.env.to_sym == :development
       fuseki_data_endpoint = 'http://localhost:3030/winter/data'
