@@ -20,7 +20,7 @@ default_run_options[:pty] = true
 
 ssh_options[:keys] = [File.join(ENV["HOME"], ".ssh", "id_rsa")]
 
-set :repository,  "git@github.com:Swirrl/pmd_winter.git"
+set :repository,  "git@github.com:Swirrl/SmartJourney.git"
 set :scm, "git"
 set :ssh_options, {:forward_agent => true, :keys => "~/.ssh/id_rsa" }
 set :user, "rails"
@@ -28,12 +28,12 @@ set :runner, "rails"
 set :admin_runner, "rails"
 set :use_sudo, false
 
-set :branch, "master"
+set :branch, "swirrl_deploy"
 
 set :deploy_via, :remote_cache
 
 after "deploy:setup", "deploy:upload_app_config"
-after "deploy:finalize_update", "deploy:symlink_app_config", "deploy:symlink_zone_boundaries"
+after "deploy:finalize_update", "deploy:symlink_app_config", "deploy:symlink_zone_boundaries", "deploy:symlink_secret_token"
 
 # delayed job hooks.
 after "deploy:stop",    "delayed_job:stop"
@@ -79,6 +79,11 @@ namespace :deploy do
   desc "Symlink the application's config files specified in :config_files to the latest release"
   task :symlink_app_config do
     config_files.each { |filename| run "ln -nfs #{shared_path}/#{filename} #{latest_release}/config/#{filename}" }
+  end
+
+  desc "Symlink the secret token"
+  task :symlink_secret_token do
+    run "ln -nfs #{shared_path}/secret_token.rb #{latest_release}/config/initializers/secret_token.rb"
   end
 
   desc "Symlink zone boundaries"
