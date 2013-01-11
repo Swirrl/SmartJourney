@@ -2,20 +2,24 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.2.11'
 
-gem 'publish_my_data', :git => 'git@github.com:Swirrl/pmd_core.git', :branch => 'master' # this is the rails 3.2 engine version.
+# these gems aren't required unless you also want to run a Linked Data site:
+
+#gem 'publish_my_data', :git => 'git@github.com:Swirrl/pmd_core.git', :branch => 'master' # this is the rails 3.2 engine version.
 
 # uncomment to use local version of pmd_core.
 #gem 'publish_my_data', :path => '../pmd_core'
 
 # as this comes from github, we need to respecify it again, or bundler complains.
-gem 'pmd_analytics_models', '~>0.0.4', git: 'git@github.com:Swirrl/pmd_analytics_models.git', branch: 'master'
+#gem 'pmd_analytics_models', '~>0.0.4', git: 'git@github.com:Swirrl/pmd_analytics_models.git', branch: 'master'
 
 # uncomment to use local version of analytics models.
 #gem 'pmd_analytics_models',  :path => '../pmd_analytics_models'
 
-#gem 'tripod', :path => '../tripod'
 gem 'tripod', '0.0.10'
+# uncomment to use a local version of tripod
+#gem 'tripod', :path => '../tripod'
 
+gem 'rails_autolink'
 gem 'devise', '~> 2.1'
 gem 'cancan'
 gem 'dynamic_form'

@@ -9,9 +9,8 @@ if defined?(PhusionPassenger)
     # Only works with DalliStore
     if forked
       Rails.cache.reset
-      PublishMyData::Analytics::ActionLog.revive_thread
-      PublishMyData::Analytics::SparqlLog.revive_thread
+      # PublishMyData::Analytics::ActionLog.revive_thread
+      # PublishMyData::Analytics::SparqlLog.revive_thread
     end
   end
 end
-          

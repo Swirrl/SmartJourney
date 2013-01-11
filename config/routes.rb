@@ -1,9 +1,9 @@
 PmdWinter::Application.routes.draw do
 
   # manual subdomain checking as nginx/apache diagree.
-  constraints lambda {|req| return 'data' == req.host.split('.').first } do
-    mount PublishMyData::Engine => "/"
-  end
+  # constraints lambda {|req| return 'data' == req.host.split('.').first } do
+  #   mount PublishMyData::Engine => "/"
+  # end
 
   constraints lambda {|req| return 'data' != req.host.split('.').first } do
 

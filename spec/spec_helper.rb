@@ -24,7 +24,7 @@ RSpec.configure do |config|
 
   config.mock_with :rspec
   config.include Devise::TestHelpers, :type => :controller
-  config.include PublishMyData::Engine.routes.url_helpers
+  # config.include PublishMyData::Engine.routes.url_helpers
 
   DatabaseCleaner.strategy = :truncation
   DatabaseCleaner.orm = "mongoid"
@@ -59,8 +59,8 @@ RSpec.configure do |config|
 
 end
 
-PublishMyData.configure do |config|
-  config.sparql_endpoint = 'http://127.0.0.1:3030/pmdtest/sparql'
-  config.local_domain = 'pmd.local'
-  config.maintenance_mode = false
-end
+# PublishMyData.configure do |config|
+#   config.sparql_endpoint = 'http://127.0.0.1:3030/pmdtest/sparql'
+#   config.local_domain = 'pmd.local'
+#   config.maintenance_mode = false
+# end
