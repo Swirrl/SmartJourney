@@ -14,11 +14,13 @@ This is the Rails app which powers http://smartjourney.co.uk.
 
 2. Check everything's OK by running the tests:
 
-  rake test
+    rake test
+
 
 3. Seed the database with zones:
 
     rake db:seed
+
 
 4. Now you can run the app with Webrick, Passenger, Unicorn etc. e.g.
 
