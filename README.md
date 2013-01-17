@@ -12,19 +12,14 @@ This is the Rails app which powers http://smartjourney.co.uk.
 
 1. edit config/development|production|test.rb to set up the Tripod config (for connection to the SPARQL endpoint).
 
-2. Check everything's OK by running the tests:
+2. Check everything's OK by running the tests: `rake test`
 
-  rake test
+3. Seed the database with zones: `rake db:seed`
 
-3. Seed the database with zones:
+4. Now you can run the app with Webrick, Passenger, Unicorn etc. e.g. `rails server`
 
-    rake db:seed
 
-4. Now you can run the app with Webrick, Passenger, Unicorn etc. e.g.
-
-    rails server
-
-## License and Copyright
+## Licence (MIT) and Copyright
 
 Copyright (C) 2013 Swirrl IT Limited
 
