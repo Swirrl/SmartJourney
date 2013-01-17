@@ -184,20 +184,35 @@ class ReportsController < ApplicationController
 
   def send_new_report_alerts
     if @success
-      #note that we don't pass the screen name in here, as they might not be logged in (and the mailer doesn't use it).
-      Delayed::Job.enqueue ReportAlertsJob.new(@report.uri, @report.new_report_alert_recipients(current_user), nil, :new)
+      emails = @report.new_report_alert_recipients(current_user)
+
+      # one queue item per email
+      emails.each do |email|
+        #note that we don't pass the screen name in here, as they might not be logged in (and the mailer doesn't use it).
+        Delayed::Job.enqueue ReportAlertsJob.new(@report.uri, email, nil, :new)
+      end
     end
   end
 
   def send_report_update_alerts
     if @success
-      Delayed::Job.enqueue ReportAlertsJob.new(@report.uri, @report.report_update_alert_recipients(current_user), current_user.screen_name, :update)
+      emails = @report.report_update_alert_recipients(current_user)
+
+       # one queue item per email
+      emails.each do |email|
+        Delayed::Job.enqueue ReportAlertsJob.new(@report.uri, email, current_user.screen_name, :update)
+      end
     end
   end
 
   def send_report_close_alerts
     if @success
-      Delayed::Job.enqueue ReportAlertsJob.new(@report.uri, @report.report_update_alert_recipients(current_user), current_user.screen_name, :close)
+      emails = @report.report_update_alert_recipients(current_user)
+
+      # one queue item per email
+      emails.each do |email|
+        Delayed::Job.enqueue ReportAlertsJob.new(@report.uri, email, current_user.screen_name, :close)
+      end
     end
   end
 
