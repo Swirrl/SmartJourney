@@ -1,0 +1,1 @@
+Delayed::Worker.max_attempts = 7 # will retry for about 40 mins (5 seconds + N ** 4, where N is the number of retries.)
