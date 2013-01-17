@@ -135,6 +135,10 @@ class ReportsController < ApplicationController
       end
 
       format.json do
+        # if calling via the api, the caller might not know the original start time (unlike in UI, where it's already populated in the form)
+        # so if it's not supplied, set the begins_at in the params to the current begins_at
+        params[:report][:incident_begins_at] ||= @report.incident_begins_at
+
         populate_report_from_params(params[:report], false, :update) if params[:report]
         @success = @report.save
         if @success
