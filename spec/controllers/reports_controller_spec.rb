@@ -78,8 +78,10 @@ describe ReportsController do
       end
 
       it 'should queue 2 emails' do
-        job = ReportAlertsJob.new(@r.uri, @recipients, nil, :new)
-        Delayed::Job.should_receive(:enqueue).with(job)
+        job1 = ReportAlertsJob.new(@r.uri, @recipients[0], nil, :new)
+        job2 = ReportAlertsJob.new(@r.uri, @recipients[1], nil, :new)
+        Delayed::Job.should_receive(:enqueue).with(job1)
+        Delayed::Job.should_receive(:enqueue).with(job2)
         post :create
       end
 
@@ -199,8 +201,10 @@ describe ReportsController do
       end
 
       it 'should send 2 emails' do
-        job = ReportAlertsJob.new(@r.uri, @recipients, @user.screen_name, :update)
-        Delayed::Job.should_receive(:enqueue).with(job)
+        job1 = ReportAlertsJob.new(@r.uri, @recipients[0], @user.screen_name, :update)
+        job2 = ReportAlertsJob.new(@r.uri, @recipients[1], @user.screen_name, :update)
+        Delayed::Job.should_receive(:enqueue).with(job1)
+        Delayed::Job.should_receive(:enqueue).with(job2)
         put :update, :id => 'guid', :report => valid_update_params
       end
 
