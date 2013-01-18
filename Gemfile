@@ -28,6 +28,7 @@ gem 'mixable_engines' # allows overriding of individual controller actions: http
 gem 'rdiscount'
 gem 'sass-rails'
 gem 'honeypot-captcha'
+gem 'nokogiri'
 
 # for delayed job...
 gem 'delayed_job_mongoid'
