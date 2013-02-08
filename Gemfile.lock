@@ -294,7 +294,7 @@ DEPENDENCIES
   dalli (>= 1.0.0)
   database_cleaner
   delayed_job_mongoid
-  devise (~> 2.1)
+  devise (~> 2.2)
   dynamic_form
   factory_girl_rails (~> 4.0)
   guid
