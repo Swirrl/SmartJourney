@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.2.11'
+gem 'rails', '3.2.12'
 
 gem 'publish_my_data', :git => 'git@github.com:Swirrl/pmd_core.git', :branch => 'master' # this is the rails 3.2 engine version.
 
