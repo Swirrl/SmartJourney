@@ -245,7 +245,7 @@ class Report
           ) .
         }
       }
-      ORDER BY DESC(?created)"
+      ORDER BY DESC(?begins)"
     query += " LIMIT #{limit}" if limit
 
     self.where(query, {uri_variable: 'report'})
