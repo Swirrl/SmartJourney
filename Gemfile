@@ -48,7 +48,7 @@ group :test, :development do
   gem 'capybara'
   gem 'ZenTest'
   gem 'autotest-rails'
-  gem 'autotest-fsevent'
+  #gem 'autotest-fsevent'
   gem 'autotest-growl'
   gem 'capistrano'
   gem 'database_cleaner'

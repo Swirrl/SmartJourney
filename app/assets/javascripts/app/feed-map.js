@@ -17,6 +17,8 @@ if (!window.SmartJourney) {
         var report = reports[i];
         var marker = new L.Marker(new L.LatLng(report.latitude, report.longitude));
 
+        // Set marker pop up content
+
         var markerContent = report.description  + "<br/>";
 
         if( report.tags_string.length > 0 ) {
@@ -39,7 +41,60 @@ if (!window.SmartJourney) {
         markerContent += "<b>Reported:</b> " + report.created_at + "<br/>";
         markerContent += "<strong><a href='/reports/" + report.guid + "'>See full details</a></strong>";
         marker.bindPopup(markerContent, {maxWidth:200});
+
+        // Set marker icon
+
+        var icon = new L.Icon(iconOptionsFromTags(report.tags));
+        marker.setIcon(icon);
+
         markers.addLayer(marker);
+      }
+    }
+
+    var iconOptionsFromTags = function(tags) {
+      // Default icon options
+      var iconUrl = '/assets/marker-accident.png';
+      var iconSize = [36, 32];
+      var shadowUrl = '/assets/marker-shadow-triangle.png';
+      var shadowSize = [46, 42];
+
+      // Road closed
+      if ($.inArray('road closed', tags) > -1) {
+        iconUrl = '/assets/marker-closed.png';
+        iconSize = [49, 30];
+        shadowUrl = '/assets/marker-shadow-rectangle.png';
+        shadowSize = [90, 71];
+      }
+      // Roadworks
+      else if ($.inArray('roadworks', tags) > -1) {
+        iconUrl = '/assets/marker-roadworks.png';
+      }
+
+      // Flood / surface water
+      else if ($.inArray('flood', tags) > -1 || $.inArray('surface water', tags) > -1) {
+        iconUrl = '/assets/marker-flood.png';
+      }
+
+      // Snow / ice
+      else if ($.inArray('snow', tags) > -1 || $.inArray('ice', tags) > -1) {
+        iconUrl = '/assets/marker-ice.png';
+      }
+
+      // Traffic jam / slow
+      else if ($.inArray('traffic jam', tags) > -1 || $.inArray('slow', tags) > -1) {
+        iconUrl = '/assets/marker-traffic.png';
+      }
+
+      // Potholes
+      else if ($.inArray('potholes', tags) > -1 || $.inArray('pothole', tags) > -1) {
+        iconUrl = '/assets/marker-pothole.png';
+      }
+
+      return { 
+        iconUrl: iconUrl,
+        iconSize: iconSize,
+        shadowUrl: shadowUrl,
+        shadowSize: shadowSize
       }
     }
 
@@ -68,9 +123,3 @@ if (!window.SmartJourney) {
 
   window.SmartJourney.FeedMap = FeedMap;
 })();
-
-
-
-
-
-
