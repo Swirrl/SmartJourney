@@ -7,7 +7,7 @@
 
           <li class="report-item clearfix">
             <div class="report-desc">
-              <%= marker_icon(report.tags, :size => :small) %> 
+              <%= report_marker_icon(report, :size => :small) %> 
               <%= auto_link report.description %>
             </div>
             <% if report.tags.any? %>

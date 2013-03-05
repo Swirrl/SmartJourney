@@ -43,69 +43,18 @@ if (!window.SmartJourney) {
         marker.bindPopup(markerContent, {maxWidth:200});
 
         // Set marker icon
-
-        var icon = new L.Icon(iconOptionsFromTags(report.tags));
+        var icon = new L.Icon({ 
+          iconUrl:    '/assets/marker-' + report.marker.img + '.png',
+          shadowUrl:  '/assets/marker-shadow-' + report.marker.img_class + '.png',
+          iconSize:   report.marker.icon_size,
+          shadowSize: report.marker.shadow_size
+        });
         marker.setIcon(icon);
 
         markers.addLayer(marker);
       }
     }
 
-    var iconOptionsFromTags = function(tags) {
-      // Default icon options
-      var iconUrl = '/assets/marker-default.png';
-      var iconSize = [36, 32];
-      var shadowUrl = '/assets/marker-shadow-triangle.png';
-      var shadowSize = [46, 42];
-
-      // Road closed
-      if ($.inArray('road closed', tags) > -1) {
-        iconUrl = '/assets/marker-closed.png';
-        iconSize = [49, 30];
-        shadowUrl = '/assets/marker-shadow-rectangle.png';
-        shadowSize = [90, 71];
-      }
-
-      // Roadworks
-      else if ($.inArray('roadworks', tags) > -1) {
-        iconUrl = '/assets/marker-roadworks.png';
-      }
-
-      // Accident
-      else if ($.inArray('accident', tags) > -1) {
-        iconUrl = '/assets/marker-accident.png';
-        iconSize = [57, 20];
-        shadowUrl = '/assets/marker-shadow-accident.png';
-        shadowSize = [93, 58];
-      }
-
-      // Flood / surface water
-      else if ($.inArray('flood', tags) > -1 || $.inArray('surface water', tags) > -1) {
-        iconUrl = '/assets/marker-flood.png';
-      }
-
-      // Snow / ice
-      else if ($.inArray('snow', tags) > -1 || $.inArray('ice', tags) > -1) {
-        iconUrl = '/assets/marker-ice.png';
-      }
-
-      // Traffic jam / slow
-      else if ($.inArray('traffic jam', tags) > -1 || $.inArray('slow', tags) > -1) {
-        iconUrl = '/assets/marker-traffic.png';
-      }
-
-      // Potholes
-      else if ($.inArray('potholes', tags) > -1 || $.inArray('pothole', tags) > -1) {
-        iconUrl = '/assets/marker-pothole.png';
-      }
-
-      return { 
-        iconUrl: iconUrl,
-        iconSize: iconSize,
-        shadowUrl: shadowUrl,
-        shadowSize: shadowSize
-      }
-    }
 
     // setup
 

@@ -38,36 +38,11 @@ module ApplicationHelper
     results.insert(0, *Report.curated_tags).uniq.first(limit)
   end
 
-  def marker_icon(tags, opts={})
-    # Defaults
-    img = 'default'
-    klass = 'triangle'
+  def report_marker_icon(report, opts={})
+    img   = report.marker_options[:img]
+    klass = report.marker_options[:img_class]
 
-    if (tags & ['road closed']).any?
-      img = 'closed'
-      klass = 'rectangle'
-
-    elsif (tags & ['roadworks']).any?
-      img = 'roadworks'
-
-    elsif (tags & ['accident']).any?
-      img = 'accident'
-      klass = 'accident'
-
-    elsif (tags & ['flood', 'surface water']).any?
-      img = 'flood'
-
-    elsif (tags & ['ice', 'snow']).any?
-      img = 'ice'
-
-    elsif (tags & ['traffic jam', 'slow']).any?
-      img = 'traffic'
-
-    elsif (tags & ['pothole', 'potholes']).any?
-      img = 'pothole'
-    end
-
-    img_path = opts[:size] == :small ? "marker-#{img}.png" : "marker-#{img}-big.png"
+    img_path = (opts[:size] == :small) ? "marker-#{img}.png" : "marker-#{img}-big.png"
 
     content_tag :div, image_tag(img_path), :class => "#{klass} marker"
   end
