@@ -38,6 +38,36 @@ module ApplicationHelper
     results.insert(0, *Report.curated_tags).uniq.first(limit)
   end
 
+  def intro_marker(tags)
+    # Defaults
+    img = 'default'
+    klass = 'triangle'
 
+    if (tags & ['road closed']).any?
+      img = 'closed'
+      klass = 'rectangle'
+
+    elsif (tags & ['roadworks']).any?
+      img = 'roadworks'
+
+    elsif (tags & ['accident']).any?
+      img = 'accident'
+      klass = 'accident'
+
+    elsif (tags & ['flood', 'surface water']).any?
+      img = 'flood'
+
+    elsif (tags & ['ice', 'snow']).any?
+      img = 'ice'
+
+    elsif (tags & ['traffic jam', 'slow']).any?
+      img = 'traffic'
+
+    elsif (tags & ['pothole', 'potholes']).any?
+      img = 'pothole'
+    end
+
+    content_tag :div, image_tag("marker-#{img}-big.png"), :class => "#{klass} marker"
+  end
 
 end
