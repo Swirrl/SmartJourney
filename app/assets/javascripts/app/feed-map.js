@@ -53,7 +53,7 @@ if (!window.SmartJourney) {
 
     var iconOptionsFromTags = function(tags) {
       // Default icon options
-      var iconUrl = '/assets/marker-accident.png';
+      var iconUrl = '/assets/marker-default.png';
       var iconSize = [36, 32];
       var shadowUrl = '/assets/marker-shadow-triangle.png';
       var shadowSize = [46, 42];
@@ -65,9 +65,18 @@ if (!window.SmartJourney) {
         shadowUrl = '/assets/marker-shadow-rectangle.png';
         shadowSize = [90, 71];
       }
+
       // Roadworks
       else if ($.inArray('roadworks', tags) > -1) {
         iconUrl = '/assets/marker-roadworks.png';
+      }
+
+      // Accident
+      else if ($.inArray('accident', tags) > -1) {
+        iconUrl = '/assets/marker-accident.png';
+        iconSize = [57, 20];
+        shadowUrl = '/assets/marker-shadow-accident.png';
+        shadowSize = [93, 58];
       }
 
       // Flood / surface water
