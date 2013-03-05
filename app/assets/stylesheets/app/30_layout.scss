@@ -276,6 +276,12 @@ body{
 
       .report-desc {
         font-weight: bold;
+
+        .marker {
+          float: right;
+          margin-left: 5px;
+          margin-bottom: 5px;
+        }
       }
 
       .reporter {

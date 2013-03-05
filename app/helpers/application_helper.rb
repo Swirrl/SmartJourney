@@ -38,7 +38,7 @@ module ApplicationHelper
     results.insert(0, *Report.curated_tags).uniq.first(limit)
   end
 
-  def intro_marker(tags)
+  def marker_icon(tags, opts={})
     # Defaults
     img = 'default'
     klass = 'triangle'
@@ -67,7 +67,9 @@ module ApplicationHelper
       img = 'pothole'
     end
 
-    content_tag :div, image_tag("marker-#{img}-big.png"), :class => "#{klass} marker"
+    img_path = opts[:size] == :small ? "marker-#{img}.png" : "marker-#{img}-big.png"
+
+    content_tag :div, image_tag(img_path), :class => "#{klass} marker"
   end
 
 end

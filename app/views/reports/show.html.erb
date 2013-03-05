@@ -11,7 +11,7 @@
     <h2>Report details</h2>
     <p class="lead">Status: <%= @report.status %> <%= report_status_icon(@report.status) %></p>
   </div>
-  <%= intro_marker(@report.tags) %>
+  <%= marker_icon(@report.tags) %>
 <% end %>
 
 <% content_for :api_info do %>
