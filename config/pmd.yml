@@ -7,14 +7,14 @@ production:
   record_analytics: true
 
 development:
-  sparql_endpoint: http://127.0.0.1:3030/sj/sparql
+  sparql_endpoint: http://127.0.0.1:3030/winter/sparql
   local_domain: data.smartjourney.co.uk
   sparql_timeout_seconds: 10
   cache_sparql_results: false
   record_analytics: true
 
 test:
-  sparql_endpoint: http://127.0.0.1:3030/sjtest/sparql
+  sparql_endpoint: http://127.0.0.1:3030/winter-test/sparql
   local_domain: pmd.local
   sparql_timeout_seconds: 10
   cache_sparql_results: false
