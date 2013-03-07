@@ -16,11 +16,12 @@ gem 'rails', '3.2.12'
 #gem 'pmd_analytics_models',  :path => '../pmd_analytics_models'
 
 gem 'tripod', '0.0.10'
+gem 'rdf', '~>0.3'
 # uncomment to use a local version of tripod
 #gem 'tripod', :path => '../tripod'
 
 gem 'rails_autolink'
-gem 'devise', '~> 2.1'
+gem 'devise', '~> 2.2'
 gem 'cancan'
 gem 'dynamic_form'
 gem 'mongoid', '~>3.0.0'
@@ -32,6 +33,8 @@ gem 'mixable_engines' # allows overriding of individual controller actions: http
 gem 'rdiscount'
 gem 'sass-rails'
 gem 'honeypot-captcha'
+gem 'nokogiri'
+
 
 # for delayed job...
 gem 'delayed_job_mongoid'
@@ -47,12 +50,12 @@ end
 
 group :test, :development do
   gem "factory_girl_rails", "~> 4.0"
-  gem "rspec-rails", "~> 2.0"
+  gem "rspec-rails", "~> 2"
   gem 'capybara'
-  gem 'ZenTest'
-  gem 'autotest-rails'
-  gem 'autotest-fsevent'
-  gem 'autotest-growl'
+  #gem 'ZenTest'
+  #gem 'autotest-rails'
+  #gem 'autotest-fsevent'
+  #gem 'autotest-growl'
   gem 'capistrano'
   gem 'database_cleaner'
 end

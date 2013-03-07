@@ -17,6 +17,8 @@ if (!window.SmartJourney) {
         var report = reports[i];
         var marker = new L.Marker(new L.LatLng(report.latitude, report.longitude));
 
+        // Set marker pop up content
+
         var markerContent = report.description  + "<br/>";
 
         if( report.tags_string.length > 0 ) {
@@ -39,9 +41,20 @@ if (!window.SmartJourney) {
         markerContent += "<b>Reported:</b> " + report.created_at + "<br/>";
         markerContent += "<strong><a href='/reports/" + report.guid + "'>See full details</a></strong>";
         marker.bindPopup(markerContent, {maxWidth:200});
+
+        // Set marker icon
+        var icon = new L.Icon({ 
+          iconUrl:    '/assets/marker-' + report.marker.img + '.png',
+          shadowUrl:  '/assets/marker-shadow-' + report.marker.img_class + '.png',
+          iconSize:   report.marker.icon_size,
+          shadowSize: report.marker.shadow_size
+        });
+        marker.setIcon(icon);
+
         markers.addLayer(marker);
       }
     }
+
 
     // setup
 
@@ -68,9 +81,3 @@ if (!window.SmartJourney) {
 
   window.SmartJourney.FeedMap = FeedMap;
 })();
-
-
-
-
-
-

@@ -109,10 +109,6 @@ body{
   padding:10px;
   color:#FFF;
 
-  background-image:url(/assets/arrow-tint-sml.png);
-  background-repeat: no-repeat;
-  background-position: right bottom;
-
   h2 { letter-spacing: -0.05em; font-size: 28px; line-height: 30px; margin-top:0px; }
   p.lead { font-size: 20px; line-height: 20px; margin-bottom:5px; }
 
@@ -141,10 +137,91 @@ body{
     border-bottom: solid 1px #AE250D
   }
 
+  .text {
+    width: 600px;
+    float: left;
+  }
+
+  .marker {
+    float: right;
+
+    &.triangle {
+      //width: 64px;
+      height: 59px;
+      padding-top: 1px;
+      background-color: transparent;
+      background-image: url(/assets/marker-bevel-triangle.png);
+      background-repeat: no-repeat;
+      background-size: 64px 59px;
+      margin-top: 3px;
+    }
+
+    &.rectangle {
+      //width: 84px;
+      height: 52px;
+      padding-top: 1px;
+      background-color: transparent;
+      background-image: url(/assets/marker-bevel-rectangle.png);
+      background-repeat: no-repeat;
+      background-size: 84px 52px;
+      margin-top: 6px;
+    }
+
+    &.oblong {
+      //width: 95px;
+      height: 36px;
+      padding-top: 1px;
+      background-color: transparent;
+      background-image: url(/assets/marker-bevel-oblong.png);
+      background-repeat: no-repeat;
+      background-size: 95px 36px;
+      margin-top: 14px;
+    }
+  }
+
   @media only screen and (max-width:767px){
     h2 { font-size: 20px; line-height:20px; padding:0; margin:0; margin-bottom:5px;}
     p.lead { font-size: 14px; line-height: 14px; padding:0; margin:0;}
     background-image: none;
+
+    .text {
+      width: 180px;
+    }
+
+    .marker {
+      &.triangle {
+        background-size: 42px 39px;
+        height: 39px;
+        margin-top: 1px;
+        
+        img {
+          width: 42px;
+          height: 37px;
+        }
+      }
+
+      &.rectangle {
+        background-size: 56px 35px;
+        height: 35px;
+        margin-top: 4px;
+        
+        img {
+          width: 56px;
+          height: 33px;
+        }
+      }
+
+      &.accident {
+        background-size: 64px 26px;
+        height: 26px;
+        margin-top: 9px;
+
+        img {
+          width: 64px;
+          height: 24px;
+        }
+      }
+    }
   }
 
 }
@@ -199,6 +276,12 @@ body{
 
       .report-desc {
         font-weight: bold;
+
+        .marker {
+          float: right;
+          margin-left: 5px;
+          margin-bottom: 5px;
+        }
       }
 
       .reporter {
