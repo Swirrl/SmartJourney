@@ -13,9 +13,11 @@ gem 'pmd_analytics_models', '~>0.0.4', git: 'git@github.com:Swirrl/pmd_analytics
 # uncomment to use local version of analytics models.
 #gem 'pmd_analytics_models',  :path => '../pmd_analytics_models'
 
-#gem 'tripod', :path => '../tripod'
-gem 'tripod', '0.0.10'
 
+gem 'tripod', '0.0.10'
+gem 'rdf', '~>0.3'
+
+gem 'rails_autolink'
 gem 'devise', '~> 2.2'
 gem 'cancan'
 gem 'dynamic_form'
@@ -29,7 +31,6 @@ gem 'rdiscount'
 gem 'sass-rails'
 gem 'honeypot-captcha'
 gem 'nokogiri'
-
 # for delayed job...
 gem 'delayed_job_mongoid'
 gem 'daemons'
@@ -44,12 +45,12 @@ end
 
 group :test, :development do
   gem "factory_girl_rails", "~> 4.0"
-  gem "rspec-rails", "~> 2.0"
+  gem "rspec-rails", "~> 2"
   gem 'capybara'
-  gem 'ZenTest'
-  gem 'autotest-rails'
-  gem 'autotest-fsevent'
-  gem 'autotest-growl'
+  #gem 'ZenTest'
+  #gem 'autotest-rails'
+  #gem 'autotest-fsevent'
+  #gem 'autotest-growl'
   gem 'capistrano'
   gem 'database_cleaner'
 end

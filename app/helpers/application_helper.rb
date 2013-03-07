@@ -38,6 +38,13 @@ module ApplicationHelper
     results.insert(0, *Report.curated_tags).uniq.first(limit)
   end
 
+  def report_marker_icon(report, opts={})
+    img   = report.marker_options[:img]
+    klass = report.marker_options[:img_class]
 
+    img_path = (opts[:size] == :small) ? "marker-#{img}.png" : "marker-#{img}-big.png"
+
+    content_tag :div, image_tag(img_path), :class => "#{klass} marker"
+  end
 
 end

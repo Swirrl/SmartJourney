@@ -310,7 +310,8 @@ class Report
       tags: self.tags,
       tags_string: self.tags_string,
       guid: self.guid,
-      status: self.status
+      status: self.status,
+      marker: marker_options
     }
     hash[:creator] = creator.screen_name if creator
     hash[:incident_ends_at] = Time.parse(self.incident_ends_at).to_s(:long) if self.incident_ends_at
@@ -440,6 +441,14 @@ class Report
     Rails.logger.debug "REPORT SAVE SUCCESS: #{success.inspect}"
     success
 
+  end
+
+  def marker_options
+    MARKER_CONFIG.each do |opt|
+      return opt.except(:tags) if (opt[:tags] & tags).any?
+    end
+
+    MARKER_CONFIG.last # Else return default marker config
   end
 
   private
