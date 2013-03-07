@@ -16,7 +16,9 @@ This is the Rails app which powers http://smartjourney.co.uk.
 
 3. Seed the database with zones: `fuseki db:seed`
 
-4. Now you can run the app with Webrick, Passenger, Unicorn etc. e.g. `rails server`
+4. copy the json zone boundaries from the live site http://smartjourney.co.uk/zone_boundaries/ to your public folder /public/zone_boundaries/
+
+5. Now you can run the app with Webrick, Passenger, Unicorn etc. e.g. `rails server`
 
 
 ## Licence (MIT) and Copyright
