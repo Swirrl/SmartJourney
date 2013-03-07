@@ -10,7 +10,7 @@ This is the Rails app which powers http://smartjourney.co.uk.
 
 ## Getting started
 
-1. edit config/development|production|test.rb to set up the Tripod config (for connection to the SPARQL endpoint).
+1. edit config/development|production|test.rb to set up the Tripod config (for connection to the SPARQL endpoint). Note: if you change from the defaults, you'll need to update the lib/tasks/fuseki.rake file accordingly.
 
 2. Check everything's OK by running the tests: `rake test`
 
