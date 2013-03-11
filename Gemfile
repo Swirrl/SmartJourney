@@ -15,7 +15,7 @@ gem 'pmd_analytics_models', '~>0.0.4', git: 'git@github.com:Swirrl/pmd_analytics
 
 
 gem 'tripod', '0.0.10'
-gem 'rdf', '~>0.3'
+gem 'rdf', '0.3.11.1' # last of the 0.3s
 
 gem 'rails_autolink'
 gem 'devise', '~> 2.2'
