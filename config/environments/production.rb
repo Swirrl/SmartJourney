@@ -12,7 +12,7 @@ PmdWinter::Application.configure do
   config.serve_static_assets = false
 
   # Compress JavaScripts and CSS
-  config.assets.compress = true
+  config.assets.compress = false
   config.assets.css_compressor = :yui # this requires java on the server. sudo apt-get install openjdk-6-jre
   config.assets.js_compressor = :yui
 
@@ -20,7 +20,7 @@ PmdWinter::Application.configure do
   config.assets.compile = true #fall back for leaflet marker cluster etc.
 
   # Generate digests for assets URLs
-  config.assets.digest = true
+  config.assets.digest = false
 
   # Defaults to nil and saved in location specified by config.assets.prefix
   # config.assets.manifest = YOUR_PATH
