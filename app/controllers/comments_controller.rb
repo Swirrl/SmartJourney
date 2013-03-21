@@ -80,12 +80,14 @@ class CommentsController < ApplicationController
 
       # email send alerts regarding it being closed.
       if @closed
-        Delayed::Job.enqueue ReportAlertsJob.new(
-          @report.uri.to_s,
-          @report.report_update_alert_recipients(current_user),
-          current_user.screen_name,
-          :close
-        )
+        @report.report_update_alert_recipients(current_user).each do |email|
+          Delayed::Job.enqueue ReportAlertsJob.new(
+            @report.uri.to_s,
+            email,
+            current_user.screen_name,
+            :close
+          )
+        end
       end
     end
   end
