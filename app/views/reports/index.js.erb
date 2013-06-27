@@ -1,1 +1,5 @@
-$('#reports').html('<%= j(render('feed_list_inner', :reports => @reports.last(20))) %>');
+<% if @future %>
+  $('#reports').html('<%= j(render('feed_list_inner', :reports => @reports.first(20))) %>');
+<% else %>
+  $('#reports').html('<%= j(render('feed_list_inner', :reports => @reports.last(20))) %>');
+<% end %>
