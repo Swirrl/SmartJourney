@@ -365,7 +365,7 @@ class Report
 
   def status
     if still_open?
-      planned? ? "Planned" : "Open"
+      planned? ? "Planned" : "Current"
     else
      "Closed"
     end
