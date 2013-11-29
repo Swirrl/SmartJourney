@@ -1,7 +1,7 @@
 class UserMailer < ActionMailer::Base
 
   default :from => "donotreply@smartjourney.co.uk"
-  default :bcc => "smartjourney@swirrl.com"
+ # default :bcc => "smartjourney@swirrl.com"
 
   def new_report_alert(report_uri, recipient_email)
     @report = Report.find(report_uri)
