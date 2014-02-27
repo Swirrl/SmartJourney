@@ -52,6 +52,7 @@ group :test, :development do
   #gem 'autotest-fsevent'
   #gem 'autotest-growl'
   gem 'capistrano'
+  gem 'rvm-capistrano'
   gem 'database_cleaner'
 end
 
