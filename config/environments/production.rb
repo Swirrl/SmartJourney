@@ -72,8 +72,8 @@ PmdWinter::Application.configure do
   # configure any settings for testing...
   Tripod.configure do |config|
     #TODO! change!
-    config.update_endpoint = 'http://sparql3.publishmydata.com/smartjourney/update'
-    config.query_endpoint = 'http://sparql3.publishmydata.com/smartjourney/sparql'
+    config.update_endpoint = 'http://46.4.78.148/winter/update'
+    config.query_endpoint = 'http://46.4.78.148/winter/sparql'
   end
 
   # NOTE: on 11212 on production
