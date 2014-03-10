@@ -2,7 +2,8 @@ class ::ApplicationController < ActionController::Base
 
   layout 'app'
 
-  before_filter :sign_in_api_user
+  before_filter :check_maintenance_mode
+  before_filter  :sign_in_api_user
 
   protect_from_forgery
 
@@ -16,6 +17,15 @@ class ::ApplicationController < ActionController::Base
   end
 
   private
+
+  def check_maintenance_mode
+    if Pathname.new(PmdWinter::MAINTENANCE_FILE_PATH).exist? #&& (request.remote_ip != '82.68.242.78') # not swirrl office
+      respond_to do |format|
+        format.html { render(:template => "errors/maintenance", :status => 503) and return false }
+        format.any { render(:text => 'Maintenance Mode', :status => 503, :content_type => 'text/plain') and return false }
+      end
+    end
+  end
 
   def render_not_found(e)
     @intro_colour = "red"

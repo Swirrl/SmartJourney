@@ -77,4 +77,6 @@ module PmdWinter
        config.assets.paths.unshift Rails.root.join("vendor", "assets", "stylesheets", "smoothness").to_s
     end
   end
+
+  MAINTENANCE_FILE_PATH = File.join(Rails.root, 'tmp', 'maintenance.txt')
 end
